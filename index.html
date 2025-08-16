@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Mapa Curricular</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+  if (window['pdfjsLib']) {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+  }
+</script>
+<style>
+  :root {
+    --ok:#b6fcb6; --faltando:#ffcccc; --mat:#ffe8a3; --neutral:#f6f7f9;
+    --header:#e9ecef; --focus:#8a2be2;
+    --br0:#007aff; --br1:#f58518; --br2:#e434e5; --br3:#27526d; --br4:#813d2d; --br5:#b279a2; --br6:#ffbf79; --br7:#e45756;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 14px; background:#f8f9fb; color:#111; }
+  h1 { margin: 6px 0 10px; font-size: 24px; }
+  .controls { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:10px; width:100%; }
+  .group { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .grow { flex: 1 1 100%; }
+  .controls label { display:flex; gap:6px; align-items:center; }
+  .btn { border:1px solid #bbb; background:#fff; padding:6px 10px; border-radius:10px; cursor:pointer; }
+  .btn.active { background:#111; color:#fff; border-color:#111; }
+  .zoom-btn { width:40px; text-align:center; }
+  .zoom-level { min-width:60px; text-align:center; font-variant-numeric: tabular-nums; }
+  .grid-shell { border:1px solid #e3e6ea; background:#fff; border-radius:12px; padding:12px; overflow:auto; -webkit-overflow-scrolling: touch; }
+  .grid-scale { transform-origin: 0 0; }
+  .grid { display:grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 12px 18px; align-items:start; }
+  .period { display:flex; flex-direction:column; gap:12px; }
+  .col-head { background: var(--header); border:1px solid #aaa; border-radius: 10px; padding:6px 10px; font-weight:600; text-align:center; }
+  .col { display:flex; flex-direction:column; gap:12px; min-height:40px; }
+  .card { background: var(--neutral); border:2px solid #cfd3d8; border-radius: 12px; padding:10px 12px; min-height:56px; display:flex; align-items:center; justify-content:center; text-align:center; cursor:pointer; transition:transform .06s ease, box-shadow .06s ease, background .15s, border-color .15s; }
+  .card:hover { transform:translateY(-1px); box-shadow:0 4px 10px rgba(0,0,0,.08); }
+  .card.ok { background: var(--ok); border-color:#2a2a2a; }
+  .card.faltando { background: var(--faltando); border-color:#2a2a2a; }
+  .card.mat { background: var(--mat); border-color:#2a2a2a; }
+  .card.focus { box-shadow: 0 0 0 4px var(--focus); }
+  .card.br0 { box-shadow: inset 0 0 0 4px var(--br0); } .card.br1 { box-shadow: inset 0 0 0 4px var(--br1); }
+  .card.br2 { box-shadow: inset 0 0 0 4px var(--br2); } .card.br3 { box-shadow: inset 0 0 0 4px var(--br3); }
+  .card.br4 { box-shadow: inset 0 0 0 4px var(--br4); } .card.br5 { box-shadow: inset 0 0 0 4px var(--br5); }
+  .card.br6 { box-shadow: inset 0 0 0 4px var(--br6); } .card.br7 { box-shadow: inset 0 0 0 4px var(--br7); }
+  .legend { display:flex; flex-wrap:wrap; gap:8px; margin: 4px 0 10px; }
+  .legend span { display:inline-flex; align-items:center; gap:6px; padding:4px 8px; border:1px solid #333; border-radius:8px; background:#fff }
+  .swatch { width:12px; height:12px; border-radius:50%; display:inline-block; }
+  .empty { color:#888; font-style:italic; padding:6px; }
+  .hidden { display:none !important; }
+  .area-head { background: var(--header); border:1px solid #aaa; border-radius:10px; padding:6px 10px; font-weight:600; text-align:left; margin: 0 0 8px; }
+  .opt-area { margin-top: 18px; }
+  .opt-grid { display:grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 12px 18px; margin-top: 12px; }
+  .opt-grid .card .title { white-space:normal; display:block; overflow:visible; text-overflow:clip; }
+  .head-hidden { display:none; }
+  .error { color:#b00020; font-weight:600; margin-left:8px; }
+
+  @media (max-width: 1100px) {
+    .grid, .opt-grid { grid-template-columns: repeat(3, minmax(260px, 1fr)); }
+  }
+  @media (max-width: 800px)  {
+    .grid, .opt-grid { grid-template-columns: repeat(2, minmax(260px, 1fr)); }
+    .controls { gap:8px; }
+    h1 { font-size: 20px; }
+    .grow { flex-basis:100%; }
+  }
+  @media (max-width: 560px)  {
+    .grid, .opt-grid { grid-template-columns: repeat(1, minmax(260px, 1fr)); }
+    .btn { padding:6px 8px; }
+    .grow { flex-basis:100%; }
+  }
+</style>
+</head>
+<body>
+  <h1>Mapa Curricular</h1>
+  <div class="controls">
+    <label class="group"><b>Grade:</b> <input type="file" id="gradeFile" accept=".pdf"></label>
+    <label class="group"><b>Integralização:</b> <input type="file" id="pdfFile" accept=".pdf"></label>
+    <div class="group grow" id="filters">
+      <span><b>Mostrar:</b></span>
+      <button class="btn active" data-filter="todas">Todas</button>
+      <button class="btn" data-filter="ok">Aprovadas</button>
+      <button class="btn" data-filter="mat">Matriculadas</button>
+      <button class="btn" data-filter="faltando">Pendentes</button>
+    </div>
+    <div class="group">
+      <span><b>Zoom:</b></span>
+      <button class="btn zoom-btn" id="zoomOut">−</button>
+      <span class="zoom-level" id="zoomLevel">100%</span>
+      <button class="btn zoom-btn" id="zoomIn">+</button>
+      <button class="btn" id="zoomFit" title="Ajustar à largura">Ajustar</button>
+      <button id="limpar" class="btn">Limpar destaques</button>
+    </div>
+    <span id="err" class="error"></span>
+  </div>
+
+  <div class="legend">
+    <span><span class="swatch" style="background:var(--ok)"></span> Aprovada</span>
+    <span><span class="swatch" style="background:var(--mat)"></span> Matriculada</span>
+    <span><span class="swatch" style="background:var(--faltando)"></span> Não Realizada</span>
+  </div>
+
+  <div class="grid-shell">
+    <div class="grid-scale" id="gridScale">
+
+      <div class="area-head">Obrigatórias</div>
+      <div class="grid" id="grid">
+        <div class="period"><div class="col-head head-hidden">Período 1</div><div class="col" id="col-1"><div class="empty">Carregue a Grade…</div></div></div>
+        <div class="period"><div class="col-head head-hidden">Período 2</div><div class="col" id="col-2"></div></div>
+        <div class="period"><div class="col-head head-hidden">Período 3</div><div class="col" id="col-3"></div></div>
+        <div class="period"><div class="col-head head-hidden">Período 4</div><div class="col" id="col-4"></div></div>
+        <div class="period"><div class="col-head head-hidden">Período 5</div><div class="col" id="col-5"></div></div>
+        <div class="period"><div class="col-head head-hidden">Período 6</div><div class="col" id="col-6"></div></div>
+        <div class="period"><div class="col-head head-hidden">Período 7</div><div class="col" id="col-7"></div></div>
+        <div class="period"><div class="col-head head-hidden">Período 8</div><div class="col" id="col-8"></div></div>
+        <div class="period"><div class="col-head head-hidden">Período 9</div><div class="col" id="col-9"></div></div>
+      </div>
+
+      <div class="opt-area">
+        <div class="area-head">Optativas</div>
+        <div class="opt-grid" id="opt-grid"></div>
+      </div>
+
+    </div>
+  </div>
+
+<script>
+  const MOBILE_BREAK = 800; // px
+  const errEl = document.getElementById('err');
+  function setErr(msg){ errEl.textContent = msg || ''; }
+
+  const branchColors = ['br0','br1','br2','br3','br4','br5','br6','br7'];
+  let prereqByName = {}; let isOpt = {}; let gradeLoaded=false;
+
+  function slug(s){ return (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); }
+  const LOWER_PT = new Set(['de','da','do','das','dos','e','a','o','as','os','em','no','na','nos','nas','para','por','pra','com','ao','aos','à','às','pelo','pela','pelos','pelas','entre','sob','sobre','sem','até','após','ante','desde','contra','ou']);
+  const romanRx = /^(?:M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))$/i;
+  function titleCase(s){ if(!s) return ''; s=s.replace(/\s+/g,' ').trim().toLowerCase();
+    return s.split(' ').map((w,i)=>{ if(romanRx.test(w)) return w.toUpperCase(); const parts=w.split('-').map((p,idx)=>{ const isFirst=(i===0&&idx===0); if(!isFirst&&LOWER_PT.has(p)) return p; return p.charAt(0).toUpperCase()+p.slice(1); }); return parts.join('-'); }).join(' ');
+  }
+  function cleanName(n){ n=n.replace(/\s+\d+\s*$/,''); n=n.replace(/\b[A-Z]{2,4}\d{4,6}\b/g,'').replace(/\s{2,}/g,' ').trim(); return titleCase(n); }
+  function statusFrom(t){ t=t.toLowerCase(); if(/aprov|aproveit|dispens|equival/.test(t)) return 'feito'; if(/matric/.test(t)) return 'matriculado'; return 'faltando'; }
+  function validP(p){ return p>=1 && p<=9; }
+
+  async function pageToLines(page){
+    const content=await page.getTextContent(); const items=content.items.map(it=>{ const m=it.transform||it.matrix||[1,0,0,1,0,0]; return {s:it.str,x:m[4],y:m[5]}; });
+    const tol=4; items.sort((a,b)=> (b.y-a.y)||(a.x-b.x)); const lines=[]; let row=null;
+    for(const it of items){
+      if(!row){ row={y:it.y,buf:[it]}; continue;
+      } if(Math.abs(it.y-row.y)<=tol){ row.buf.push(it);
+      } else { row.buf.sort((a,b)=>a.x-b.x); lines.push(row.buf.map(k=>k.s).join(' ').replace(/\s+/g,' ').trim()); row={y:it.y,buf:[it]}; }
+    }
+    if(row&&row.buf.length){ row.buf.sort((a,b)=>a.x-b.x); lines.push(row.buf.map(k=>k.s).join(' ').replace(/\s+/g,' ').trim()); }
+    return lines.filter(Boolean);
+  }
+  async function loadPdfFromArrayBuffer(buf){
+    try{ return await pdfjsLib.getDocument({data: buf}).promise; }
+    catch(e1){ try{ return await pdfjsLib.getDocument({data: buf, disableWorker: true, useWorkerFetch: false}).promise; } catch(e2){ throw e2; } }
+  }
+
+  const gradeInput=document.getElementById('gradeFile');
+  const integInput=document.getElementById('pdfFile');
+  function toggleHeads(show){ document.querySelectorAll('.col-head').forEach(h=> h.classList.toggle('head-hidden', !show)); }
+
+  gradeInput.addEventListener('change', async (e)=>{
+    try{
+      const file=e.target.files[0]; if(!file){ setErr('Nenhum PDF da Grade.'); return; }
+      resetGrid(); toggleHeads(false);
+      const pdf=await loadPdfFromArrayBuffer(await file.arrayBuffer());
+      prereqByName={}; isOpt={}; let curPeriod=null; let lines=[];
+      for(let i=1;i<=pdf.numPages;i++){ const p=await pdf.getPage(i); lines=lines.concat(await pageToLines(p)); }
+
+      const periodHdr=/^PER[IÍ]ODO:\s*(\d+)/i;
+      const headerCap=/^[A-Z]{2,4}\d{4,6}\s+(.+?)\s+\d+(?:\s+\d+){1,4}\s+(OB|OP)\d*\s*$/i;
+      const pureCodeLine=/^[A-Z]{2,4}\d{4,6}\s+(.+)$/i;
+
+      for(let i=0;i<lines.length;i++){
+        const ln=lines[i];
+        const pm=ln.match(periodHdr); if(pm){ curPeriod=parseInt(pm[1],10); continue; }
+        const h=ln.match(headerCap); if(!h) continue;
+        const headName=cleanName(h[1]); const headSlug=slug(headName);
+        const type=(h[2]||'').toUpperCase();
+        const period=validP(curPeriod)?curPeriod:9;
+        ensureCard(type==='OP'?'opt':period, headName);
+
+        const reqs=[]; let j=i+1;
+        while(j<lines.length){
+          const nx=lines[j];
+          if(periodHdr.test(nx)) break;
+          if(headerCap.test(nx)) break;
+          if(/^Total do Per[ií]odo/i.test(nx)) break;
+          if(/N[aã]o possui pr[eé]-?requisit/i.test(nx)){ reqs.length=0; j++; break; }
+          const pm2=nx.match(pureCodeLine);
+          if(pm2){ const reqName=cleanName(pm2[1]); if(reqName) reqs.push(slug(reqName)); j++; continue; }
+          break;
+        }
+        prereqByName[headSlug]=Array.from(new Set(reqs));
+        if(type==='OP') isOpt[headSlug]=true;
+        i=j-1;
+      }
+      gradeLoaded=true;
+      applyStatusColors(); applyFilter();
+      toggleHeads(true);
+      hideEmptyPeriodsIfMobile();
+    }catch(err){ console.error(err); setErr('Erro ao ler a Grade.'); }
+  });
+
+  integInput.addEventListener('change', async (e)=>{
+    try{
+      const file=e.target.files[0]; if(!file){ setErr('Nenhum PDF da Integralização.'); return; }
+      const pdf=await loadPdfFromArrayBuffer(await file.arrayBuffer());
+      let lines=[]; for(let i=1;i<=pdf.numPages;i++){ const p=await pdf.getPage(i); lines=lines.concat(await pageToLines(p)); }
+
+      const statusWords="Aprovado|Aproveitado|Matriculado|Não realizada|Nao realizada|Dispensado|Equival[eê]ncia|Equivalencia";
+      const rxB=new RegExp(String.raw`^[A-Z]{2,4}\d{4,6}\s+(.+?)\s+\d+\s+(${statusWords})\s+(\d{1,2})\b$`,"i");
+      const rxA=new RegExp(String.raw`^(\d{1,2})\s+[A-Z]{2,4}\d{4,6}\s+(.+?)\s+\d+\s+(${statusWords})$`,"i");
+      const rxNoCode=new RegExp(String.raw`^(.+?)\s+\d+\s+(${statusWords})\s+(\d{1,2})\b$`,"i");
+
+      function apply(name, st, per){
+        const id=slug(name);
+        let el=document.querySelector(`.card[data-id="${id}"]`);
+        if (el){ el.dataset.status=st; return; }
+        if (isOpt[id]) { ensureCard('opt', name, st); }
+        else if (validP(per)) { ensureCard(per, name, st); }
+      }
+
+      for(const ln of lines){
+        let m = ln.match(rxB);
+        if(m){ apply(cleanName(m[1]), statusFrom(m[2]), parseInt(m[3],10)); continue; }
+        m = ln.match(rxA);
+        if(m){ apply(cleanName(m[2]), statusFrom(m[3]), parseInt(m[1],10)); continue; }
+        m = ln.match(rxNoCode);
+        if(m){ apply(cleanName(m[1]), statusFrom(m[2]), parseInt(m[3],10)); continue; }
+      }
+      applyStatusColors(); applyFilter();
+      hideEmptyPeriodsIfMobile();
+    }catch(err){ console.error(err); setErr('Erro ao ler a Integralização.'); }
+  });
+
+  function resetGrid(){ for(let i=1;i<=9;i++) document.getElementById('col-'+i).innerHTML=''; document.getElementById('opt-grid').innerHTML=''; }
+  function ensureCard(target, name, st='faltando'){
+    const id=slug(name); if (document.querySelector(`.card[data-id="${id}"]`)) return;
+    const card=document.createElement('div'); card.className='card';
+    card.dataset.id=id; card.dataset.nome=name; card.dataset.status=st;
+    card.innerHTML=`<div class="title">${name}</div>`; card.addEventListener('click', onClickCard);
+    if (target === 'opt') document.getElementById('opt-grid').appendChild(card);
+    else document.getElementById('col-'+target).appendChild(card);
+  }
+  function applyStatusColors(){
+    document.querySelectorAll('.card').forEach(card=>{
+      card.classList.remove('ok','faltando','mat','focus','br0','br1','br2','br3','br4','br5','br6','br7');
+      const st=card.dataset.status; if(st==='feito') card.classList.add('ok'); else if(st==='matriculado') card.classList.add('mat'); else card.classList.add('faltando');
+    });
+  }
+  function setFilter(f){ document.querySelectorAll('#filters .btn').forEach(b=> b.classList.toggle('active', b.dataset.filter===f)); applyFilter(); hideEmptyPeriodsIfMobile(); }
+  function applyFilter(){
+    const f = document.querySelector('#filters .btn.active')?.dataset.filter || 'todas';
+    document.querySelectorAll('.card').forEach(card=>{
+      const st=card.dataset.status; card.classList.remove('hidden');
+      if(f==='ok' && st!=='feito') card.classList.add('hidden');
+      if(f==='mat' && st!=='matriculado') card.classList.add('hidden');
+      if(f==='faltando' && st!=='faltando') card.classList.add('hidden');
+    });
+  }
+  document.querySelectorAll('#filters .btn').forEach(btn=>{ if(btn.dataset.filter) btn.addEventListener('click', ()=> setFilter(btn.dataset.filter)); });
+
+  // Zoom + Ajustar → volta pra 100%
+  let zoom=1;
+  const gridScale = document.getElementById('gridScale');
+  function updateZoom(){ gridScale.style.transform=`scale(${zoom})`; document.getElementById('zoomLevel').textContent=Math.round(zoom*100)+'%'; }
+  document.getElementById('zoomIn').addEventListener('click', ()=>{ zoom = Math.min(2.0, +(zoom+0.1).toFixed(2)); updateZoom(); });
+  document.getElementById('zoomOut').addEventListener('click', ()=>{ zoom = Math.max(0.5, +(zoom-0.1).toFixed(2)); updateZoom(); });
+  document.getElementById('zoomFit').addEventListener('click', ()=>{ zoom = 1; updateZoom(); });
+  updateZoom();
+
+  function expandNames(root){ const seen=new Set(), st=(prereqByName[root]||[]).slice(); while(st.length){ const s=st.pop(); if(seen.has(s)) continue; seen.add(s); (prereqByName[s]||[]).forEach(k=>st.push(k)); } return Array.from(seen); }
+  function onClickCard(e){
+    document.querySelectorAll('.card').forEach(c=>c.classList.remove('focus','br0','br1','br2','br3','br4','br5','br6','br7'));
+    const card=e.currentTarget; card.classList.add('focus'); const id=card.dataset.id;
+    const roots=(prereqByName[id]||[]).slice(0, branchColors.length);
+    roots.forEach((rid,i)=>{ const cls=branchColors[i]; const chain=[rid, ...expandNames(rid)]; chain.forEach(nid=>{ const el=document.querySelector(`.card[data-id="${nid}"]`); if(el) el.classList.add(cls); }); });
+  }
+  document.getElementById('limpar').addEventListener('click', ()=>{
+    document.querySelectorAll('.card').forEach(c=>c.classList.remove('focus','br0','br1','br2','br3','br4','br5','br6','br7'));
+  });
+
+  function hideEmptyPeriodsIfMobile(){
+    if(!gradeLoaded) return;
+    const isMobile = window.matchMedia(`(max-width: ${MOBILE_BREAK}px)`).matches;
+    for(let i=1;i<=9;i++){
+      const periodWrap = document.getElementById('col-'+i)?.parentElement;
+      if(!periodWrap) continue;
+      if(isMobile){
+        const anyVisible = !!document.querySelector(`#col-${i} .card:not(.hidden)`);
+        periodWrap.style.display = anyVisible ? '' : 'none';
+      } else {
+        periodWrap.style.display = '';
+      }
+    }
+  }
+  window.addEventListener('resize', hideEmptyPeriodsIfMobile);
+</script>
+</body>
+</html>
