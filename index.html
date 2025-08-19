@@ -324,6 +324,167 @@
   .modal-card li:hover{ text-decoration:underline; }
   .modal-actions{ text-align:right; margin-top:10px; }
 
+
+  #schedule-instruction { display: none; margin-left: 10px; font-weight: bold; }
+  </style>
+  
+  <style>
+  /* === Planner styles === */
+  #plannerSection .planner{ position:relative; display:grid; grid-template-columns:140px repeat(6,1fr);
+    border:2px solid #000; border-bottom-width:1px; background:#fff; user-select:none; }
+  #plannerSection .cell,#plannerSection .time,#plannerSection .head{ color:#111; border-right:2px solid #000; border-bottom:1px solid #000; min-height:42px; background:#fff; }
+  #plannerSection .head{ color:#111; position:sticky; top:0; z-index:3; background:#f5f5f5; font-weight:700; font-size:26px; text-align:center; padding:10px 6px; }
+  #plannerSection .time{ color:#111; background:#fff; font-size:14px; padding:8px 8px; display:flex; align-items:center; justify-content:space-between; }
+  .time .idx{ font-weight:700; font-size:12px; opacity:.65 }
+  #plannerSection .overlay{ position:absolute; inset:0; z-index:2; pointer-events:none; }
+  #plannerSection .aula{
+    position:absolute; border-radius:14px; padding:10px 12px; border:1px solid #0000001a;
+    background: linear-gradient(#ffffff80, #ffffff40), var(--aula-bg, #ffe8a3);
+    box-shadow:0 6px 16px #0000001f, inset 0 1px 0 #ffffff80;
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    font-weight:600; color:var(--aula-fg,#111); pointer-events:auto; overflow:hidden;
+    transition:transform .08s ease, box-shadow .08s ease;
+  }
+  #plannerSection .aula:hover{ transform:translateY(-1px); box-shadow:0 8px 20px #00000026, inset 0 1px 0 #ffffff80; }
+  #plannerSection .aula::before{ content:""; position:absolute; inset:0 auto 0 0; width:6px; border-radius:14px 0 0 14px; background:#00000026; mix-blend-mode:multiply; }
+  #plannerSection .aula span{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:70% }
+  #plannerSection .aula small{ font-weight:500; opacity:.85 }
+  .cell:hover{ background:#f7fbff }
+  
+	/* Modal (reusa sua #plannerSection .mask/#plannerSection .modal se já existir; se não, define aqui) */
+	#plannerSection .mask{ 
+		position:fixed; 
+		inset:0; background:#0006;
+		display:none;
+		align-items:center;
+		justify-content:center;
+		z-index:1000;
+	}
+	#plannerSection .modal{ 
+		width:min(480px, 92vw); 
+		max-height:35vh;
+		background:var(--surface-1);
+		border:1px solid var(--border);
+		border-radius:14px;
+		padding:16px; 
+		box-shadow:0 12px 40px #0008;
+		margin:auto; 
+		display: block; 
+		
+	}
+	#plannerSection .modal h2{ margin:0 0 250px 0; font-size:18px }
+		.pl-grid{ display:grid; 
+		grid-template-columns:1fr 1fr; 
+		gap:10px }
+		.pl-grid label{
+			font-size:12px;
+			opacity:.8
+		}
+		.pl-grid input, .pl-grid select{ 
+			width:100%;
+			padding:8px 10px; 
+			border:1px solid #0002; 
+			border-radius:10px
+		}
+		.pl-row{ 
+			display:flex;
+			gap:10px;
+			align-items:center
+		}
+		.pl-right{ 
+			display:flex; 
+			gap:8px; 
+			justify-content:flex-end; 
+			margin-top:12px 
+		}
+	
+	/* form do modal em coluna, com espaçamento */
+	#plannerSection .modal > * { margin-bottom: 10px; }
+	#plannerSection .modal > *:last-child { margin-bottom: 0; }
+	
+	/* pílula do “Seg • 07:00” */
+	.pl-when,
+	.pill{
+		display:inline-flex;
+		align-items:center; 
+		gap:8px;
+		padding:6px 10px; 
+		border-radius:999px;
+		border:1px solid var(--border);
+		background:var(--surface-neutral); 
+		font-weight:600;
+	}
+	
+	/* botões de duração em linha, com destaque no ativo */
+	#pl-durGrid { display:flex; gap:8px; flex-wrap:wrap; }
+	#pl-durGrid .pill { background:var(--btn-bg); color:var(--btn-fg); }
+	#pl-durGrid .pill:hover{ background:var(--interactive-hover); }
+	#pl-durGrid .pill.active{
+	background:var(--btn-active-bg);
+	color:var(--btn-active-fg);
+	border-color:var(--btn-active-bd);
+	}
+	
+	/* select ocupando toda a largura */
+	#pl-materia{
+	width:100%; padding:8px 10px;
+	border:1px solid var(--border); border-radius:10px;
+	background:var(--surface-1); color:var(--text-base);
+	}
+	/* removed pl-header {
+    display:inline-block;
+    padding:8px 12px;
+    border-radius:10px;
+    background:linear-gradient(180deg,#ffffff80,#ffffff60);
+    border:1px solid #00000012;
+    box-shadow:0 1px 2px #0000000f;
+    font-weight:700;
+    letter-spacing:.02em;
+    color:#111;
+    margin:0 0 10px 0;
+  }
+  #plannerSection .pl-card{
+    background:var(--surface-1);
+    border:1px solid var(--border);
+    border-radius:14px;
+    box-shadow:0 6px 18px #0000001a;
+    padding:12px;
+  }
+  #plannerSection .pl-toolbar{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:8px;
+  }
+  /* Improve time visibility and hide index */
+  #plannerSection .time span:first-child{ font-weight:700; color:#111; font-size:15px; margin:auto; }
+  #plannerSection .time .idx{ display:none; }
+  #plannerSection .head{ font-weight:800; color:#111; }
+  
+  #plannerSection .planner-instruction{
+    margin: 0 0 10px 4px;
+    font-size: 14px;
+    opacity: .85;
+  }
+  #plannerSection .pl-card{
+    background:var(--surface-1);
+    border:1px solid var(--border);
+    border-radius:14px;
+    box-shadow:0 6px 18px #0000001a;
+    padding:12px;
+  }
+  /* —— Modal de alocação —— */
+  .pl-label{ display:block; font-size:12px; opacity:.8; margin:10px 0 4px; }
+  .pl-when{ display:inline-block; padding:6px 10px; border-radius:999px;
+    background:var(--interactive-subtle); border:1px solid var(--border); }
+  
+  /* Botões de duração (1h–5h) */
+  .pill{
+    border:1px solid var(--btn-bd);
+    background:var(--btn-bg);
+    color:var(--btn-fg);
+    padding:8px 12px; border-radius:999px; cursor:pointer;
+  }
+  .pill:hover{ background:var(--interactive-hover) }
+  .pill.active{ background:var(--btn-active-bg); color:var(--btn-active-fg); border-color:var(--btn-active-bd); }
 </style>
 </head>
 <body>
@@ -374,7 +535,9 @@
   <div class="planning">
     <button class="btn hidden" id="planningBtn" title="Selecionar matérias para planejar">Selecionar matérias</button>
     <span id="planInfo" class="sum-small"></span>
-    <button class="btn hidden" id="clearPlan">Limpar plano</button></div>
+    <button class="btn hidden" id="clearPlan">Limpar plano</button>
+    <button class="btn hidden" id="btnOpenPlanner" title="Abrir planner de horários">Horário</button>
+<button class="btn" id="btnClearPlanner" style="display:none" title="Limpar a planilha">Limpar planilha</button><span id="plannerHint" class="sum-small" style="margin-left:12px"><span id="schedule-instruction">Selecione as matérias e defina seus horários abaixo.</span></span></div>
 
   <div id="prereqModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="prereqTitle">
     <div class="modal-card">
@@ -431,6 +594,50 @@
   
   </section>
 
+
+  <section id="plannerSection" style="display:none">
+  <div class="pl-card">
+    <div class="area-head">Horário</div>
+    <div id="planner" class="planner"></div>
+
+    
+  
+  </div>
+  <div id="plannerMask" class="mask" style="display:none">
+    <div class="modal" style="width:min(520px,92vw);padding:16px">
+      <h2 style="margin:0 0 6px">Alocar disciplina</h2>
+  
+      <!-- Quando (preenchido via JS) -->
+      <div class="pl-when" style="margin:6px 0 12px; font-weight:600;">
+        <span id="pl-dia">Seg</span> • <span id="pl-hora">07:00</span>
+      </div>
+  
+      <!-- Disciplina -->
+      <label class="pl-label" for="pl-materia">Disciplina planejada</label>
+      <select id="pl-materia" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:10px; background:var(--surface-1); color:var(--text-base);"></select>
+  
+      <!-- Duração (botões 1–5h) -->
+      <label class="pl-label" style="margin-top:12px">Duração</label>
+      <div id="pl-durGrid" class="dur-grid" style="display:flex; gap:8px; margin-top:6px;">
+        <button type="button" class="pill" data-h="1">1h</button>
+        <button type="button" class="pill" data-h="2">2h</button>
+        <button type="button" class="pill" data-h="3">3h</button>
+        <button type="button" class="pill" data-h="4">4h</button>
+        <button type="button" class="pill" data-h="5">5h</button>
+      </div>
+  
+      <!-- Ações -->
+      <div class="pl-right" style="display:flex; justify-content:flex-end; gap:8px; margin-top:14px;">
+        <button id="pl-cancel" class="btn">Cancelar</button>
+        <button id="pl-ok" class="btn">Salvar</button>
+      </div>
+  
+      <!-- campos “técnicos” escondidos (já eram usados no seu JS) -->
+      <input id="pl-inicio" type="hidden">
+      <input id="pl-horas" type="hidden" value="1">
+    </div>
+  </div>
+</section>
 <script>
   const MOBILE_BREAK=800;
   const errEl=document.getElementById('err'); function setErr(m){errEl.textContent=m||''}
@@ -648,8 +855,6 @@
       document.getElementById('grade')?.classList.remove('hidden');
       document.getElementById('summary')?.classList.remove('hidden');
       document.getElementById('filters')?.classList.remove('hidden');
-      document.getElementById('planningBtn')?.classList.remove('hidden');
-      document.getElementById('clearPlan')?.classList.remove('hidden');
       integInput.disabled = false;
       integGroup.classList.remove('hidden');
       document.getElementById('materiasSection')?.classList.remove('hidden');
@@ -767,6 +972,7 @@
       document.getElementById('filters')?.classList.remove('hidden');
       document.getElementById('planningBtn')?.classList.remove('hidden');
       document.getElementById('clearPlan')?.classList.remove('hidden');
+      document.getElementById('btnOpenPlanner')?.classList.remove('hidden');
     }catch(err){ console.error(err); setErr('Erro ao ler a Integralização.'); }
   });
 
@@ -1078,5 +1284,174 @@ if (themeToggle) {
 
 
 </script>
+
+<script>
+(function(){
+  const DIAS = ["Seg","Ter","Qua","Qui","Sex","Sáb"];
+  function hhmm(h,m){ return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0'); }
+  const SLOTS = (function(){ const a=[]; let idx=1; for(let h=7;h<18;h++) a.push({start:hhmm(h,0),label:hhmm(h,0)+'–'+hhmm(h+1,0),idx:idx++});
+                                for(let h=18;h<=21;h++) a.push({start:hhmm(h,30),label:hhmm(h,30)+'–'+hhmm(h+1,30),idx:idx++}); return a; })();
+  const PT_COLORS={cinza:'gray',laranja:'orange',amarelo:'yellow',azul:'deepskyblue',verde:'lightgreen',rosa:'pink',roxo:'plum',vermelho:'salmon',marrom:'peru',preto:'black',branco:'white'};
+  function normalizeColor(txt, fallback){ const t=(txt||'').trim().toLowerCase();
+    if(PT_COLORS[t]) return PT_COLORS[t]; if(t && (t.startsWith('#')||t.startsWith('rgb')||t.startsWith('hsl'))) return t; return fallback||'#ffe8a3'; }
+  function idealTextColor(bg){ const tmp=document.createElement('span'); tmp.style.color=bg; document.body.appendChild(tmp);
+    const rgb=getComputedStyle(tmp).color.match(/\d+/g).map(Number); tmp.remove();
+    const [r,g,b]=rgb.map(v=>{v/=255; return v<=0.03928? v/12.92 : Math.pow((v+0.055)/1.055,2.4)});
+    const L=0.2126*r+0.7152*g+0.0722*b; return L>0.53?'#111':'#fff'; }
+  function setBlockColors(node,bg){ node.style.setProperty('--aula-bg',bg); node.style.setProperty('--aula-fg',idealTextColor(bg)); }
+  function collectPlannedSubjects(){ const out=[];
+    const colorByBr={ br0:'#007aff', br1:'#f58518', br2:'#e434e5', br3:'#27526d', br4:'#813d2d', br5:'#b279a2', br6:'#500097', br7:'#e45756', br8:'#4b7f32', br9:'#1db3a8', br10:'#819700' };
+    document.querySelectorAll('.card.planned').forEach(card=>{ const id=card.dataset.id||''; const nome=(card.querySelector('.title')||{}).textContent?.trim()||id||'Matéria';
+      const br=[...card.classList].find(c=>/^br\d+$/.test(c)); const cor=colorByBr[br]||'#ffe8a3'; out.push({id,nome,cor,horasDefault:1}); }); return out; }
+
+  let plannerBuilt=false, busy=null;
+  function buildPlannerIfNeeded(){
+    if(plannerBuilt) return;
+    const root=document.getElementById('planner');
+    root.innerHTML='';
+    root.appendChild(div('head',''));
+    DIAS.forEach(d=>root.appendChild(div('head',d)));
+    SLOTS.forEach(s=>{ root.appendChild(div('time', '<span>'+s.label+'</span><span class="idx">'+s.idx+'</span>'));
+      for(let col=0; col<DIAS.length; col++){ const c=document.createElement('div'); c.className='cell'; c.dataset.dia=DIAS[col]; c.dataset.start=s.start; c.id='cell-'+DIAS[col]+'-'+s.start; c.addEventListener('click', onPlannerCellClick); root.appendChild(c);} });
+    const overlay=document.createElement('div'); overlay.id='overlay'; overlay.className='overlay'; root.appendChild(overlay);
+    busy=Object.fromEntries(DIAS.map(d=>[d, Array(SLOTS.length).fill(false)]));
+    plannerBuilt=true;
+  }
+	function setDuracao(h){
+	document.getElementById('pl-horas').value = String(h);
+	document.querySelectorAll('#pl-durGrid .pill').forEach(b=>{
+		b.classList.toggle('active', b.dataset.h === String(h));
+	});
+	}
+	document.getElementById('pl-durGrid').addEventListener('click', (e)=>{
+	const b = e.target.closest('.pill[data-h]');
+	if (b) setDuracao(b.dataset.h);
+	});
+  function div(cls,html){ const n=document.createElement('div'); n.className=cls; n.innerHTML=html; return n; }
+  function celula(dia,idx){ return document.getElementById('cell-'+dia+'-'+SLOTS[idx].start); }
+
+  function showPlanner(){ buildPlannerIfNeeded(); document.getElementById('btnOpenPlanner').textContent='Grade';
+    document.getElementById('plannerSection').style.display='block';
+    const mapSec=document.getElementById('materiasSection'); if(mapSec) mapSec.style.display='none';
+  
+    const btnClear=document.getElementById('btnClearPlanner'); if(btnClear) btnClear.style.display='inline-block'; const instr=document.getElementById('schedule-instruction'); if(instr) instr.style.display='inline-block';}
+  function showMap(){ document.getElementById('btnOpenPlanner').textContent='Horário';
+    document.getElementById('plannerSection').style.display='none';
+    const mapSec=document.getElementById('materiasSection'); if(mapSec) mapSec.style.display='block';
+  
+    const btnClear=document.getElementById('btnClearPlanner'); if(btnClear) btnClear.style.display='none'; const instr=document.getElementById('schedule-instruction'); if(instr) instr.style.display='none';}
+
+  let lastCtx=null;
+  function onPlannerCellClick(e){
+  const dia = e.currentTarget.dataset.dia;
+  const inicio = e.currentTarget.dataset.start;
+  lastCtx = { dia, inicio };
+
+  // lista de matérias planejadas (já existe e puxa a cor do brX)
+  const list = collectPlannedSubjects();
+  lastCtx.list = list;
+
+  // popular select
+  const sel = document.getElementById('pl-materia');
+  sel.innerHTML = '';
+  if (!list.length){
+    const opt = document.createElement('option');
+    opt.textContent = '— sem matérias planejadas —';
+    sel.appendChild(opt);
+    sel.disabled = true;
+  } else {
+    list.forEach((m,i)=>{
+      const o = document.createElement('option');
+      o.value = String(i);
+      o.textContent = m.nome;
+      o.dataset.cor = m.cor;
+      sel.appendChild(o);
+    });
+    sel.disabled = false;
+    sel.value = '0';
+  }
+
+  // preencher “quando”
+  document.getElementById('pl-dia').textContent = dia;
+  document.getElementById('pl-hora').textContent = inicio;
+
+  // resetar duração para 1h e destacar a pílula certa
+  setDuracao(1);
+
+  // guardar início num hidden pro addAula
+  document.getElementById('pl-inicio').value = inicio;
+
+  // abrir modal
+  document.getElementById('plannerMask').style.display = 'flex';
+  }
+  function toHexColor(c){ const s=document.createElement('span'); s.style.color=c; document.body.appendChild(s);
+    const [r,g,b]=getComputedStyle(s).color.match(/\d+/g).map(Number); s.remove();
+    return '#'+[r,g,b].map(v=>v.toString(16).padStart(2,'0')).join(''); }
+
+  document.getElementById('pl-cancel').addEventListener('click', ()=>{ document.getElementById('plannerMask').style.display='none'; });
+  document.getElementById('pl-materia').addEventListener('change', (e)=>{
+    const idx=parseInt(e.target.value,10);
+	const item=lastCtx?.list?.[idx];
+	if(item) {
+		const materiaSel = document.getElementById('pl-materia');
+		materiaSel.addEventListener('change', ()=>{});
+	}
+  });
+  document.getElementById('pl-ok').addEventListener('click', ()=>{
+  const { dia, inicio, list } = lastCtx || {};
+  if (!dia) return;
+
+  const idx = parseInt(document.getElementById('pl-materia').value,10) || 0;
+  const item = list?.[idx];
+
+  const horas = parseInt(document.getElementById('pl-horas').value,10);
+  const cor = item?.cor || '#ffe8a3'; // usa a cor da matéria planejada
+  const nome = item?.nome || 'Matéria';
+
+  try{
+    addAula({ dia, inicio, horas, nome, cor });
+    document.getElementById('plannerMask').style.display='none';
+  } catch(err){
+    alert(err.message);
+  }
+});
+
+  function addAula({dia,inicio,horas,nome,cor}){
+    const root=document.getElementById('planner'); const overlay=document.getElementById('overlay');
+    const startIdx=SLOTS.findIndex(s=>s.start===inicio); if(startIdx<0) throw new Error('Início inválido.');
+    if(!(horas>=1&&horas<=5&&Number.isInteger(horas))) throw new Error('Duração deve ser 1–5h.');
+    if(startIdx+horas>SLOTS.length) throw new Error('Ultrapassa a grade.');
+    for(let i=startIdx;i<startIdx+horas;i++){ if(busy[dia][i]) throw new Error('Conflito: '+dia+' '+SLOTS[i].start); }
+    for(let i=startIdx;i<startIdx+horas;i++) busy[dia][i]=true;
+
+    const c0=celula(dia,startIdx), c1=celula(dia,startIdx+horas-1);
+    const rp=root.getBoundingClientRect(), r0=c0.getBoundingClientRect(), r1=c1.getBoundingClientRect();
+    const bloco=document.createElement('div'); bloco.className='aula';
+    bloco.style.left=(r0.left-rp.left+3)+'px'; bloco.style.top=(r0.top-rp.top+3)+'px';
+    bloco.style.width=(r0.width-6)+'px'; bloco.style.height=((r1.bottom-r0.top)-6)+'px';
+    setBlockColors(bloco, cor||'#ffe8a3');
+    bloco.dataset.dia=dia; bloco.dataset.start=String(startIdx); bloco.dataset.h=String(horas);
+    bloco.innerHTML='<span>'+nome+'</span><small>'+inicio+' • '+horas+'h</small>';
+    bloco.addEventListener('click', (ev)=>{ ev.stopPropagation(); if(confirm('Remover "'+nome+'" em '+dia+' às '+inicio+'?')){
+      const st=parseInt(bloco.dataset.start,10), h=parseInt(bloco.dataset.h,10); for(let i=st;i<st+h;i++) busy[dia][i]=false; bloco.remove();
+    }});
+    overlay.appendChild(bloco);
+  }
+
+  
+  // Limpar planilha
+  document.getElementById('btnClearPlanner')?.addEventListener('click', ()=>{
+    const overlay = document.getElementById('overlay');
+    if (overlay) overlay.innerHTML = '';
+    if (busy) { Object.keys(busy).forEach(d=>busy[d].fill(false)); }
+  });
+// Botões
+  document.getElementById('btnOpenPlanner').addEventListener('click', ()=>{ const sec=document.getElementById('plannerSection'); if(sec.style.display==='block'){ showMap(); } else { showPlanner(); } });
+  
+})();
+</script>
+
+
+
 </body>
 </html>
