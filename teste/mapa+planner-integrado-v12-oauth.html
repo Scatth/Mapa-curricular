@@ -411,16 +411,32 @@
 		background:#f7fbff;
 	}
 	
-	/* bloco “aula” fica só na 1ª célula, cobrindo N linhas */
-	#plannerSection .lesson-block{
-		position:absolute; left:0; top:0; width:100%;
-		height:48px; /* sobrescrito inline */
-		display:flex; align-items:center; justify-content:center;
-		background: var(--aula-bg, #1680ff);
-		color: var(--aula-fg, #fff);
-		font-weight:800; font-size:18px; letter-spacing:.2px;
-		z-index:5; border-bottom:1px solid #000;
-	}
+  /* lesson-block: posição/estilo originais + centrado perfeito com Grid */
+  #plannerSection .lesson-block{
+    /* posicionamento e dimensões (mantidos) */
+    position: absolute; left: 0; top: 0; width: 100%;
+    height: 48px; /* sobrescrito inline */
+    z-index: 5; border-bottom: 1px solid #000;
+  
+    /* visual (mantido) */
+    background: var(--aula-bg, #1680ff);
+    color: var(--aula-fg, #fff);
+    font-weight: 800; font-size: 18px; letter-spacing: .2px;
+  
+    /* centragem + quebra elegante (novo) */
+    display: grid;                /* substitui o flex */
+    place-items: center;          /* centro H/V */
+    align-content: center;        /* mantém centro em 2+ linhas */
+    text-align: center;
+    padding: 0 8px;
+    line-height: 1.15;
+    white-space: normal;
+    overflow-wrap: anywhere;      /* melhor que break-word */
+    word-break: normal;
+    hyphens: auto; -webkit-hyphens: auto;
+  
+    box-sizing: border-box;       /* padding não altera a altura fixa */
+  }
 	#plannerSection .cell.in-block{ border-bottom-color:transparent; }
 	#plannerSection .cell.block-end{ border-bottom-color:#000; }
 
@@ -1434,10 +1450,19 @@ window.addEventListener('resize', hideEmptyPeriodsIfMobile);
 /* ======== PLANNER ======== */
 	(function(){
 	const DIAS = ['Seg','Ter','Qua','Qui','Sex','Sáb'];
-	const SLOTS = Array.from({length:15}, (_,i)=>{
-		const h=7+i; const pad=n=>String(n).padStart(2,'0');
-		return { start:`${pad(h)}:00`, end:`${pad(h+1)}:00`, label:`${pad(h)}:00 - ${pad(h+1)}:00`, idx:i+1 };
-	});
+	  // ---- SLOTS: 07:00–18:00 e 18:30–22:30 ----
+	const pad = n => String(n).padStart(2,'0');
+	function buildTimeSlots(){
+		const arr = [];
+		for (let h=7; h<18; h++)   arr.push({ start:`${pad(h)}:00`, end:`${pad(h+1)}:00`, label:`${pad(h)}:00 - ${pad(h+1)}:00` });
+		for (let h=18; h<22; h++)  arr.push({ start:`${pad(h)}:30`, end:`${pad(h+1)}:30`, label:`${pad(h)}:30 - ${pad(h+1)}:30` });
+		return arr;
+	}
+	const SLOTS = buildTimeSlots();
+	
+	// helpers públicos (se precisar em outros pontos)
+	const slotIndexFromStart = (hhmm)=> SLOTS.findIndex(s=>s.start===hhmm);
+	const slotLabel          = (i)=> SLOTS[i]?.label || '';
 	
 	const root = document.getElementById('planner');
 	const modal = document.getElementById('plannerModal');
