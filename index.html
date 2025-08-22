@@ -411,16 +411,32 @@
 		background:#f7fbff;
 	}
 	
-	/* bloco “aula” fica só na 1ª célula, cobrindo N linhas */
-	#plannerSection .lesson-block{
-		position:absolute; left:0; top:0; width:100%;
-		height:48px; /* sobrescrito inline */
-		display:flex; align-items:center; justify-content:center;
-		background: var(--aula-bg, #1680ff);
-		color: var(--aula-fg, #fff);
-		font-weight:800; font-size:18px; letter-spacing:.2px;
-		z-index:5; border-bottom:1px solid #000;
-	}
+  /* lesson-block: posição/estilo originais + centrado perfeito com Grid */
+  #plannerSection .lesson-block{
+    /* posicionamento e dimensões (mantidos) */
+    position: absolute; left: 0; top: 0; width: 100%;
+    height: 48px; /* sobrescrito inline */
+    z-index: 5; border-bottom: 1px solid #000;
+  
+    /* visual (mantido) */
+    background: var(--aula-bg, #1680ff);
+    color: var(--aula-fg, #fff);
+    font-weight: 800; font-size: 18px; letter-spacing: .2px;
+  
+    /* centragem + quebra elegante (novo) */
+    display: grid;                /* substitui o flex */
+    place-items: center;          /* centro H/V */
+    align-content: center;        /* mantém centro em 2+ linhas */
+    text-align: center;
+    padding: 0 8px;
+    line-height: 1.15;
+    white-space: normal;
+    overflow-wrap: anywhere;      /* melhor que break-word */
+    word-break: normal;
+    hyphens: auto; -webkit-hyphens: auto;
+  
+    box-sizing: border-box;       /* padding não altera a altura fixa */
+  }
 	#plannerSection .cell.in-block{ border-bottom-color:transparent; }
 	#plannerSection .cell.block-end{ border-bottom-color:#000; }
 
