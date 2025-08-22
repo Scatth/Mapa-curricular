@@ -388,7 +388,7 @@
 		border-left: 1px solid #000;
 	}
 	#plannerSection .head{
-		position: sticky; top: 0; z-index: 100; height: 56px;
+		position: static; top: auto; z-index: auto; height: 56px;
 		display: flex; align-items: center; justify-content: center;
 		font-weight: 800; font-size: 26px; /* topo levemente cinza */
 	}
@@ -607,7 +607,7 @@
   #exportModal .exp-options{ grid-template-columns: 1fr; }
   .modal{ width: min(520px, 94vw); }
 }
-	</style>
+</style>
 </head>
 <body>
 <div class="header-bar"><h1>Mapa Curricular</h1><button class="btn" id="themeToggle" title="Alternar tema">🌙 Modo escuro</button></div>
@@ -1895,9 +1895,7 @@ async function exportXLSX(opts={}){
   const { aoa, merges, formatBlocks, headsCount, rowsCount } = buildSheetDataFromDOM();
 
   const wb = new ExcelJS.Workbook();
-  const ws = wb.addWorksheet('Horário', {
-    views: [{ state:'frozen', xSplit:1, ySplit:1 }] // congela coluna A e linha 1
-  });
+  const ws = wb.addWorksheet('Horário');
 
   // 1) Preenche linhas
   aoa.forEach(row => ws.addRow(row));
@@ -2042,7 +2040,7 @@ async function exportSheets(opts={}){
   const createResp = await gfetch('https://sheets.googleapis.com/v4/spreadsheets', {
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({ properties:{ title:'Horário - Planner' } })
+    body: JSON.stringify({ properties:{ title:'Horário' } })
   });
   const sheet = await createResp.json();
   const spreadsheetId = sheet.spreadsheetId;
@@ -2113,7 +2111,7 @@ async function exportSheets(opts={}){
   // 3.5 congelar linha 1 e coluna A
   requests.push({
     updateSheetProperties: {
-      properties: { sheetId, gridProperties: { frozenRowCount:1, frozenColumnCount:1 } },
+      properties: { sheetId, gridProperties: { frozenRowCount:0, frozenColumnCount:0 } },
       fields: 'gridProperties.frozenRowCount,gridProperties.frozenColumnCount'
     }
   });
@@ -2168,38 +2166,42 @@ async function exportSheets(opts={}){
   });
 
   // 4) abre a planilha
-  openSheetPreferApp(spreadsheetId, sheetId /* gid da 1ª aba */, 'B3');
+  openSheetPreferApp(spreadsheetId, sheetId /* gid da 1ª aba */, 'A3');
 }
 
-function openSheetPreferApp(spreadsheetId, gid, anchorCell = 'B3'){
-  // URL web com âncora para não ficar sob o cabeçalho
-  const webUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit#gid=${gid ?? 0}&range=${encodeURIComponent(anchorCell)}`;
+function openSheetPreferApp(spreadsheetId, gid, anchorCell = 'A3'){
+  const baseWeb    = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit#gid=${encodeURIComponent(gid ?? 0)}`;
+  const webMobile  = `${baseWeb}&range=${encodeURIComponent(anchorCell)}`; // só p/ mobile web
+  const webDesktop = baseWeb;                                             // desktop sem âncora
 
   const ua = navigator.userAgent || '';
   const isAndroid = /Android/i.test(ua);
   const isIOS     = /iPhone|iPad|iPod/i.test(ua);
 
   if (isAndroid){
-    // Tenta abrir no app Sheets (com fallback para a URL com range)
+    // Tenta abrir no app; se não rolar, cai para a versão web MOBILE (com âncora)
     const intentUrl =
       `intent://docs.google.com/spreadsheets/d/${spreadsheetId}/edit` +
       `#Intent;scheme=https;package=com.google.android.apps.docs.editors.sheets;` +
-      `S.browser_fallback_url=${encodeURIComponent(webUrl)};end`;
-    location.href = intentUrl;
+      `S.browser_fallback_url=${encodeURIComponent(webMobile)};end`;
+
+    window.location.href = intentUrl;
     return;
   }
 
   if (isIOS){
-    // Tenta abrir no app; se não abrir, cai no webUrl (com range) logo depois
+    // iOS → tenta esquema do app; se falhar, abre web MOBILE (com âncora)
     const candidates = [
       `googlesheets://doc/${spreadsheetId}`,
       `googlesheets://spreadsheets/d/${spreadsheetId}`,
       `googlesheets://?action=open&sid=${spreadsheetId}`
     ];
+
     let tried = 0;
     const tryOpen = () => {
       if (tried >= candidates.length){
-        location.href = webUrl; // fallback web com âncora
+        // fallback mobile web COM âncora
+        window.location.href = webMobile;
         return;
       }
       const url = candidates[tried++];
@@ -2210,7 +2212,7 @@ function openSheetPreferApp(spreadsheetId, gid, anchorCell = 'B3'){
       setTimeout(()=>{
         try { document.body.removeChild(iframe); } catch(e){}
         if (tried === candidates.length){
-          location.href = webUrl;
+          window.location.href = webMobile;
         }
       }, 1200);
     };
@@ -2218,8 +2220,8 @@ function openSheetPreferApp(spreadsheetId, gid, anchorCell = 'B3'){
     return;
   }
 
-  // Desktop / outros: abre a versão web já posicionando na faixa visível
-  location.href = webUrl;
+  // Desktop/PC → abre em nova aba SEM âncora
+  window.open(webDesktop, '_blank');
 }
 
 function openSheetInApp(spreadsheetId){
@@ -2229,20 +2231,18 @@ function openSheetInApp(spreadsheetId){
   const isIOS = /iPhone|iPad|iPod/i.test(ua);
 
   if (isAndroid){
-    // Tenta abrir direto no app Google Sheets
+    // Android → tenta abrir no app Google Sheets
     const intentUrl =
       `intent://docs.google.com/spreadsheets/d/${spreadsheetId}/edit` +
       `#Intent;scheme=https;package=com.google.android.apps.docs.editors.sheets;` +
       `S.browser_fallback_url=${encodeURIComponent(httpsUrl)};end`;
 
-    // usar location em vez de window.open evita bloqueio de popup
     window.location.href = intentUrl;
     return;
   }
 
   if (isIOS){
-    // Tenta esquema de URL do app (pode variar entre versões)
-    // Se não abrir, cai pro link https em ~1s
+    // iOS → tenta esquemas de URL do app
     const candidates = [
       `googlesheets://doc/${spreadsheetId}`,
       `googlesheets://spreadsheets/d/${spreadsheetId}`,
@@ -2252,20 +2252,18 @@ function openSheetInApp(spreadsheetId){
     let tried = 0;
     const tryOpen = () => {
       if (tried >= candidates.length){
-        window.location.href = httpsUrl;
+        window.open(httpsUrl, "_blank");
         return;
       }
       const url = candidates[tried++];
-      // técnica do iframe é o padrão pra tentar app scheme no iOS
       const iframe = document.createElement('iframe');
       iframe.style.display = 'none';
       iframe.src = url;
       document.body.appendChild(iframe);
       setTimeout(()=>{
-        // se não abriu o app, cai pro link web
         try { document.body.removeChild(iframe); } catch(e){}
         if (tried === candidates.length){
-          window.location.href = httpsUrl;
+          window.open(httpsUrl, "_blank");
         }
       }, 1200);
     };
@@ -2273,8 +2271,8 @@ function openSheetInApp(spreadsheetId){
     return;
   }
 
-  // Desktop ou ambiente desconhecido: abre no navegador
-  window.open(httpsUrl, '_blank');
+  // Desktop → sempre abre em nova aba
+  window.open(httpsUrl, "_blank");
 }
 
   function lin01(u){ return (u<=0.04045)? (u/12.92) : Math.pow((u+0.055)/1.055, 2.4); } // u em [0..1]
