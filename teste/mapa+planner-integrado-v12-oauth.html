@@ -337,7 +337,7 @@
 		.summary{grid-template-columns:repeat(1,minmax(0,1fr))}
 	}
 	/* === Header bar and legend visibility === */
-	.header-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:6px 0 12px}
+	.header-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:6px 0 6px}
 	#legend{display:none}
 	#legend.visible{display:flex}
 	
@@ -420,6 +420,15 @@
 		color: var(--aula-fg, #fff);
 		font-weight:800; font-size:18px; letter-spacing:.2px;
 		z-index:5; border-bottom:1px solid #000;
+		  color:#fff;                       /* texto branco */
+  /* contorno via múltiplos text-shadows (melhor suporte que text-stroke) */
+  text-shadow:
+     0  0.7px 0 #000,  0 -0.7px 0 #000,
+     0.7px 0  0 #000, -0.7px 0  0 #000,
+     0.7px 0.7px 0 #000, -0.7px 0.7px 0 #000,
+     0.7px -0.7px 0 #000, -0.7px -0.7px 0 #000;
+  /* se quiser e seu navegador permitir, ativa também o stroke nativo: */
+  -webkit-text-stroke: 0.6px #000;
 	}
 	#plannerSection .cell.in-block{ border-bottom-color:transparent; }
 	#plannerSection .cell.block-end{ border-bottom-color:#000; }
@@ -531,18 +540,67 @@
 		margin: 0 0 8px;
 		color: var(--text-base);
 	}
-	</style>
+	.mask{
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,.45);
+  z-index: 1000;
+}
+.mask:not(.hidden){ display:flex; }
 
-<style>
-.exp-modal.hidden{ display:none; }
-.exp-modal{ position:fixed; inset:0; background:rgba(0,0,0,.45); display:flex; align-items:center; justify-content:center; z-index:1000; }
-.exp-box{ width:min(520px, 92vw); background:#fff; color:#111; border-radius:12px; padding:16px; box-shadow:0 10px 30px rgba(0,0,0,.2); }
-.exp-box h3{ margin:0 0 10px; font-size:18px; }
-.exp-options{ display:grid; grid-template-columns:1fr 1fr; gap:8px 14px; margin:10px 0 16px; }
-.exp-actions{ display:flex; gap:10px; justify-content:flex-end; }
-.btn.btn-secondary{ background:#eee; color:#333; }
-@media (max-width:640px){ .exp-options{ grid-template-columns:1fr; } }
-</style>
+.modal{
+  background: var(--surface-1);
+  color: var(--text-base);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  width: min(560px, 92vw);
+  box-shadow: 0 12px 40px rgba(0,0,0,.35);
+}
+
+/* ========= Export Modal: só organização interna (herda cores do tema) ========= */
+#exportModal .exp-fieldset{
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+  background: var(--surface-1);
+}
+
+#exportModal .exp-options{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 14px;
+  margin: 10px 0 12px;
+}
+
+#exportModal .exp-color{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 18px;
+}
+
+#exportModal .exp-actions{
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+/* Radios/checkboxes seguem a cor de foco do tema */
+#exportModal input[type="radio"],
+#exportModal input[type="checkbox"]{
+  accent-color: var(--focus);
+}
+
+/* Responsivo do export */
+@media (max-width: 640px){
+  #exportModal .exp-options{ grid-template-columns: 1fr; }
+  .modal{ width: min(520px, 94vw); }
+}
+	</style>
 </head>
 <body>
 <div class="header-bar"><h1>Mapa Curricular</h1><button class="btn" id="themeToggle" title="Alternar tema">🌙 Modo escuro</button></div>
@@ -590,7 +648,12 @@
 <span class="sum-small" id="planInfo"></span>
 <button class="btn hidden" id="clearPlan">Limpar plano</button>
 <button class="btn hidden" id="btnOpenPlanner" title="Abrir planner de horários">Horário</button>
-<button class="btn" id="btnClearPlanner" style="display:none" title="Limpar a planilha">Limpar planilha</button><span class="sum-small" id="plannerHint" style="margin-left:12px"><span id="schedule-instruction">Selecione as matérias e defina seus horários abaixo.</span></span></div>
+<button class="btn" id="btnClearPlanner" style="display:none" title="Limpar a planilha">Limpar planilha</button><span class="sum-small" id="plannerHint" style="margin-left:12px"><span id="schedule-instruction">Selecione as matérias e defina seus horários abaixo.</span></span>
+<!-- Botão -->
+<div id="plannerExportFooter" class="hidden" style="margin-left:auto; display:flex; justify-content:right;">
+  <button class="btn" id="btnExportOpen">Exportar…</button>
+</div>
+</div>
 <div aria-labelledby="prereqTitle" aria-modal="true" class="overlay hidden" id="prereqOverlay" role="dialog">
 <div class="overlay-card">
 <h3 id="prereqTitle">Pré-requisito pendente</h3>
@@ -687,25 +750,36 @@
 </input></div>
 </div>
 </section>
-<!-- Export footer and modal -->
-<div id="plannerExportFooter" style="margin:24px 0; display:flex; justify-content:center;">
-<button class="btn" id="btnExportOpen">Exportar…</button>
+<!-- Botão -->
+<div id="plannerExportFooter" class="hidden" style="margin:8px 0; display:flex; justify-content:center;">
+  <button class="btn" id="btnExportOpen">Exportar…</button>
 </div>
-<div aria-labelledby="exportTitle" aria-modal="true" class="exp-modal hidden" id="exportModal" role="dialog">
-<div class="exp-box">
-<h3 id="exportTitle">Exportar grade</h3>
-<fieldset class="exp-options">
-<label><input checked="" name="expType" type="radio" value="pdf"/> PDF</label>
-<label><input name="expType" type="radio" value="xlsx"/> Excel (.xlsx)</label>
-<label><input name="expType" type="radio" value="sheets"/> Google Sheets</label>
-<label><input name="expType" type="radio" value="png"/> PNG (imagem)</label>
-</fieldset>
-<div class="exp-actions">
-<button class="btn" id="btnExportGo">Exportar</button>
-<button class="btn btn-secondary" id="btnExportCancel">Cancelar</button>
-</div>
-<p style="font-size:12px;opacity:.75;margin-top:8px">Para Google Sheets, autorize com sua conta Google quando solicitado.</p>
-</div>
+
+<!-- Modal de Exportação (mesmo look dos outros modais) -->
+<div class="exp-modal mask hidden" id="exportModal" role="dialog" aria-modal="true" aria-labelledby="exportTitle">
+  <div class="exp-box modal">
+    <h3 id="exportTitle">Exportar grade</h3>
+
+    <fieldset class="exp-fieldset">
+      <div class="exp-options">
+        <label><input name="expType" type="radio" value="sheets" checked> Google Sheets</label>
+        <label><input name="expType" type="radio" value="pdf"> PDF</label>
+        <label><input name="expType" type="radio" value="jpg"> Imagem (JPG)</label>
+        <label><input name="expType" type="radio" value="xlsx"> Excel</label>
+      </div>
+
+      <div class="hint" style="margin:6px 0 2px;"><b>Cor do texto dos blocos:</b></div>
+      <div class="exp-color">
+        <label><input name="expOpt" type="radio" id="optForceWhite" checked> Branca</label>
+        <label><input name="expOpt" type="radio" id="optAutoContrast"> Auto-contraste</label>
+      </div>
+    </fieldset>
+
+    <div class="exp-actions">
+      <button class="btn" id="btnExportGo">Exportar</button>
+      <button class="btn btn-secondary" id="btnExportCancel">Cancelar</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -858,13 +932,13 @@
 		let curPeriod=null; let currentSection='OB'; let lines=[];
 		for(let i=1;i<=pdf.numPages;i++){ const p=await pdf.getPage(i); lines=lines.concat(await pageToLines(p)); }
 	
-		const rxOb=/DISCIPLINAS OBRIGAT[ÓO]RIAS.*CARGA HOR[ÝA]RIA EXIGIDA\s*:\s*(\d+)/i;
-		const rxOp=/DISCIPLINAS OP[T]?ATIVAS.*CARGA HOR[ÝA]RIA EXIGIDA\s*:\s*(\d+)/i;
-		const rxEst=/EST[ÝA]GIO.*CARGA HOR[ÝA]RIA EXIGIDA\s*:\s*(\d+)/i;
-		const rxComp=/(ATIVIDADES|ATIV\.)\s+COMPLEMENTAR(?:ES)? .*CARGA HOR[ÝA]RIA EXIGIDA\s*:\s*(\d+)/i;
-		const rxTotal=/CARGA HOR[ÝA]RIA TOTAL.*FORMATURA.*:\s*(\d+)/i;
+		const rxOb=/DISCIPLINAS OBRIGAT[ÓO]RIAS.*CARGA HOR[ÁA]RIA EXIGIDA\s*:\s*(\d+)/i;
+		const rxOp=/DISCIPLINAS OP[T]?ATIVAS.*CARGA HOR[ÁA]RIA EXIGIDA\s*:\s*(\d+)/i;
+		const rxEst=/EST[ÁA]GIO.*CARGA HOR[ÁA]RIA EXIGIDA\s*:\s*(\d+)/i;
+		const rxComp=/(ATIVIDADES|ATIV\.)\s+COMPLEMENTAR(?:ES)? .*CARGA HOR[ÁA]RIA EXIGIDA\s*:\s*(\d+)/i;
+		const rxTotal=/CARGA HOR[ÁA]RIA TOTAL.*FORMATURA.*:\s*(\d+)/i;
 	
-		const periodHdr=/^PER[IÝ]ODO:\s*(\d+)/i;
+		const periodHdr=/^PER[IÍ]ODO:\s*(\d+)/i;
 		const headerCap=/^([A-Z]{2,4}\d{4,6})\s+(.+?)\s+((?:\d+\s+){1,6})([A-Z]{2,3})\s*$/i;
 		const pureCodeLine=/^[A-Z]{2,4}\d{4,6}\s+(.+)$/i;
 	
@@ -872,7 +946,7 @@
 			const L=lines[i];
 			if(/DISCIPLINAS OBRIGAT[ÓO]RIAS/i.test(L)) currentSection='OB';
 			if(/DISCIPLINAS OP[T]?ATIVAS/i.test(L)) currentSection='OP';
-			if(/EST[ÝA]GIO/i.test(L)) currentSection='EST';
+			if(/EST[ÁA]GIO/i.test(L)) currentSection='EST';
 			if(/COMPLEMENTAR/i.test(L)) currentSection='COMP';
 	
 			let m;
@@ -1251,19 +1325,6 @@
     ov.classList.remove('hidden');
     ok.focus();
   }
-  function removeGroup(gid){
-    const root = document;
-    const cells = Array.from(root.querySelectorAll(`.cell[data-group="${gid}"]`));
-    const owner = cells.find(c=> c.querySelector('.lesson-block'));
-    if(owner){ owner.querySelector('.lesson-block').remove(); }
-    cells.forEach(c=>{
-    const d=c.dataset.dia; const i=parseInt(c.dataset.slotIdx,10);
-    if(d && Number.isInteger(i)) busy[d][i]=false;
-    c.classList.remove('in-block','block-end');
-    c.removeAttribute('data-group');
-    c.style.removeProperty('--aula-bg'); c.style.removeProperty('--aula-fg');
-    });
-  }
   function openRemoveOverlay({gid, label, hours}){
     const ov = document.getElementById('removeOverlay');
     const desc = document.getElementById('removeDesc');
@@ -1271,7 +1332,7 @@
     const cancel = document.getElementById('removeCancel');
     desc.textContent = `Remover "${label}" (${hours}h) desta grade?`;
     function close(){ ov.classList.add('hidden'); ok.removeEventListener('click', onOk); cancel.removeEventListener('click', onCancel); document.removeEventListener('keydown', onKey); }
-    function onOk(){ removeGroup(gid); close(); }
+    function onOk(){ window.removeGroup(gid); close(); }
     function onCancel(){ close(); }
     function onKey(e){ if(e.key==='Escape'){ close(); } if(e.key==='Enter'){ onOk(); } }
     ok.addEventListener('click', onOk);
@@ -1322,7 +1383,7 @@ planningBtn?.addEventListener('click', ()=>{
 	if (themeToggle) {
 	const setLabel = () => {
 		const dark = document.body.classList.contains('dark');
-		themeToggle.textContent = dark ? '☀︝ Modo claro' : '🌙 Modo escuro';
+		themeToggle.textContent = dark ? '☀️ Modo claro' : '🌙 Modo escuro';
 		themeToggle.setAttribute('aria-pressed', String(dark));
 	};
 	setLabel();
@@ -1361,8 +1422,7 @@ function recalcAndRenderSummary(){
 	const totalPlan=plan.OB+plan.OP+plan.EST+plan.COMP;
 	planInfo.textContent=planningMode?`Planejadas: ${totalPlan} CHS`:'';
 }
-//aqui era uma coisa de clearplanner
-	// esconde colunas vazias só no mobile
+// esconde colunas vazias só no mobile
 function hideEmptyPeriodsIfMobile(){
 	const isMobile=window.matchMedia(`(max-width:${MOBILE_BREAK}px)`).matches;
 	for(let i=1;i<=10;i++){
@@ -1458,7 +1518,38 @@ window.addEventListener('resize', hideEmptyPeriodsIfMobile);
 		addBlock({dia:ctx.dia, inicio:ctx.inicio, horas, nome, cor});
 		closeModal();
 	});
-	
+  function clearCells(cells){
+    cells.forEach(c=>{
+      const d = c.dataset.dia;
+      const i = parseInt(c.dataset.slotIdx, 10);
+      if (d && Number.isInteger(i)) busy[d][i] = false;    // <== igual ao teu limpar
+      c.classList.remove('in-block','block-end');
+      c.removeAttribute('data-group');
+      c.style.removeProperty('--aula-bg');
+      c.style.removeProperty('--aula-fg');
+    });
+  }
+  // Limpar TUDO (mantém teu comportamento atual, só usando o helper)
+  document.getElementById('btnClearPlanner')?.addEventListener('click', ()=>{
+    root.querySelectorAll('.lesson-block').forEach(n=>n.remove());
+    clearCells(Array.from(root.querySelectorAll('.cell')));
+    // zera o que sobrar (se existir dia sem células marcadas)
+    Object.keys(busy).forEach(d=> busy[d].fill(false));
+  });
+  
+  // Remover APENAS um grupo (usa a MESMA “faxina” do limpar)
+  window.removeGroup = function removeGroup(gid){
+    const cells = Array.from(root.querySelectorAll(`.cell[data-group="${gid}"]`));
+  
+    // remove o bloco visual do grupo (se estiver no owner)
+    const owner = cells.find(c=> c.querySelector('.lesson-block'));
+    if (owner) owner.querySelector('.lesson-block')?.remove();
+    // também remove qualquer bloco que tenha sido marcado com data-group no próprio bloco
+    root.querySelectorAll(`.lesson-block[data-group="${gid}"]`).forEach(n=>n.remove());
+  
+    // aplica a MESMA limpeza do “Limpar”, mas só nessas células
+    clearCells(cells);
+  }
   function onCellClick(e){
     const c=e.currentTarget;
     const gid=c.dataset.group;
@@ -1623,7 +1714,7 @@ window.addEventListener('resize', responsiveTimeLabels);
 // Inicial
 setPlanningUI();
 </script>
-<script async defer src="https://accounts.google.com/gsi/client"></script><script src="https://cdn.jsdelivr.net/npm/xlsx@0.20.2/dist/xlsx.full.min.js"></script><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
+<script async defer src="https://accounts.google.com/gsi/client"></script><script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
 <script>
 // ======== CONFIGURE SEU CLIENT ID (OAuth Web) ========
 const GOOGLE_CLIENT_ID = '857964279049-oijsae1g1jgql21plpiblq49arerejjt.apps.googleusercontent.com';
@@ -1674,18 +1765,36 @@ function getPlannerTarget(){
   return card || document.getElementById('planner');
 }
 
-// ===== PNG =====
-async function exportPNG(){
+// ===== JPG =====
+async function exportJPG(){
   const el = getPlannerTarget();
   if(!el) return alert('Planner não encontrado.');
-  const canvas = await html2canvas(el, {backgroundColor:'#ffffff', scale:2, useCORS:true});
-  canvas.toBlob((blob)=>{
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'horario.png';
-    a.click();
-    URL.revokeObjectURL(a.href);
+
+  // fundo branco e scale alto ajudam a nitidez
+  const canvas = await html2canvas(el, {
+    backgroundColor: '#ffffff',
+    scale: 2,
+    useCORS: true
   });
+
+  const quality = 0.92; // ajuste 0.7..1.0 conforme tamanho/qualidade
+
+  if (canvas.toBlob) {
+    canvas.toBlob((blob)=>{
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'horario.jpg';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }, 'image/jpeg', quality);
+  } else {
+    // fallback raro (navegadores antigos)
+    const dataURL = canvas.toDataURL('image/jpeg', quality);
+    const a = document.createElement('a');
+    a.href = dataURL;
+    a.download = 'horario.jpg';
+    a.click();
+  }
 }
 
 // ===== PDF =====
@@ -1693,7 +1802,7 @@ async function exportPDF(){
   const el = getPlannerTarget();
   if(!el) return alert('Planner não encontrado.');
   const canvas = await html2canvas(el, {backgroundColor:'#ffffff', scale:2, useCORS:true});
-  const imgData = canvas.toDataURL('image/png');
+  const imgData = canvas.toDataURL('image/jpg');
   const { jsPDF } = window.jspdf;
   const landscape = canvas.width >= canvas.height;
   const pdf = new jsPDF(landscape ? 'l' : 'p', 'pt', 'a4');
@@ -1702,7 +1811,7 @@ async function exportPDF(){
   const ratio = Math.min(pageW/canvas.width, pageH/canvas.height);
   const w = canvas.width * ratio, h = canvas.height * ratio;
   const x = (pageW - w)/2, y = (pageH - h)/2;
-  pdf.addImage(imgData, 'PNG', x, y, w, h);
+  pdf.addImage(imgData, 'JPG', x, y, w, h);
   pdf.save('horario.pdf');
 }
 
@@ -1751,155 +1860,405 @@ function buildWorksheetFromDOM(){
   return { wb, ws };
 }
 
-function exportXLSX(){
-  const { wb, ws } = buildWorksheetFromDOM();
-  XLSX.utils.book_append_sheet(wb, ws, 'Horário');
-  XLSX.writeFile(wb, 'horario.xlsx');
+function toARGB({red,green,blue}){
+  // ExcelJS espera ARGB: FF + RRGGBB
+  const r = Math.round((red||0)*255).toString(16).padStart(2,'0').toUpperCase();
+  const g = Math.round((green||0)*255).toString(16).padStart(2,'0').toUpperCase();
+  const b = Math.round((blue||0)*255).toString(16).padStart(2,'0').toUpperCase();
+  return 'FF'+r+g+b;
+}
+function setThinBorders(cell){
+  cell.border = {
+    top:    {style:'thin'},
+    left:   {style:'thin'},
+    bottom: {style:'thin'},
+    right:  {style:'thin'}
+  };
+}
+async function exportXLSX(opts={}){
+  const { aoa, merges, formatBlocks, headsCount, rowsCount } = buildSheetDataFromDOM();
+
+  const wb = new ExcelJS.Workbook();
+  const ws = wb.addWorksheet('Horário', {
+    views: [{ state:'frozen', xSplit:1, ySplit:1 }] // congela coluna A e linha 1
+  });
+
+  // 1) Preenche linhas
+  aoa.forEach(row => ws.addRow(row));
+
+  const endCol = 1 + headsCount; // 1 ("Horário") + N dias
+  const endRow = rowsCount;
+
+  // 2) Larguras: A mais estreita, dias mais largos
+  ws.getColumn(1).width = 12;             // "Horário"
+  for(let c=2;c<=endCol;c++) ws.getColumn(c).width = 20;
+
+  // 3) Alinhamento + wrap para tudo
+  for(let r=1;r<=endRow;r++){
+    for(let c=1;c<=endCol;c++){
+      const cell = ws.getCell(r,c);
+      cell.alignment = { horizontal:'center', vertical:'middle', wrapText:true };
+    }
+  }
+
+  // 4) Cabeçalho em negrito
+  for(let c=1;c<=endCol;c++){
+    const cell = ws.getCell(1,c);
+    cell.font = Object.assign({}, cell.font, { bold:true });
+  }
+
+  // 5) Bordas finas (toda a grade usada)
+  for(let r=1;r<=endRow;r++){
+    for(let c=1;c<=endCol;c++){
+      setThinBorders(ws.getCell(r,c));
+    }
+  }
+
+  // 6) Mesclas (mesmos índices da versão Sheets, ajustados para 1-based)
+  merges.forEach(m=>{
+    // m.s.r / m.s.c já são 0-based com offset de cabeçalho/horário aplicados lá.
+    ws.mergeCells(m.s.r+1, m.s.c+1, m.e.r+1, m.e.c+1);
+  });
+
+  // 7) Cores dos blocos + negrito
+  formatBlocks.forEach(b=>{
+    // decidir cor do texto
+    const fg01 = opts?.forceWhite
+      ? {red:1,green:1,blue:1}
+      : (opts?.autoContrast ? pickSheetsTextColor(b.color) : null);
+  
+    for(let r=b.r0+1; r<=b.r1+1; r++){
+      for(let c=b.c0+1; c<=b.c1+1; c++){
+        const cell = ws.getCell(r,c);
+        cell.fill = { type:'pattern', pattern:'solid', fgColor:{ argb: toARGB01(b.color) } };
+        cell.font = Object.assign({}, cell.font, {
+          bold: true,
+          ...(fg01 ? { color:{ argb: toARGB01(fg01) } } : {})
+        });
+        setThinBorders(cell);
+      }
+    }
+  });
+
+  // 8) Salvar
+  const buf = await wb.xlsx.writeBuffer();
+  const blob = new Blob([buf], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'horario.xlsx';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(a.href);
 }
 
 // ===== Google Sheets (OAuth + APIs) =====
-function buildSheetDataFromDOM(){
-  const grid = document.getElementById('planner');
-  if(!grid) throw new Error('Planner não encontrado');
-  const heads = Array.from(grid.querySelectorAll('.head')).map(h => h.textContent.trim());
-  const kids = Array.from(grid.children);
-  const COLS = 1 + heads.length;
-  const times = [];
-  for(let r=1;; r++){
-    const el = kids[r*COLS + 0];
-    if(!el || !el.classList || !el.classList.contains('time')) break;
-    const label = (el.dataset && el.dataset.fulltime) ? el.dataset.fulltime : (el.textContent||'').trim();
-    times.push(label);
-  }
-  const aoa = [];
-  aoa.push(['Horário', ...heads]);
-  times.forEach(t => aoa.push([t, ...Array(heads.length).fill('')]));
-  const merges = [];
-  const blocks = grid.querySelectorAll('.lesson-block');
-  const baseCellH = (grid.querySelector('.cell')?.getBoundingClientRect().height) || 48;
-  blocks.forEach(block=>{
-    const cell = block.closest('.cell'); if(!cell) return;
-    const idx = kids.indexOf(cell);
-    const colIdx = idx % COLS; if(colIdx <= 0) return;
-    const startIdx = parseInt(cell.dataset.slotIdx, 10); if(!Number.isInteger(startIdx)) return;
-    const horas = block.dataset.hours ? parseInt(block.dataset.hours,10)
-                : Math.max(1, Math.round((block.getBoundingClientRect().height || baseCellH)/baseCellH));
-    const sheetRowStart = 1 + startIdx;
-    const sheetRowEnd = sheetRowStart + horas - 1;
-    const sheetCol = colIdx;
-    block.__sheetPos = { r: sheetRowStart, c: sheetCol, v: (block.textContent||'').trim() };
-    merges.push({ s:{r:sheetRowStart, c:sheetCol}, e:{r:sheetRowEnd, c:sheetCol} });
-  });
-  return { heads, times, aoa, merges, blocks };
+function rgbCssToSheetColor(css){
+  // aceita "rgb( r, g, b )" ou "rgba( r, g, b, a )"
+  const m = css && css.match(/rgba?\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/i);
+  if(!m) return null;
+  const r = parseInt(m[1],10)/255, g = parseInt(m[2],10)/255, b = parseInt(m[3],10)/255;
+  return { red: r, green: g, blue: b };
 }
 
-async function exportPlannerToGoogleSheets(){
-  const { heads, times, aoa, merges, blocks } = buildSheetDataFromDOM();
+function buildSheetDataFromDOM(){
+  const grid = document.getElementById('planner');
+  if (!grid) throw new Error('Planner não encontrado');
 
-  // 1) cria planilha
-  const createResp = await gfetch('https://sheets.googleapis.com/v4/spreadsheets', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ properties: { title: 'Horário' }, sheets: [{ properties: { title: 'Horário' } }] })
+  // heads às vezes traz um cabeçalho vazio (o canto superior esquerdo).
+  // Filtramos vazios e qualquer variação de "Horário" nos heads.
+  const rawHeads = Array.from(grid.querySelectorAll('.head')).map(h => h.textContent.trim());
+  const heads = rawHeads.filter(h => h && !/^hor[aá]rio$/i.test(h));
+
+  // times (texto "07:00 - 08:00" ou dataset)
+  const times = Array.from(grid.querySelectorAll('.time'))
+    .map(el => (el.dataset && el.dataset.fulltime) ? el.dataset.fulltime : (el.textContent || '').trim());
+
+  // AOA: primeira linha = cabeçalho
+  const aoa = [];
+  aoa.push(['Horário/Dia', ...heads]);
+  times.forEach(t => aoa.push([t, ...Array(heads.length).fill('')]));
+
+  // Merges + formatações por bloco (cores, negrito)
+  const merges = [];
+  const formatBlocks = []; // {r0,r1,c0,c1,color}
+
+  const sampleCell = grid.querySelector('.cell');
+  const baseH = sampleCell ? sampleCell.getBoundingClientRect().height : 48;
+
+  grid.querySelectorAll('.lesson-block').forEach(block=>{
+    const cell = block.closest('.cell'); if (!cell) return;
+
+    // "dia" deve bater com cabeçalhos tratados acima
+    const dia = cell.dataset.dia;
+    const dayIndex = heads.indexOf(dia); // 0..(heads-1)
+    if (dayIndex < 0) return;
+
+    const sheetCol = 1 + dayIndex;            // +1 por causa da coluna "Horário"
+    const startIdx = parseInt(cell.dataset.slotIdx, 10); // 0..N-1 (linhas de tempo)
+    if (!Number.isInteger(startIdx)) return;
+
+    const horas = block.dataset.hours ? parseInt(block.dataset.hours,10)
+                 : Math.max(1, Math.round((block.getBoundingClientRect().height || baseH)/baseH));
+
+    const r0 = 1 + startIdx;        // +1 porque linha 0 é cabeçalho
+    const r1 = r0 + horas - 1;
+    const c0 = sheetCol, c1 = sheetCol;
+
+    // texto do bloco
+    if (aoa[r0]) aoa[r0][c0] = (block.textContent||'').trim();
+
+    merges.push({ s:{r:r0,c:c0}, e:{r:r1,c:c1} });
+
+    // cor vinda do CSS do bloco
+    const cssBg = getComputedStyle(block).backgroundColor; // pega var(--aula-bg, #1680ff) resolvida
+    const color = rgbCssToSheetColor(cssBg);
+    if (color) formatBlocks.push({ r0, r1, c0, c1, color });
   });
-  if(!createResp.ok) throw new Error('Falha ao criar planilha');
-  const created = await createResp.json();
-  const spreadsheetId = created.spreadsheetId;
 
-  // 2) escreve header + horários
-  const endCol = String.fromCharCode('A'.charCodeAt(0) + heads.length);
-  const endRow = 1 + times.length;
-  const range = `Horário!A1:${endCol}${endRow}`;
-  const valuesResp = await gfetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(range)}?valueInputOption=RAW`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
+  return { aoa, merges, formatBlocks, headsCount: heads.length, rowsCount: aoa.length };
+}
+
+async function exportSheets(opts={}){
+  const { aoa, merges, formatBlocks, headsCount, rowsCount } = buildSheetDataFromDOM();
+
+  // 1) Cria planilha
+  const createResp = await gfetch('https://sheets.googleapis.com/v4/spreadsheets', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ properties:{ title:'Horário - Planner' } })
+  });
+  const sheet = await createResp.json();
+  const spreadsheetId = sheet.spreadsheetId;
+  const sheetId = sheet.sheets?.[0]?.properties?.sheetId;
+
+  // 2) Preenche valores (A1)
+  await gfetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/A1:append?valueInputOption=RAW`, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
     body: JSON.stringify({ values: aoa })
   });
-  if(!valuesResp.ok) throw new Error('Falha ao escrever valores');
 
-  // 3) escreve nomes nos top-left de cada bloco
-  const data = Array.from(blocks).filter(b=>b.__sheetPos && b.__sheetPos.v).map(b=>{
-    const { r, c, v } = b.__sheetPos;
-    const colA1 = String.fromCharCode('A'.charCodeAt(0) + c);
-    const rowA1 = r + 1;
-    return { range: `Horário!${colA1}${rowA1}`, values: [[v]] };
-  });
-  if (data.length){
-    const namesResp = await gfetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values:batchUpdate`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ data, valueInputOption: 'RAW' })
-    });
-    if(!namesResp.ok) throw new Error('Falha ao escrever nomes dos blocos');
-  }
+  // 3) BatchUpdate para merges, bordas, alinhamento, congelamento, larguras e cores
+  const endCol = 1 + headsCount;       // colunas: 1 (Horário) + N dias
+  const endRow = rowsCount;            // linhas totais
+  const requests = [];
 
-  // 4) aplica merges + ajusta largura da 1ª coluna
-  const getResp = await gfetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}`);
-  const meta = await getResp.json();
-  const sheetId = meta.sheets[0].properties.sheetId;
-
-  const requests = [{
-    updateDimensionProperties: {
-      range: { sheetId, dimension: 'COLUMNS', startIndex: 0, endIndex: 1 },
-      properties: { pixelSize: 80 },
-      fields: 'pixelSize'
-    }
-  }];
-  merges.forEach(m=>{
-    requests.push({
+  // 3.1 merges
+  if (sheetId != null && merges.length){
+    requests.push(...merges.map(m=>({
       mergeCells: {
-        range: {
-          sheetId,
-          startRowIndex: m.s.r, endRowIndex: m.e.r + 1,
-          startColumnIndex: m.s.c, endColumnIndex: m.s.c + 1
+        range: { sheetId,
+          startRowIndex: m.s.r, endRowIndex: m.e.r+1,
+          startColumnIndex: m.s.c, endColumnIndex: m.e.c+1
         },
         mergeType: 'MERGE_ALL'
       }
-    });
+    })));
+  }
+
+  // 3.2 alinhamento central (horizontal + vertical) + wrap
+  requests.push({
+    repeatCell: {
+      range: { sheetId, startRowIndex:0, endRowIndex:endRow, startColumnIndex:0, endColumnIndex:endCol },
+      cell: { userEnteredFormat: { horizontalAlignment:'CENTER', verticalAlignment:'MIDDLE', wrapStrategy:'WRAP' } },
+      fields: 'userEnteredFormat(horizontalAlignment,verticalAlignment,wrapStrategy)'
+    }
   });
 
-  const batchResp = await gfetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}:batchUpdate`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+  // 3.3 cabeçalho em negrito
+  requests.push({
+    repeatCell: {
+      range: { sheetId, startRowIndex:0, endRowIndex:1, startColumnIndex:0, endColumnIndex:endCol },
+      cell: { userEnteredFormat: { textFormat: { bold: true } } },
+      fields: 'userEnteredFormat.textFormat.bold'
+    }
+  });
+
+  // 3.4 bordas (externas + internas)
+  const black = { red:0, green:0, blue:0 };
+  const solid = (side)=>({ style:'SOLID', color: black, width:1 });
+  requests.push({
+    updateBorders: {
+      range: { sheetId, startRowIndex:0, endRowIndex:endRow, startColumnIndex:0, endColumnIndex:endCol },
+      top: solid(), bottom: solid(), left: solid(), right: solid(),
+      innerHorizontal: solid(), innerVertical: solid()
+    }
+  });
+
+  // 3.5 congelar linha 1 e coluna A
+  requests.push({
+    updateSheetProperties: {
+      properties: { sheetId, gridProperties: { frozenRowCount:1, frozenColumnCount:1 } },
+      fields: 'gridProperties.frozenRowCount,gridProperties.frozenColumnCount'
+    }
+  });
+
+  // 3.6 larguras de coluna (A um pouco mais estreita; demais mais largas)
+  requests.push({
+    updateDimensionProperties: {
+      range: { sheetId, dimension:'COLUMNS', startIndex:0, endIndex:1 }, // A
+      properties: { pixelSize: 95 },
+      fields: 'pixelSize'
+    }
+  });
+  requests.push({
+    updateDimensionProperties: {
+      range: { sheetId, dimension:'COLUMNS', startIndex:1, endIndex:endCol }, // B..última
+      properties: { pixelSize: 150 },
+      fields: 'pixelSize'
+    }
+  });
+
+  // 3.7 aplicar cor de fundo + **TEXTO BRANCO** só nos blocos (NÃO mexe no cabeçalho)
+  if (formatBlocks.length){
+    requests.push(...formatBlocks.map(b=>{
+      const fg = opts?.forceWhite
+        ? {red:1, green:1, blue:1}
+        : (opts?.autoContrast ? pickSheetsTextColor(b.color) : null); // retorna branco ou preto
+  
+      return {
+        repeatCell: {
+          range: {
+            sheetId,
+            startRowIndex: b.r0, endRowIndex: b.r1+1,
+            startColumnIndex: b.c0, endColumnIndex: b.c1+1
+          },
+          cell: {
+            userEnteredFormat: Object.assign(
+              { backgroundColor: b.color, textFormat: { bold:true } },
+              fg ? { textFormat: { bold:true, foregroundColor: fg } } : {}
+            )
+          },
+          fields: 'userEnteredFormat(backgroundColor,textFormat.bold' + (fg ? ',textFormat.foregroundColor' : '') + ')'
+        }
+      };
+    }));
+  }
+
+  // dispara formatações
+  await gfetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}:batchUpdate`, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
     body: JSON.stringify({ requests })
   });
-  if(!batchResp.ok) throw new Error('Falha ao aplicar merges');
 
+  // 4) abre a planilha
   window.open(`https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit`, '_blank');
 }
 
-// --- modal handlers ---
-(function(){
-  const btnOpen = document.getElementById('btnExportOpen');
-  const modal   = document.getElementById('exportModal');
-  const btnGo   = document.getElementById('btnExportGo');
-  const btnCancel = document.getElementById('btnExportCancel');
-
-  function openModal(){ modal.classList.remove('hidden'); }
-  function closeModal(){ modal.classList.add('hidden'); }
-
-  btnOpen && btnOpen.addEventListener('click', openModal);
-  btnCancel && btnCancel.addEventListener('click', closeModal);
-  modal && modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
-
-  function selectedType(){
-    const r = document.querySelector('input[name="expType"]:checked');
-    return r ? r.value : 'pdf';
+  function lin01(u){ return (u<=0.04045)? (u/12.92) : Math.pow((u+0.055)/1.055, 2.4); } // u em [0..1]
+  function luminance01(rgb01){ // rgb01: {red,green,blue} em [0..1]
+    const R=lin01(rgb01.red||0), G=lin01(rgb01.green||0), B=lin01(rgb01.blue||0);
+    return 0.2126*R + 0.7152*G + 0.0722*B;
+  }
+  function pickSheetsTextColor(bg01){ // retorna {red,green,blue} em [0..1]
+    const L = luminance01(bg01);                // 0..1
+    const cW = (1.0+0.05)/(L+0.05);             // contraste com branco
+    const cB = (L+0.05)/(0.0+0.05);             // contraste com preto
+    return (cW >= cB) ? {red:1,green:1,blue:1} : {red:0,green:0,blue:0};
+  }
+  function toARGB01(rgb01){ // para ExcelJS
+    const r=Math.round((rgb01.red||0)*255).toString(16).padStart(2,'0');
+    const g=Math.round((rgb01.green||0)*255).toString(16).padStart(2,'0');
+    const b=Math.round((rgb01.blue||0)*255).toString(16).padStart(2,'0');
+    return ('FF'+r+g+b).toUpperCase();
   }
 
+// --- modal handlers ---
+(function (){
+  // --- elementos do modal ---
+  const btnOpen   = document.getElementById('btnExportOpen');
+  const modal     = document.getElementById('exportModal');
+  const btnGo     = document.getElementById('btnExportGo');
+  const btnCancel = document.getElementById('btnExportCancel');
+
+  // --- helpers de abrir/fechar ---
+  function openModal(){ modal?.classList.remove('hidden'); }
+  function closeModal(){ modal?.classList.add('hidden'); }
+
+  // fecha com ESC por acessibilidade
+  function onKeyDown(e){
+    if (e.key === 'Escape') closeModal();
+  }
+
+  // tipo selecionado (pdf | xlsx | jpg | sheets)
+  function selectedType(){
+    return document.querySelector('input[name="expType"]:checked')?.value || 'pdf';
+  }
+
+  // opções de cor do texto (prioridade: forçar branco > auto-contraste)
+  function getTextColorOpts(){
+    const forceWhiteEl   = document.getElementById('optForceWhite');
+    const autoContrastEl = document.getElementById('optAutoContrast');
+    const forceWhite   = !!(forceWhiteEl && forceWhiteEl.checked);
+    const autoContrast = !forceWhite && !!(autoContrastEl && autoContrastEl.checked);
+    return { forceWhite, autoContrast };
+  }
+
+  // --- binds ---
+  btnOpen  && btnOpen.addEventListener('click', openModal);
+  btnCancel&& btnCancel.addEventListener('click', closeModal);
+  modal    && modal.addEventListener('click', (e)=>{ if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', onKeyDown);
+
+  // --- export ---
   btnGo && btnGo.addEventListener('click', async ()=>{
     try{
       const type = selectedType();
-      if(type==='pdf') await exportPDF();
-      else if(type==='xlsx') exportXLSX();
-      else if(type==='png') await exportPNG();
-      else if(type==='sheets') await exportPlannerToGoogleSheets();
+      const opts = getTextColorOpts(); // usado por Sheets/Excel
+
+      if      (type === 'pdf')    { await exportPDF(); }
+      else if (type === 'xlsx')   { await exportXLSX(opts); }
+      else if (type === 'jpg')    { await exportJPG(); }
+      else if (type === 'sheets') { await exportSheets(opts); }
+
       closeModal();
     }catch(err){
       console.error(err);
       alert('Falha ao exportar.');
     }
   });
+})();
+(function(){
+  const footer = document.getElementById('plannerExportFooter');
+
+  // considera a grade "visível" se existir e não estiver escondida (display:none etc.)
+  function isPlannerVisible(){
+    const sec  = document.querySelector('#plannerSection');
+    if(!sec) return false;
+
+    // tenta achar a grade por seletor usado no seu CSS
+    const grid = sec.querySelector('.planner-grid') || document.getElementById('planner');
+    if(!grid) return false;
+
+    // checa estilos computados
+    const secStyle  = getComputedStyle(sec);
+    const gridStyle = getComputedStyle(grid);
+    if (secStyle.display === 'none' || secStyle.visibility === 'hidden') return false;
+    if (gridStyle.display === 'none' || gridStyle.visibility === 'hidden' || gridStyle.opacity === '0') return false;
+
+    // offsetParent null normalmente indica invisível (ou position:fixed, mas com display!=none)
+    if (!grid.offsetParent && gridStyle.position !== 'fixed') return false;
+
+    return true;
+  }
+
+  function updateExportVisibility(){
+    if (!footer) return;
+    const show = isPlannerVisible();
+    footer.classList.toggle('hidden', !show);
+  }
+
+  // roda já, e sempre que algo no DOM muda (ex.: troca de abas, classes, estilos)
+  document.addEventListener('DOMContentLoaded', updateExportVisibility);
+  window.addEventListener('resize', updateExportVisibility);
+
+  const mo = new MutationObserver(updateExportVisibility);
+  mo.observe(document.body, { subtree:true, attributes:true, attributeFilter:['class','style'] });
+
+  // se você tem funções que trocam de tela/aba, chama isso nelas também:
+  // ex.: afterSwitchView -> updateExportVisibility();
 })();
 </script>
 </body>
