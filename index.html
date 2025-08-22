@@ -783,8 +783,8 @@
     </fieldset>
 
     <div class="exp-actions">
-      <button class="btn" id="btnExportGo">Exportar</button>
       <button class="btn btn-secondary" id="btnExportCancel">Cancelar</button>
+      <button class="btn" id="btnExportGo">Exportar</button>
     </div>
   </div>
 </div>
@@ -1450,10 +1450,19 @@ window.addEventListener('resize', hideEmptyPeriodsIfMobile);
 /* ======== PLANNER ======== */
 	(function(){
 	const DIAS = ['Seg','Ter','Qua','Qui','Sex','Sáb'];
-	const SLOTS = Array.from({length:15}, (_,i)=>{
-		const h=7+i; const pad=n=>String(n).padStart(2,'0');
-		return { start:`${pad(h)}:00`, end:`${pad(h+1)}:00`, label:`${pad(h)}:00 - ${pad(h+1)}:00`, idx:i+1 };
-	});
+	  // ---- SLOTS: 07:00–18:00 e 18:30–22:30 ----
+	const pad = n => String(n).padStart(2,'0');
+	function buildTimeSlots(){
+		const arr = [];
+		for (let h=7; h<18; h++)   arr.push({ start:`${pad(h)}:00`, end:`${pad(h+1)}:00`, label:`${pad(h)}:00 - ${pad(h+1)}:00` });
+		for (let h=18; h<22; h++)  arr.push({ start:`${pad(h)}:30`, end:`${pad(h+1)}:30`, label:`${pad(h)}:30 - ${pad(h+1)}:30` });
+		return arr;
+	}
+	const SLOTS = buildTimeSlots();
+	
+	// helpers públicos (se precisar em outros pontos)
+	const slotIndexFromStart = (hhmm)=> SLOTS.findIndex(s=>s.start===hhmm);
+	const slotLabel          = (i)=> SLOTS[i]?.label || '';
 	
 	const root = document.getElementById('planner');
 	const modal = document.getElementById('plannerModal');
@@ -2082,6 +2091,14 @@ async function exportSheets(opts={}){
     }
   });
 
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  requests.push({
+    updateSheetProperties: {
+      properties: { sheetId, gridProperties: { frozenRowCount:1, frozenColumnCount: isMobile ? 0 : 1 } },
+      fields: 'gridProperties.frozenRowCount,gridProperties.frozenColumnCount'
+    }
+  });
+
   // 3.4 bordas (externas + internas)
   const black = { red:0, green:0, blue:0 };
   const solid = (side)=>({ style:'SOLID', color: black, width:1 });
@@ -2151,7 +2168,113 @@ async function exportSheets(opts={}){
   });
 
   // 4) abre a planilha
-  window.open(`https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit`, '_blank');
+  openSheetPreferApp(spreadsheetId, sheetId /* gid da 1ª aba */, 'B3');
+}
+
+function openSheetPreferApp(spreadsheetId, gid, anchorCell = 'B3'){
+  // URL web com âncora para não ficar sob o cabeçalho
+  const webUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit#gid=${gid ?? 0}&range=${encodeURIComponent(anchorCell)}`;
+
+  const ua = navigator.userAgent || '';
+  const isAndroid = /Android/i.test(ua);
+  const isIOS     = /iPhone|iPad|iPod/i.test(ua);
+
+  if (isAndroid){
+    // Tenta abrir no app Sheets (com fallback para a URL com range)
+    const intentUrl =
+      `intent://docs.google.com/spreadsheets/d/${spreadsheetId}/edit` +
+      `#Intent;scheme=https;package=com.google.android.apps.docs.editors.sheets;` +
+      `S.browser_fallback_url=${encodeURIComponent(webUrl)};end`;
+    location.href = intentUrl;
+    return;
+  }
+
+  if (isIOS){
+    // Tenta abrir no app; se não abrir, cai no webUrl (com range) logo depois
+    const candidates = [
+      `googlesheets://doc/${spreadsheetId}`,
+      `googlesheets://spreadsheets/d/${spreadsheetId}`,
+      `googlesheets://?action=open&sid=${spreadsheetId}`
+    ];
+    let tried = 0;
+    const tryOpen = () => {
+      if (tried >= candidates.length){
+        location.href = webUrl; // fallback web com âncora
+        return;
+      }
+      const url = candidates[tried++];
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.src = url;
+      document.body.appendChild(iframe);
+      setTimeout(()=>{
+        try { document.body.removeChild(iframe); } catch(e){}
+        if (tried === candidates.length){
+          location.href = webUrl;
+        }
+      }, 1200);
+    };
+    tryOpen();
+    return;
+  }
+
+  // Desktop / outros: abre a versão web já posicionando na faixa visível
+  location.href = webUrl;
+}
+
+function openSheetInApp(spreadsheetId){
+  const httpsUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit`;
+  const ua = navigator.userAgent || '';
+  const isAndroid = /Android/i.test(ua);
+  const isIOS = /iPhone|iPad|iPod/i.test(ua);
+
+  if (isAndroid){
+    // Tenta abrir direto no app Google Sheets
+    const intentUrl =
+      `intent://docs.google.com/spreadsheets/d/${spreadsheetId}/edit` +
+      `#Intent;scheme=https;package=com.google.android.apps.docs.editors.sheets;` +
+      `S.browser_fallback_url=${encodeURIComponent(httpsUrl)};end`;
+
+    // usar location em vez de window.open evita bloqueio de popup
+    window.location.href = intentUrl;
+    return;
+  }
+
+  if (isIOS){
+    // Tenta esquema de URL do app (pode variar entre versões)
+    // Se não abrir, cai pro link https em ~1s
+    const candidates = [
+      `googlesheets://doc/${spreadsheetId}`,
+      `googlesheets://spreadsheets/d/${spreadsheetId}`,
+      `googlesheets://?action=open&sid=${spreadsheetId}`
+    ];
+
+    let tried = 0;
+    const tryOpen = () => {
+      if (tried >= candidates.length){
+        window.location.href = httpsUrl;
+        return;
+      }
+      const url = candidates[tried++];
+      // técnica do iframe é o padrão pra tentar app scheme no iOS
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.src = url;
+      document.body.appendChild(iframe);
+      setTimeout(()=>{
+        // se não abriu o app, cai pro link web
+        try { document.body.removeChild(iframe); } catch(e){}
+        if (tried === candidates.length){
+          window.location.href = httpsUrl;
+        }
+      }, 1200);
+    };
+    tryOpen();
+    return;
+  }
+
+  // Desktop ou ambiente desconhecido: abre no navegador
+  window.open(httpsUrl, '_blank');
 }
 
   function lin01(u){ return (u<=0.04045)? (u/12.92) : Math.pow((u+0.055)/1.055, 2.4); } // u em [0..1]
