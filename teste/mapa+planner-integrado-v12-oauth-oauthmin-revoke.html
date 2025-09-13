@@ -1,0 +1,2412 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Mapa Curricular</title>
+<!-- pdf.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+  if (window['pdfjsLib']) {
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+  }
+</script>
+<style>
+	/* =========================================================
+		1) PALETA E FUNDOS — SOMENTE CORES (o resto usa estas vars)
+		========================================================= */
+	:root{
+		/* Paleta do modo claro */
+		--bg-base: #f8f9fb;                 /* fundo da página */
+		--text-base: #111;                  /* cor do texto padrão */
+	
+		--surface-1: #ffffff;               /* cards/painéis principais */
+		--surface-2: #f6f7f9;               /* superfícies sutis */
+		--surface-neutral: #e9ecef;         /* cabeçalhos / “pill” */
+	
+		--border: #e3e6ea;                  /* bordas padrão */
+		--border-subtle: #cfd3d8;           /* bordas sutis */
+	
+		--interactive: #ffffff;             /* botões/base */
+		--interactive-hover: #f0f2f4;
+		--interactive-active: #e7eaee;
+	
+		--interactive-subtle: #f6f7f9;      /* botões sutis */
+		--interactive-subtle-hover: #eef0f3;
+		--interactive-subtle-active: #e6e9ed;
+	
+		--disabled: #e7eaee;                /* estados desabilitados */
+		--disabled-subtle: #f2f4f7;
+	
+		--inverted: #0f1117;                /* texto invertido em chips/badges */
+	
+		--planner-head-bg: #eee; /* claro */
+	
+		/* Cores de status */
+		--ok:#b6fcb6;       /* aprovado/aproveitado */
+		--faltando:#ffcccc; /* não realizada */
+		--mat:#ffe8a3;      /* matriculado */
+		--planned:#efe6ff;  /* planejado (base) */
+		--focus:#8a2be2;    /* foco */
+	
+		/* Cores para ramificações (pré-reqs por “cor”) */
+		--br0:#007aff; --br1:#f58518; --br2:#e434e5; --br3:#27526d; --br4:#813d2d;
+		--br5:#b279a2; --br6:#500097; --br7:#e45756; --br8:#4b7f32; --br9:#1db3a8; --br10:#819700;
+	
+		/* Variáveis de botão (claro) */
+		--btn-bg: var(--interactive);
+		--btn-fg: var(--text-base);
+		--btn-bd: var(--border);
+		
+		/* Selecionado no claro = preto com texto branco */
+		--btn-active-bg: #000;
+		--btn-active-fg: #fff;
+		--btn-active-bd: #000;
+	}
+	
+	/* Tema escuro — mapeado da paleta fornecida */
+	body.dark{
+		--bg-base: #101418;
+		--text-base: #f8f9fa;
+	
+		--surface-1: #202122;
+		--surface-2: #27292d;
+		--surface-neutral: #202122;
+	
+		--border: #404244;
+		--border-subtle: #404244;
+	
+		--interactive: #27292d;
+		--interactive-hover: #404244;
+		--interactive-active: #54595d;
+	
+		--interactive-subtle: #202122;
+		--interactive-subtle-hover: #27292d;
+		--interactive-subtle-active: #404244;
+	
+		--disabled: #404244;
+		--disabled-subtle: #27292d;
+	
+		/* base de planejado mais escura p/ contraste */
+		--planned:#efe6ff;
+	
+		/* Variáveis de botão (escuro) */
+		--btn-bg: var(--interactive);
+		--btn-fg: var(--text-base);
+		--btn-bd: var(--border);
+		
+		/* Selecionado no escuro = branco com texto preto */
+		--btn-active-bg: #fff;
+		--btn-active-fg: #000;
+		--btn-active-bd: #fff;
+		
+		--planner-head-bg: #eee; /* escuro – pode trocar por outro tom */
+	}
+	
+	/* =========================================================
+		2) APLICAÇÃO DAS VARIÝVEIS
+		========================================================= */
+	*{box-sizing:border-box}
+	body{
+		margin:14px;
+		font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+		background:var(--bg-base);
+		color:var(--text-base);
+	}
+	
+	h1{margin:6px 0 10px;font-size:24px}
+	
+	.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px}
+	.group{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+	.grow{flex:1 1 100%}
+	
+	.btn{
+		border:1px solid var(--btn-bd);
+		background:var(--btn-bg);
+		color:var(--btn-fg);
+		padding:6px 10px;border-radius:10px;cursor:pointer;
+		transition:.15s background,.15s border-color,.15s color;
+	}
+	.btn:hover{ background:var(--interactive-hover) }
+	.btn:active{ background:var(--interactive-active) }
+	
+	/* ativo funciona por classe ou por aria-pressed */
+	.btn.active,
+	.btn[aria-pressed="true"]{
+		background:var(--btn-active-bg);
+		color:var(--btn-active-fg);
+		border-color:var(--btn-active-bd);
+	}
+	
+	/* mantém o layout em flex com wrap */
+	.controls{
+		display:flex;
+		flex-wrap:wrap;
+		column-gap:3px;    /* espaço horizontal entre os grupos */
+		row-gap:6px;       /* espaço vertical entre as linhas (Zoom x Mostrar) */
+	}
+	
+	/* força quebra de linha onde você quer */
+	.break-row{ flex-basis:100%; height:0; }
+	
+	/* se quiser ainda mais espaço entre Zoom e Mostrar */
+	#filters{ margin-top:1px; }
+	
+	.zoom-btn{width:40px;text-align:center}
+	.zoom-level{min-width:60px;text-align:center;font-variant-numeric:tabular-nums}
+	
+	.planning{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:10px 0}
+	.sum-small{opacity:.85}
+	
+	.grid-shell{
+		border:1px solid var(--border);
+		background:var(--surface-1);
+		border-radius:12px;padding:12px;overflow:auto;-webkit-overflow-scrolling:touch
+	}
+	.grid-scale{transform-origin:0 0}
+	
+	.grid{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:12px 18px;align-items:start}
+	.period{display:flex;flex-direction:column;gap:12px}
+	
+	.col-head{
+		background:var(--surface-neutral);
+		border:1px solid var(--border);
+		border-radius:10px;padding:6px 10px;font-weight:600;text-align:center
+	}
+	
+	.col{display:flex;flex-direction:column;gap:12px;min-height:40px}
+	
+	.card{
+		background:var(--surface-2);
+		border:2px solid var(--border-subtle);
+		border-radius:12px;padding:10px 12px;min-height:56px;
+		display:flex;align-items:center;justify-content:center;text-align:center;
+		cursor:pointer;transition:transform .06s ease,box-shadow .06s ease,background .15s,border-color .15s;
+		position:relative;
+	}
+	.card:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(0,0,0,.08)}
+	
+	/* Status */
+	.card.ok{background:var(--ok);border-color:var(--border)}
+	.card.faltando{background:var(--faltando);border-color:var(--border)}
+	.card.mat{background:var(--mat);border-color:var(--border)}
+	
+	/* Melhor contraste no escuro para cartões claros (texto fica escuro) */
+	body.dark .card.ok,
+	body.dark .card.faltando,
+	body.dark .card.mat { color:#111; }
+	
+	/* ========= PLANEJADO (sem borda dupla) ========= */
+	.card.planned{
+		background:var(--planned);
+		border-style:dashed;
+		border-width:4px;
+		border-color:var(--focus); /* fallback se não houver cor brX */
+	}
+	.card.planned.br0,  .card.planned.br1,  .card.planned.br2,
+	.card.planned.br3,  .card.planned.br4,  .card.planned.br5,
+	.card.planned.br6,  .card.planned.br7,  .card.planned.br8,
+	.card.planned.br9,  .card.planned.br10 { box-shadow:none; }
+	.card.planned.br0{  border-color:var(--br0)!important }
+	.card.planned.br1{  border-color:var(--br1)!important }
+	.card.planned.br2{  border-color:var(--br2)!important }
+	.card.planned.br3{  border-color:var(--br3)!important }
+	.card.planned.br4{  border-color:var(--br4)!important }
+	.card.planned.br5{  border-color:var(--br5)!important }
+	.card.planned.br6{  border-color:var(--br6)!important }
+	.card.planned.br7{  border-color:var(--br7)!important }
+	.card.planned.br8{  border-color:var(--br8)!important }
+	.card.planned.br9{  border-color:var(--br9)!important }
+	.card.planned.br10{ border-color:var(--br10)!important }
+	
+	/* Foco e necessidade (pré-requisito) */
+	.card.focus{box-shadow:0 0 0 4px var(--focus)}
+	.card.need{box-shadow:inset 0 0 0 4px #ff8800}
+	
+	/* Sumário e legendas */
+	.summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:8px 0 12px}
+	.sum-card{background:var(--surface-1);border:1px solid var(--border);border-radius:10px;padding:10px}
+	.sum-title{font-weight:700;margin-bottom:6px}
+	.sum-num{font-variant-numeric:tabular-nums}
+	
+	.legend{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 10px}
+	.legend span{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border:1px solid var(--border);border-radius:8px;background:var(--surface-1)}
+	.swatch{width:12px;height:12px;border-radius:50%;display:inline-block}
+	
+	.empty{opacity:.7;font-style:italic;padding:6px}
+	.hidden{display:none!important}
+	.area-head{background:var(--surface-neutral);border:1px solid var(--border);border-radius:10px;padding:6px 10px;font-weight:600;text-align:left;margin:0 0 8px}
+	
+	.opt-area{margin-top:18px}
+	.opt-grid{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:12px 18px;margin-top:12px}
+	.opt-grid .card .title{white-space:normal;display:block;overflow:visible;text-overflow:clip}
+	.head-hidden{display:none}
+	.error{color:#b00020;font-weight:600;margin-left:8px}
+	
+	/* Ramificações (cores) — para PRÉ e “need” */
+	.card.br0{box-shadow:inset 0 0 0 4px var(--br0)}
+	.card.br1{box-shadow:inset 0 0 0 4px var(--br1)}
+	.card.br2{box-shadow:inset 0 0 0 4px var(--br2)}
+	.card.br3{box-shadow:inset 0 0 0 4px var(--br3)}
+	.card.br4{box-shadow:inset 0 0 0 4px var(--br4)}
+	.card.br5{box-shadow:inset 0 0 0 4px var(--br5)}
+	.card.br6{box-shadow:inset 0 0 0 4px var(--br6)}
+	.card.br7{box-shadow:inset 0 0 0 4px var(--br7)}
+	.card.br8{box-shadow:inset 0 0 0 4px var(--br8)}
+	.card.br9{box-shadow:inset 0 0 0 4px var(--br9)}
+	.card.br10{box-shadow:inset 0 0 0 4px var(--br10)}
+	
+	/* Badges & dots (numeração do plano + pontinhos dos PRÉ) */
+	.plan-badge{
+		position:absolute;top:2px;right:1px;width:16px;height:16px;
+		line-height:14px;font-size:10px;font-weight:700;text-align:center;
+		color:#fff;border-radius:50%;display:inline-block;box-shadow:0 0 0 2px var(--surface-1) inset
+	}
+	.plan-badge.br0{ background: var(--br0) }
+	.plan-badge.br1{ background: var(--br1) }
+	.plan-badge.br2{ background: var(--br2) }
+	.plan-badge.br3{ background: var(--br3) }
+	.plan-badge.br4{ background: var(--br4) }
+	.plan-badge.br5{ background: var(--br5) }
+	.plan-badge.br6{ background: var(--br6) }
+	.plan-badge.br7{ background: var(--br7) }
+	.plan-badge.br8{ background: var(--br8) }
+	.plan-badge.br9{ background: var(--br9) }
+	.plan-badge.br10{ background: var(--br10) }
+	
+	.need-dots{position:absolute;top:6px;left:6px;display:flex;gap:4px}
+	.need-dots .dot{width:8px;height:8px;border-radius:50%;display:inline-block;box-shadow:0 0 0 2px var(--surface-1) inset}
+	.need-dots .dot.br0{ background: var(--br0) }
+	.need-dots .dot.br1{ background: var(--br1) }
+	.need-dots .dot.br2{ background: var(--br2) }
+	.need-dots .dot.br3{ background: var(--br3) }
+	.need-dots .dot.br4{ background: var(--br4) }
+	.need-dots .dot.br5{ background: var(--br5) }
+	.need-dots .dot.br6{ background: var(--br6) }
+	.need-dots .dot.br7{ background: var(--br7) }
+	.need-dots .dot.br8{ background: var(--br8) }
+	.need-dots .dot.br9{ background: var(--br9) }
+	.need-dots .dot.br10{ background: var(--br10) }
+	
+	/* Responsivo */
+	@media (max-width:1100px){
+		.grid{grid-template-columns:repeat(3,minmax(260px,1fr))}
+		.opt-grid{grid-template-columns:repeat(3,minmax(260px,1fr))}
+		.summary{grid-template-columns:repeat(2,minmax(0,1fr))}
+	}
+	@media (max-width:800px){
+		.grid,.opt-grid{grid-template-columns:repeat(2,minmax(260px,1fr))}
+		.controls{gap:8px}
+		h1{font-size:20px}
+		.grow{flex-basis:100%}
+	}
+/* === MOBILE: afinar 1ª coluna (horários) === */
+@media (max-width: 640px){
+  /* força a grade a ter 44px + 6 colunas iguais */
+  #plannerSection .pl-card .planner-grid{
+    grid-template-columns: 44px repeat(6, minmax(0,1fr)) !important;
+  }
+
+  /* enxuga as células da coluna de horários */
+  #plannerSection .time{
+    padding: 0 4px !important;
+    font-size: 12px !important;
+    justify-content: center !important; /* evita espaço “sobrando” */
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  /* ajusta a altura para caber mais na tela */
+  #plannerSection .head{ height: 40px; font-size: 16px; }
+  #plannerSection .cell{ height: 36px; }
+  #plannerSection .lesson-block{
+    font-size: 10px !important;
+    line-height: 1.1em !important;
+    padding: 1px 2px !important;
+    word-break: break-word;
+    hyphens: auto;
+    text-align: center;
+  }
+}
+	@media (max-width:560px){
+		.grid,.opt-grid{grid-template-columns:repeat(1,minmax(260px,1fr))}
+		.btn{padding:6px 8px}
+		.grow{flex-basis:100%}
+		.summary{grid-template-columns:repeat(1,minmax(0,1fr))}
+	}
+	/* === Header bar and legend visibility === */
+	.header-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:6px 0 6px}
+	#legend{display:none}
+	#legend.visible{display:flex}
+	
+	.overlay{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+			background:rgba(0,0,0,.4); z-index:9999; }
+	.overlay.hidden{ display:none; }
+	.overlay-card{ background:var(--surface-1); color:var(--text-base); border:1px solid var(--border);
+				border-radius:12px; padding:16px 18px; width:min(520px, 92vw);
+				box-shadow:0 10px 24px rgba(0,0,0,.2); }
+	.overlay-card h3{ margin:0 0 8px; font-size:18px; }
+	.overlay-card p{ margin:0 0 8px; }
+	.overlay-card ul{ margin:0 0 10px 18px; }
+	.overlay-card li{ cursor:pointer; }
+	.overlay-card li:hover{ text-decoration:underline; }
+	.overlay-actions{ text-align:right; margin-top:10px; }
+	
+	
+	#schedule-instruction { display: none; margin-left: 10px; font-weight: bold; }
+	/* === Planner v3 (grid fixa; bloco cobre N linhas sem empurrar) === */
+	#plannerSection .planner-grid{
+		display: grid;
+		grid-template-columns: 120px repeat(6,1fr);
+		border-top: 2px solid #000;          /* moldura da grade */
+		border-left: 1px solid #000;          /* moldura da grade */
+		border-right: 1px solid #000;          /* moldura da grade */
+		border-bottom: 1px solid #000;          /* moldura da grade */
+		background: #fff;                /* grade sempre branca */
+		user-select: none;
+	}
+	
+	/* células e cabeçalhos: sempre com fundo branco e texto escuro (mesmo no dark) */
+	#plannerSection .head,
+	#plannerSection .time,
+	#plannerSection .cell{
+		border-left: 1px solid #000;
+		border-right: 1px solid #000;
+		border-bottom: 1px solid #000;
+		background: #fff;
+		color: #111;
+	}
+	/* cabeçalho (dias) e col. de horários: mesmo estilo */
+	#plannerSection .head,
+	#plannerSection .time{
+		background: var(--planner-head-bg);
+		color: var(--text-base);
+		border-right: 1px solid #000;
+		border-bottom: 1px solid #000;
+		border-left: 1px solid #000;
+	}
+	#plannerSection .head{
+		position: static; top: auto; z-index: auto; height: 56px;
+		display: flex; align-items: center; justify-content: center;
+		font-weight: 800; font-size: 26px; /* topo levemente cinza */
+	}
+	
+	#plannerSection .time{
+		height: 48px; display:flex; align-items:center; justify-content:space-between;
+		padding: 0 10px; font-weight: 700; font-size: 14px;
+	}
+	#plannerSection .time .idx{ 
+		opacity:.6; 
+		font-size:12px
+	}
+	
+	#plannerSection .cell{ 
+		position:relative; 
+		height:48px; 
+		cursor:pointer; 
+	}
+	#plannerSection .cell:hover{ 
+		background:#f7fbff;
+	}
+	
+  /* lesson-block: posição/estilo originais + centrado perfeito com Grid */
+  #plannerSection .lesson-block{
+    /* posicionamento e dimensões (mantidos) */
+    position: absolute; left: 0; top: 0; width: 100%;
+    height: 48px; /* sobrescrito inline */
+    z-index: 5; border-bottom: 1px solid #000;
+  
+    /* visual (mantido) */
+    background: var(--aula-bg, #1680ff);
+    color: var(--aula-fg, #fff);
+    font-weight: 800; font-size: 18px; letter-spacing: .2px;
+  
+    /* centragem + quebra elegante (novo) */
+    display: grid;                /* substitui o flex */
+    place-items: center;          /* centro H/V */
+    align-content: center;        /* mantém centro em 2+ linhas */
+    text-align: center;
+    padding: 0 8px;
+    line-height: 1.15;
+    white-space: normal;
+    overflow-wrap: anywhere;      /* melhor que break-word */
+    word-break: normal;
+    hyphens: auto; -webkit-hyphens: auto;
+  
+    box-sizing: border-box;       /* padding não altera a altura fixa */
+  }
+	#plannerSection .cell.in-block{ border-bottom-color:transparent; }
+	#plannerSection .cell.block-end{ border-bottom-color:#000; }
+
+	/* Overlay do planner (já estava ok) */
+	#plannerSection .mask{
+		position:fixed; inset:0; display:none; align-items:center; justify-content:center;
+		background:rgba(0,0,0,.45); z-index:1000;
+	}
+	
+	/* Cartão do modal: usa as variáveis do tema */
+	#plannerSection .modal{
+		background: var(--surface-1);
+		color: var(--text-base);
+		border: 1px solid var(--border);
+		border-radius: 14px;
+		padding: 16px;
+		width: min(560px, 92vw);
+		box-shadow: 0 12px 40px rgba(0,0,0,.35);
+	}
+	
+	/* “pílula” (dia/hora) */
+	#plannerSection .pill{
+		display:inline-flex; align-items:center; gap:8px;
+		padding:6px 10px; border-radius:999px;
+		background: var(--interactive-subtle);
+		border: 1px solid var(--border);
+		color: var(--text-base);
+		font-weight:700;
+	}
+	
+	#plannerSection .row{ display:flex; gap:10px; align-items:center; margin:6px 0 10px }
+	#plannerSection .lbl{ display:block; font-size:12px; opacity:.8; margin:8px 0 4px }
+	
+	/* select acompanha o tema */
+	#plannerSection select{
+		width:100%; padding:8px 10px;
+		border:1px solid var(--border);
+		border-radius:10px;
+		background: var(--interactive);
+		color: var(--text-base);
+	}
+	
+	/* botões de duração (“1h…5h”) – usam as variáveis do botão ativo */
+	#plannerSection .dur{ display:flex; gap:8px; flex-wrap:wrap }
+	#plannerSection .dur button{
+		padding:8px 12px; border-radius:999px;
+		border:1px solid var(--border);
+		background: var(--interactive);
+		color: var(--text-base);
+		cursor:pointer;
+	}
+	#plannerSection .dur button.active{
+		background: var(--btn-active-bg);
+		color: var(--btn-active-fg);
+		border-color: var(--btn-active-bd);
+	}
+	
+	/* ações (Cancelar/Salvar) – reaproveitam suas variáveis globais de .btn */
+	#plannerSection .actions{ display:flex; justify-content:flex-end; gap:8px; margin-top:12px }
+	#plannerSection .btn{
+		padding:8px 12px; border-radius:10px;
+		border:1px solid var(--btn-bd);
+		background: var(--btn-bg);
+		color: var(--btn-fg);
+		cursor:pointer;
+	}
+	#plannerSection .btn:hover{ background: var(--interactive-hover); }
+	#plannerSection .btn:active{ background: var(--interactive-active); }
+	
+	#plannerSection .pl-card{
+		background: var(--surface-1);
+		border: 1px solid var(--border);
+		border-radius: 12px;
+		padding: 12px;
+	}
+	
+	/* Dark mode (usa o .dark que você já tem) */
+	body.dark #plannerSection .head,
+	body.dark #plannerSection .time{
+		background: var(--planner-head-bg);
+		color:#000; 
+	}
+	body.dark #plannerSection .planner-grid{ background:#111 }
+	body.dark #plannerSection .cell{
+		background:#ffffff; 
+		color:#111;
+	}
+	body.dark #plannerSection .lesson-block{ border-color:#404244 }
+	body.dark #plannerSection .dur button.active{ 
+		background:#fff;
+		color:#000; 
+		border-color:#fff 
+	}
+	
+	/* cartão/“moldura” do planner */
+	#plannerSection .pl-card{
+		background: var(--surface-1);
+		border: 1px solid var(--border);
+		border-radius: 12px;
+		padding: 12px;
+	}
+	#plannerSection .area-head{
+		background: var(--surface-neutral);
+		border: 1px solid var(--border);
+		border-radius: 10px;
+		padding: 6px 10px;
+		font-weight: 600;
+		margin: 0 0 8px;
+		color: var(--text-base);
+	}
+	.mask{
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,.45);
+  z-index: 1000;
+}
+.mask:not(.hidden){ display:flex; }
+
+.modal{
+  background: var(--surface-1);
+  color: var(--text-base);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  width: min(560px, 92vw);
+  box-shadow: 0 12px 40px rgba(0,0,0,.35);
+}
+
+/* ========= Export Modal: só organização interna (herda cores do tema) ========= */
+#exportModal .exp-fieldset{
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+  background: var(--surface-1);
+}
+
+#exportModal .exp-options{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 14px;
+  margin: 10px 0 12px;
+}
+
+#exportModal .exp-color{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 18px;
+}
+
+#exportModal .exp-actions{
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+/* Radios/checkboxes seguem a cor de foco do tema */
+#exportModal input[type="radio"],
+#exportModal input[type="checkbox"]{
+  accent-color: var(--focus);
+}
+
+/* Responsivo do export */
+@media (max-width: 640px){
+  #exportModal .exp-options{ grid-template-columns: 1fr; }
+  .modal{ width: min(520px, 94vw); }
+}
+</style>
+</head>
+<body>
+<div class="header-bar"><h1>Mapa Curricular</h1><button class="btn" id="themeToggle" title="Alternar tema">🌙 Modo escuro</button></div>
+<div class="controls">
+<label class="group hidden" id="grade">
+<span><b>Grade:</b><span>
+<input accept=".pdf,application/pdf" id="gradeFile" type="file"/>
+</span></span></label>
+<label class="group hidden" id="integralizacao">
+<span><b>Integralização:</b><span>
+<input accept=".pdf,application/pdf" disabled="" id="pdfFile" type="file"/>
+</span></span></label>
+<div class="break-row"></div>
+<div class="group hidden" id="zoomControls">
+<span><b>Zoom:</b></span>
+<button class="btn zoom-btn" id="zoomOut">−</button>
+<span class="zoom-level" id="zoomLevel">100%</span>
+<button class="btn zoom-btn" id="zoomIn">+</button>
+<button class="btn" id="zoomFit" title="Ajustar à largura">Ajustar</button>
+</div>
+<div class="group grow hidden" id="filters">
+<span><b>Mostrar:</b></span>
+<button class="btn active" data-filter="todas">Todas</button>
+<button class="btn" data-filter="ok">Aprovadas</button>
+<button class="btn" data-filter="mat">Matriculadas</button>
+<button class="btn" data-filter="faltando">Pendentes</button>
+</div>
+<span class="error" id="err"></span>
+</div>
+<div class="legend" id="legend">
+<span><span class="swatch" style="background:var(--ok)"></span> Aprovado</span>
+<span><span class="swatch" style="background:var(--mat)"></span> Matriculado</span>
+<span><span class="swatch" style="background:var(--faltando)"></span> Não realizada</span>
+<span><span class="swatch" style="background:var(--planned)"></span> Planejada</span>
+</div>
+<!-- mini sumário -->
+<div class="summary hidden" id="summary">
+<div class="sum-card"><div class="sum-title">Obrigatórias</div><div class="sum-num" id="sum-ob">—</div><div class="sum-small" id="sum-ob-small"></div></div>
+<div class="sum-card"><div class="sum-title">Optativas</div><div class="sum-num" id="sum-op">—</div><div class="sum-small" id="sum-op-small"></div></div>
+<div class="sum-card"><div class="sum-title">Estágio</div><div class="sum-num" id="sum-est">—</div><div class="sum-small" id="sum-est-small"></div></div>
+<div class="sum-card"><div class="sum-title">Complementares</div><div class="sum-num" id="sum-comp">—</div><div class="sum-small" id="sum-comp-small"></div></div>
+</div>
+<div class="planning">
+<button class="btn hidden" id="planningBtn" title="Selecionar matérias para planejar">Selecionar matérias</button>
+<span class="sum-small" id="planInfo"></span>
+<button class="btn hidden" id="clearPlan">Limpar plano</button>
+<button class="btn hidden" id="btnOpenPlanner" title="Abrir planner de horários">Horário</button>
+<button class="btn" id="btnClearPlanner" style="display:none" title="Limpar a planilha">Limpar planilha</button><span class="sum-small" id="plannerHint" style="margin-left:12px"><span id="schedule-instruction">Selecione as matérias e defina seus horários abaixo.</span></span>
+<!-- Botão -->
+<div id="plannerExportFooter" class="hidden" style="margin-left:auto; display:flex; justify-content:right;">
+  <button class="btn" id="btnExportOpen">Exportar…</button>
+</div>
+</div>
+<div aria-labelledby="prereqTitle" aria-modal="true" class="overlay hidden" id="prereqOverlay" role="dialog">
+<div class="overlay-card">
+<h3 id="prereqTitle">Pré-requisito pendente</h3>
+<p id="prereqMsg"></p>
+<ul id="prereqList"></ul>
+<div class="overlay-actions">
+<button aria-label="Fechar aviso" class="btn" id="prereqOk">OK</button>
+</div>
+</div>
+</div>
+<!-- Overlay: nenhuma matéria planejada -->
+<div aria-labelledby="noPlanTitle" aria-modal="true" class="overlay hidden" id="noPlanOverlay" role="dialog">
+<div class="overlay-card">
+<h3 id="noPlanTitle">Nenhuma matéria selecionada</h3>
+<p>Para alocar no Horário, primeiro selecione as matérias (planejamento) na Grade.</p>
+<div class="overlay-actions">
+<button class="btn" id="noPlanOk">Ir para a Grade</button>
+</div>
+</div>
+</div>
+<!-- Overlay: confirmar remoção -->
+<div aria-labelledby="removeTitle" aria-modal="true" class="overlay hidden" id="removeOverlay" role="dialog">
+<div class="overlay-card">
+<h3 id="removeTitle">Remover bloco?</h3>
+<p id="removeDesc">Deseja remover esta alocação?</p>
+<div class="overlay-actions">
+<button class="btn" id="removeCancel">Cancelar</button>
+<button class="btn" id="removeOk">Remover</button>
+</div>
+</div>
+</div>
+<section aria-live="polite" id="onboarding">
+<div class="onb-card">
+<h2>Comece carregando a <b>Grade</b></h2>
+<div aria-label="Arraste o PDF da Grade aqui ou clique para selecionar" class="dropzone" id="gradeDrop" role="button" tabindex="0">
+		Arraste o PDF da Grade Curricular do seu Curso aqui ou <button class="btn" id="pickGradeBtn" type="button">procurar arquivo…</button>
+</div>
+<ol class="onb-steps">
+<li>Clique em <b>Grade → Escolher ficheiro</b> e selecione o PDF da grade.</li>
+<li>Depois que a grade carregar, anexe o PDF da <b>Integralização</b>.</li>
+</ol>
+</div>
+</section>
+<section class="hidden" id="materiasSection">
+<div class="grid-shell">
+<div class="grid-scale" id="gridScale">
+<div class="area-head">Obrigatórias</div>
+<div class="grid" id="grid">
+<div class="period"><div class="col-head head-hidden">Período 1</div><div class="col" id="col-1"></div></div>
+<div class="period"><div class="col-head head-hidden">Período 2</div><div class="col" id="col-2"></div></div>
+<div class="period"><div class="col-head head-hidden">Período 3</div><div class="col" id="col-3"></div></div>
+<div class="period"><div class="col-head head-hidden">Período 4</div><div class="col" id="col-4"></div></div>
+<div class="period"><div class="col-head head-hidden">Período 5</div><div class="col" id="col-5"></div></div>
+<div class="period"><div class="col-head head-hidden">Período 6</div><div class="col" id="col-6"></div></div>
+<div class="period"><div class="col-head head-hidden">Período 7</div><div class="col" id="col-7"></div></div>
+<div class="period"><div class="col-head head-hidden">Período 8</div><div class="col" id="col-8"></div></div>
+<div class="period"><div class="col-head head-hidden">Período 9</div><div class="col" id="col-9"></div></div>
+<div class="period"><div class="col-head head-hidden">Período 10</div><div class="col" id="col-10"></div></div>
+</div>
+<div class="opt-area">
+<div class="area-head">Optativas</div>
+<div class="opt-grid" id="opt-grid"></div>
+</div>
+</div>
+</div>
+</section>
+<section id="plannerSection" style="display:none">
+<div class="pl-card">
+<div class="area-head">Horário</div>
+<div class="planner-grid" id="planner"></div>
+</div>
+<!-- Modal do planner -->
+<div class="mask" id="plannerModal">
+<div class="modal">
+<h3 style="margin:0 0 8px">Alocar disciplina</h3>
+<div class="row">
+<span class="pill"><span id="pl-dia">Seg</span> - <span id="pl-hora">07:00</span></span>
+</div>
+<label class="lbl" for="pl-materia">Disciplina planejada</label>
+<select id="pl-materia"></select>
+<label class="lbl">Duração</label>
+<div class="dur" id="pl-durGrid">
+<button class="pill" data-h="1" type="button">1h</button>
+<button class="pill" data-h="2" type="button">2h</button>
+<button class="pill" data-h="3" type="button">3h</button>
+<button class="pill" data-h="4" type="button">4h</button>
+<button class="pill" data-h="5" type="button">5h</button>
+</div>
+<div class="actions">
+<button class="btn" id="pl-cancel">Cancelar</button>
+<button class="btn" id="pl-ok">Salvar</button>
+</div>
+<input id="pl-horas" type="hidden" value="2">
+</input></div>
+</div>
+</section>
+<!-- Botão -->
+<div id="plannerExportFooter" class="hidden" style="margin:8px 0; display:flex; justify-content:center;">
+  <button class="btn" id="btnExportOpen">Exportar…</button>
+</div>
+
+<!-- Modal de Exportação (mesmo look dos outros modais) -->
+<div class="exp-modal mask hidden" id="exportModal" role="dialog" aria-modal="true" aria-labelledby="exportTitle">
+  <div class="exp-box modal">
+    <h3 id="exportTitle">Exportar grade</h3>
+
+    <fieldset class="exp-fieldset">
+      <div class="exp-options">
+        <label><input name="expType" type="radio" value="sheets" checked> Google Sheets</label>
+        <label><input name="expType" type="radio" value="pdf"> PDF</label>
+        <label><input name="expType" type="radio" value="jpg"> Imagem (JPG)</label>
+        <label><input name="expType" type="radio" value="xlsx"> Excel</label>
+      </div>
+
+      <div class="hint" style="margin:6px 0 2px;"><b>Cor do texto dos blocos:</b></div>
+      <div class="exp-color">
+        <label><input name="expOpt" type="radio" id="optForceWhite" checked> Branca</label>
+        <label><input name="expOpt" type="radio" id="optAutoContrast"> Auto-contraste</label>
+      </div>
+    </fieldset>
+
+    <div class="exp-actions">
+      <button class="btn btn-secondary" id="btnExportCancel">Cancelar</button>
+      <button class="btn" id="btnExportGo">Exportar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+	const MOBILE_BREAK=800;
+	const errEl=document.getElementById('err'); function setErr(m){errEl.textContent=m||''}
+	const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+	const isSafari=/^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+	
+	async function ensurePdfJs(){
+		if(window.pdfjsLib) return;
+		await new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.min.js';s.onload=res;s.onerror=rej;document.head.appendChild(s)}).catch(()=>{});
+		if(window.pdfjsLib){
+		pdfjsLib.GlobalWorkerOptions.workerSrc=(isIOS&&isSafari)?'':'https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+		}else{ setErr('Falha ao carregar pdf.js'); throw new Error('no pdfjs'); }
+	}
+	async function fileToArrayBuffer(f){ if(f.arrayBuffer){ try{return await f.arrayBuffer()}catch{} } return await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=()=>rej(r.error||new Error('fr'));r.readAsArrayBuffer(f)}); }
+	async function loadPdfFromArrayBuffer(buf){ await ensurePdfJs(); try{ if(isIOS&&isSafari) throw new Error('force'); return await pdfjsLib.getDocument({data:buf}).promise; }catch(e){ return await pdfjsLib.getDocument({data:buf,disableWorker:true,useWorkerFetch:false}).promise; } }
+	
+	// Junta texto por linha usando coordenadas
+	async function pageToLines(p){
+		const c=await p.getTextContent();
+		const items=c.items.map(it=>{const m=it.transform||it.matrix||[1,0,0,1,0,0];return{s:it.str,x:m[4],y:m[5]}});
+		const tol=4; items.sort((a,b)=>(b.y-a.y)||(a.x-b.x));
+		const lines=[]; let row=null;
+		for(const it of items){
+		if(!row){row={y:it.y,buf:[it]};continue}
+		if(Math.abs(it.y-row.y)<=tol){row.buf.push(it)}
+		else{
+			row.buf.sort((a,b)=>a.x-b.x);
+			lines.push(row.buf.map(k=>k.s).join(' ').replace(/\s+/g,' ').trim());
+			row={y:it.y,buf:[it]}
+		}
+		}
+		if(row&&row.buf.length){
+		row.buf.sort((a,b)=>a.x-b.x);
+		lines.push(row.buf.map(k=>k.s).join(' ').replace(/\s+/g,' ').trim());
+		}
+		return lines.filter(Boolean)
+	}
+	
+	// estado
+	let prereqByName={}, isOpt={}, chsById={}, bucketById={}, required={OB:null,OP:null,EST:null,COMP:null,TOTAL:null};
+	let compRealizadoExtra=0;
+	const planned=new Set(); let planningMode=false; let gradeLoaded=false;
+	
+	function resetBeforeIntegralizacao(){
+		planned.clear();
+		document.querySelectorAll('.card').forEach(el=>{
+		el.dataset.status='faltando';
+		el.classList.remove('planned','need','ok','mat','faltando','br0','br1','br2','br3','br4','br5','br6','br7','br8','br9','br10','focus');
+		const d=el.querySelector('.need-dots'); if(d) d.remove();
+		const b=el.querySelector('.plan-badge'); if(b) b.remove();
+		});
+		document.querySelectorAll('.card[data-adhoc="1"]').forEach(el=>el.remove());
+		aliasToCanon = {};
+		compRealizadoExtra = 0;
+		recalcAndRenderSummary();
+	}
+	
+	// nomes canônicos
+	let canonNameById={}, tokensById={}, allIds=[]; // grade
+	let aliasToCanon={}; // integralização -> id canônico
+	
+	function slug(s){return (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
+	const LOWER_PT=new Set(['de','da','do','das','dos','e','a','o','as','os','em','no','na','nos','nas','para','por','pra','com','ao','aos','à','às','pelo','pela','pelos','pelas','entre','sob','sobre','sem','até','após','ante','desde','contra','ou']);
+	const romanRx=/^(?:M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))$/i;
+	function titleCase(s){ if(!s) return ''; s=s.replace(/\s+/g,' ').trim().toLowerCase(); return s.split(' ').map((w,i)=>{ if(romanRx.test(w)) return w.toUpperCase(); const parts=w.split('-').map((p,idx)=>{ const isFirst=(i===0&&idx===0); if(!isFirst&&LOWER_PT.has(p)) return p; return p.charAt(0).toUpperCase()+p.slice(1);}); return parts.join('-');}).join(' ') }
+	function cleanName(n){ n=n.replace(/\s+\d+\s*$/,''); n=n.replace(/\b[A-Z]{2,4}\d{4,6}\b/g,'').replace(/\s{2,}/g,' ').trim(); return titleCase(n); }
+	function normTokens(name){
+		const base = name.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+		return base.split(/[^a-z0-9]+/).filter(t=>t && t.length>=3 && !LOWER_PT.has(t));
+	}
+	function jaccard(a,b){
+		const A=new Set(a), B=new Set(b); let inter=0;
+		for(const x of A) if(B.has(x)) inter++;
+		const uni=A.size+B.size-inter;
+		return uni? inter/uni : 0;
+	}
+	function resolveCanonicalId(id, rawName){
+		if(canonNameById[id]) return id;
+		if(aliasToCanon[id]) return aliasToCanon[id];
+		const toks = normTokens(rawName);
+		let best=null, bestScore=0;
+		for(const cid of allIds){
+		const score = jaccard(toks, tokensById[cid]||[]);
+		const subset = tokensById[cid]?.every(t=>toks.includes(t));
+		const adj = subset ? score + 0.15 : score;
+		if(adj>bestScore){ bestScore=adj; best=cid; }
+		}
+		if(best && bestScore>=0.5){
+		aliasToCanon[id]=best;
+		return best;
+		}
+		return id;
+	}
+	
+	function statusFrom(t){t=t.toLowerCase(); if(/aprov|aproveit|dispens|equival/.test(t)) return 'feito'; if(/matric/.test(t)) return 'matriculado'; return 'faltando'}
+	function validP(p){return p>=1&&p<=10}
+	
+	const gradeInput=document.getElementById('gradeFile'); const integInput=document.getElementById('pdfFile');
+	function toggleHeads(show){document.querySelectorAll('.col-head').forEach(h=>h.classList.toggle('head-hidden',!show))}
+	function resetGrid(){ for(let i=1;i<=10;i++) document.getElementById('col-'+i).innerHTML=''; document.getElementById('opt-grid').innerHTML='' }
+	
+	function showOnboarding(){ document.getElementById('onboarding')?.classList.remove('hidden'); }
+	function hideOnboarding(){ document.getElementById('onboarding')?.classList.add('hidden'); }
+	
+	(function hookOnboarding(){
+		const gradeInput = document.getElementById('gradeFile');
+		const pickBtn = document.getElementById('pickGradeBtn');
+		const drop = document.getElementById('gradeDrop');
+		if (!gradeInput || !pickBtn || !drop) return;
+	
+		pickBtn.addEventListener('click', () => gradeInput.click());
+	
+		// drag & drop para o PDF da Grade
+		function allow(e){ e.preventDefault(); }
+		drop.addEventListener('dragover', (e)=>{ allow(e); drop.classList.add('drag'); });
+		drop.addEventListener('dragleave', ()=> drop.classList.remove('drag'));
+		drop.addEventListener('drop', (e)=>{
+		allow(e); drop.classList.remove('drag');
+		const files = [...e.dataTransfer.files].filter(f => /\.pdf$/i.test(f.name) || f.type==='application/pdf');
+		if (!files.length) return;
+		const dt = new DataTransfer(); dt.items.add(files[0]);
+		gradeInput.files = dt.files;
+		gradeInput.dispatchEvent(new Event('change', { bubbles:true }));
+		});
+	
+		// acessibilidade: Enter/Espaço ativa o botão
+		drop.addEventListener('keydown', (e)=>{
+		if (e.key === 'Enter' || e.code === 'Space'){ e.preventDefault(); gradeInput.click(); }
+		});
+	})();
+	
+	/* ======== LEITURA DA GRADE ======== */
+	gradeInput.addEventListener('change', async (e)=>{
+		try{
+		const f=e.target.files[0]; if(!f){ setErr('Nenhum PDF da Grade.'); return; }
+		resetGrid(); toggleHeads(false);
+		resetBeforeIntegralizacao();
+		// esconde a área de matérias enquanto carrega a nova Grade
+		document.getElementById('materiasSection')?.classList.add('hidden');
+		const integGroup = document.getElementById('integralizacao');
+		const integInput = document.getElementById('pdfFile');
+		integInput.value = '';
+		integInput.disabled = true;
+		integGroup.classList.add('hidden');
+		const pdf=await loadPdfFromArrayBuffer(await fileToArrayBuffer(f));
+		prereqByName={}; isOpt={}; chsById={}; bucketById={}; required={OB:null,OP:null,EST:null,COMP:null,TOTAL:null};
+		canonNameById={}; tokensById={}; aliasToCanon={}; allIds=[];
+		let curPeriod=null; let currentSection='OB'; let lines=[];
+		for(let i=1;i<=pdf.numPages;i++){ const p=await pdf.getPage(i); lines=lines.concat(await pageToLines(p)); }
+	
+		const rxOb=/DISCIPLINAS OBRIGAT[ÓO]RIAS.*CARGA HOR[ÁA]RIA EXIGIDA\s*:\s*(\d+)/i;
+		const rxOp=/DISCIPLINAS OP[T]?ATIVAS.*CARGA HOR[ÁA]RIA EXIGIDA\s*:\s*(\d+)/i;
+		const rxEst=/EST[ÁA]GIO.*CARGA HOR[ÁA]RIA EXIGIDA\s*:\s*(\d+)/i;
+		const rxComp=/(ATIVIDADES|ATIV\.)\s+COMPLEMENTAR(?:ES)? .*CARGA HOR[ÁA]RIA EXIGIDA\s*:\s*(\d+)/i;
+		const rxTotal=/CARGA HOR[ÁA]RIA TOTAL.*FORMATURA.*:\s*(\d+)/i;
+	
+		const periodHdr=/^PER[IÍ]ODO:\s*(\d+)/i;
+		const headerCap=/^([A-Z]{2,4}\d{4,6})\s+(.+?)\s+((?:\d+\s+){1,6})([A-Z]{2,3})\s*$/i;
+		const pureCodeLine=/^[A-Z]{2,4}\d{4,6}\s+(.+)$/i;
+	
+		for(let i=0;i<lines.length;i++){
+			const L=lines[i];
+			if(/DISCIPLINAS OBRIGAT[ÓO]RIAS/i.test(L)) currentSection='OB';
+			if(/DISCIPLINAS OP[T]?ATIVAS/i.test(L)) currentSection='OP';
+			if(/EST[ÁA]GIO/i.test(L)) currentSection='EST';
+			if(/COMPLEMENTAR/i.test(L)) currentSection='COMP';
+	
+			let m;
+			if(!required.OB && (m=L.match(rxOb))) required.OB=parseInt(m[1],10);
+			if(!required.OP && (m=L.match(rxOp))) required.OP=parseInt(m[1],10);
+			if(!required.EST && (m=L.match(rxEst))) required.EST=parseInt(m[1],10);
+			if(!required.COMP && (m=L.match(rxComp))) required.COMP=parseInt(m[1],10);
+			if(!required.TOTAL && (m=L.match(rxTotal))) required.TOTAL=parseInt(m[1],10);
+	
+			const pm=L.match(periodHdr); if(pm){ curPeriod=parseInt(pm[1],10); continue; }
+	
+			const h=L.match(headerCap); if(!h) continue;
+			const headName=cleanName(h[2]);
+			const nums=(h[3]||'').trim().split(/\s+/).map(x=>parseInt(x,10)).filter(n=>Number.isFinite(n));
+			const chs=nums.length?nums[nums.length-1]:0;
+			const tail=(h[4]||'').toUpperCase();
+			const id=slug(headName); const period=validP(curPeriod)?curPeriod:10;
+	
+			let bucket;
+			const nameLC=headName.toLowerCase();
+			if(tail==='OP'||currentSection==='OP') bucket='OP';
+			else if(/est[aá]gio/.test(nameLC)||tail==='EC'||currentSection==='EST') bucket='EST';
+			else if(/complementar/.test(nameLC)||currentSection==='COMP') bucket='COMP';
+			else bucket='OB';
+	
+			ensureCard(bucket==='OP'?'opt':period, headName);
+			chsById[id]=chs; bucketById[id]=bucket; if(bucket==='OP') isOpt[id]=true;
+	
+			canonNameById[id]=headName; tokensById[id]=normTokens(headName); allIds.push(id);
+	
+			// pré-requisitos da grade
+			const reqs=[]; let j=i+1;
+			while(j<lines.length){
+			const nx=lines[j];
+			if(periodHdr.test(nx)) break;
+			if(headerCap.test(nx)) break;
+			if(/^Total do Per[ií]odo/i.test(nx)) break;
+			if(/N[aã]o possui pr[eé]-?requisit/i.test(nx)){ reqs.length=0; j++; break; }
+			const pm2=nx.match(pureCodeLine);
+			if(pm2){ const reqName=cleanName(pm2[1]); if(reqName) reqs.push(slug(reqName)); j++; continue; }
+			break;
+			}
+			prereqByName[id]=Array.from(new Set(reqs));
+			i=j-1;
+		}
+		gradeLoaded=true;
+		applyStatusColors(); applyFilter(); toggleHeads(true); hideEmptyPeriodsIfMobile(); recalcAndRenderSummary();
+		document.getElementById('zoomControls')?.classList.remove('hidden');
+		document.getElementById('grade')?.classList.remove('hidden');
+		document.getElementById('summary')?.classList.remove('hidden');
+		document.getElementById('filters')?.classList.remove('hidden');
+		integInput.disabled = false;
+		integGroup.classList.remove('hidden');
+		document.getElementById('materiasSection')?.classList.remove('hidden');
+		hideOnboarding();
+		}catch(err){ console.error(err); setErr('Erro ao ler a Grade.');
+		document.getElementById('pdfFile').disabled = true;
+		document.getElementById('grade').classList.add('hidden');
+		document.getElementById('integralizacao').classList.add('hidden');
+		document.getElementById('materiasSection')?.classList.add('hidden');
+		showOnboarding();
+		}
+	});
+	
+	/* ======== LEITURA DA INTEGRALIZAÇÃO ======== */
+	integInput.addEventListener('change', async (e)=>{
+		try{
+		const f=e.target.files[0]; if(!f){ setErr('Nenhum PDF da Integralização.'); return; }
+		resetBeforeIntegralizacao();
+		const pdf=await loadPdfFromArrayBuffer(await fileToArrayBuffer(f));
+		let lines=[]; for(let i=1;i<=pdf.numPages;i++){ const p=await pdf.getPage(i); lines=lines.concat(await pageToLines(p)); }
+	
+		const statusWords="Aprovado|Aproveitado|Matriculado|Não realizada|Nao realizada|Dispensado|Equival[eê]ncia|Equivalencia";
+		const rxPeriodFirst=new RegExp(String.raw`^(\d{1,2})\s+[A-Z]{2,4}\d{4,6}\s+(.+?)\s+(\d{1,4})\s+(\d{1,3})\s+(${statusWords})$`,"i");
+		const rxCodeFirstEndPer=new RegExp(String.raw`^[A-Z]{2,4}\d{4,6}\s+(.+?)\s+(\d{1,4})\s+(\d{1,3})\s+(${statusWords})\s+(\d{1,2})$`,"i");
+		const rxB=new RegExp(String.raw`^[A-Z]{2,4}\d{4,6}\s+(.+?)\s+(\d{1,4})\s+(${statusWords})\s+(\d{1,2})$`,"i");
+		const rxA=new RegExp(String.raw`^(\d{1,2})\s+[A-Z]{2,4}\d{4,6}\s+(.+?)\s+(\d{1,4})\s+(${statusWords})$`,"i");
+	
+		function pickCHSFromLine(ln){
+			const nums = (ln.match(/\d+/g)||[]).map(n=>parseInt(n,10)).filter(Number.isFinite);
+			let chs=0;
+			for(const n of nums){ if(n>=30 && n<=400) chs=n; }
+			return chs;
+		}
+		function guessBucket(name){
+			const lc=name.toLowerCase();
+			if(/est[aá]gio/.test(lc)) return 'EST';
+			if(/complementar/.test(lc)) return 'COMP';
+			return 'OB';
+		}
+		function apply(name, st, per, chs){
+			name=cleanName(name);
+			let id=slug(name);
+			id = resolveCanonicalId(id, name);
+			const bucket=bucketById[id]||guessBucket(name);
+			let el=document.querySelector(`.card[data-id="${id}"]`);
+	
+			if (el){
+			const rank={faltando:0, matriculado:1, feito:2};
+			const cur=el.dataset.status||'faltando';
+			if(rank[st] > rank[cur]) el.dataset.status=st;
+			} else {
+			const target=(bucket==='OP')?'opt':(validP(per)?per:1);
+			const newEl = ensureCard(target, name, st);
+			if(newEl) { newEl.dataset.adhoc='1'; }
+			bucketById[id]=bucket; if(bucket==='OP') isOpt[id]=true;
+			}
+			if(chs && chs>0){
+			if(per===99){
+				if((bucketById[id]||bucket)==='OP'){
+				chsById[id] = Math.max(chs, chsById[id]||0);
+				}
+			}else{
+				chsById[id] = Math.max(chs, chsById[id]||0);
+			}
+			}
+		}
+	
+		for(const ln of lines){
+			let m;
+			if((m=ln.match(rxPeriodFirst))){ apply(m[2], statusFrom(m[5]), parseInt(m[1],10), pickCHSFromLine(ln)); continue; }
+			if((m=ln.match(rxCodeFirstEndPer))){ apply(m[1], statusFrom(m[4]), parseInt(m[5],10), pickCHSFromLine(ln)); continue; }
+			if((m=ln.match(rxB))){ apply(m[1], statusFrom(m[3]), parseInt(m[4],10), pickCHSFromLine(ln)); continue; }
+			if((m=ln.match(rxA))){ apply(m[2], statusFrom(m[4]), parseInt(m[1],10), parseInt(m[3],10)); continue; }
+		}
+	
+		// Resumos (OB/OP) — exigido
+		for(const ln of lines){
+			if(/Disciplinas?\s+Obrigat[óo]rias?/i.test(ln)){
+			const nums=(ln.match(/\d+/g)||[]).map(n=>parseInt(n,10)).filter(Number.isFinite);
+			if(nums.length>=1){ const req = Math.max(...nums); if(Number.isFinite(req)) required.OB = required.OB || req; }
+			}
+			if(/Disciplinas?\s+Optativas?/i.test(ln)){
+			const nums=(ln.match(/\d+/g)||[]).map(n=>parseInt(n,10)).filter(Number.isFinite);
+			if(nums.length>=1){ const req = Math.max(...nums); if(Number.isFinite(req)) required.OP = required.OP || req; }
+			}
+		}
+	
+		// Complementares (realizado) e Estágio (exigido)
+		compRealizadoExtra = 0;
+		for(const ln of lines){
+			if(/Atividades?\s+Complementar(?:es)?/i.test(ln)){
+			const nums=(ln.match(/\d+/g)||[]).map(n=>parseInt(n,10)).filter(Number.isFinite);
+			if(nums.length>=2){
+				const prefixIsIdx = nums[0] <= 12;
+				const req = prefixIsIdx ? nums[1] : Math.max(...nums);
+				const realized = prefixIsIdx ? (nums.length>=3 ? nums[2] : 0) : (nums.length>=2 ? nums[nums.length-1] : 0);
+				if(Number.isFinite(req)) required.COMP = required.COMP || req;
+				if(Number.isFinite(realized)) compRealizadoExtra = realized;
+			}
+			}
+			if(/Est[áa]gio/i.test(ln)){
+			const nums=(ln.match(/\d+/g)||[]).map(n=>parseInt(n,10)).filter(Number.isFinite);
+			if(nums.length>=2){
+				const prefixIsIdx = nums[0] <= 12;
+				const req = prefixIsIdx ? nums[1] : Math.max(...nums);
+				if(Number.isFinite(req)) required.EST = required.EST || req;
+			}
+			}
+		}
+	
+		applyStatusColors(); applyFilter(); hideEmptyPeriodsIfMobile(); recalcAndRenderSummary();
+		document.getElementById('zoomControls')?.classList.remove('hidden');
+		document.getElementById('grade')?.classList.remove('hidden');
+		document.getElementById('summary')?.classList.remove('hidden');
+		document.getElementById('filters')?.classList.remove('hidden');
+		document.getElementById('planningBtn')?.classList.remove('hidden');
+		document.getElementById('clearPlan')?.classList.remove('hidden');
+		document.getElementById('btnOpenPlanner')?.classList.remove('hidden');
+		}catch(err){ console.error(err); setErr('Erro ao ler a Integralização.'); }
+	});
+	
+	/* ======== UI DE CARTÕES ======== */
+	function ensureCard(target, name, st='faltando'){
+		const id=slug(name); const existed=document.querySelector(`.card[data-id="${id}"]`); if(existed) return existed;
+		const card=document.createElement('div'); card.className='card'; card.dataset.id=id; card.dataset.nome=name; card.dataset.status=st;
+		card.innerHTML=`<div class="title">${name}</div>`; card.addEventListener('click', onCardClick);
+		if(target==='opt') document.getElementById('opt-grid').appendChild(card);
+		else document.getElementById('col-'+target).appendChild(card);
+		return card;
+	}
+	
+	function applyStatusColors(){
+		document.querySelectorAll('.card').forEach(card=>{
+		card.classList.remove('ok','faltando','mat','planned');
+		const st=card.dataset.status;
+		if(st==='feito') card.classList.add('ok');
+		else if(st==='matriculado') card.classList.add('mat');
+		else card.classList.add('faltando');
+		if(planned.has(card.dataset.id) && st!=='feito'){
+			const idx=colorForPlan[card.dataset.id];
+			card.classList.add('planned');
+			if(idx!=null) card.classList.add(branchColors[idx]);
+		}
+		});
+	}
+	function setFilter(f){ document.querySelectorAll('#filters .btn').forEach(b=>b.classList.toggle('active',b.dataset.filter===f)); applyFilter(); hideEmptyPeriodsIfMobile(); recalcAndRenderSummary(); }
+	function applyFilter(){
+		const f=document.querySelector('#filters .btn.active')?.dataset.filter||'todas';
+		document.querySelectorAll('.card').forEach(card=>{
+		const st=card.dataset.status; card.classList.remove('hidden');
+		if(f==='ok' && st!=='feito') card.classList.add('hidden');
+		if(f==='mat' && st!=='matriculado') card.classList.add('hidden');
+		if(f==='faltando' && st!=='faltando') card.classList.add('hidden');
+		});
+	}
+	document.querySelectorAll('#filters .btn').forEach(btn=>{
+		if(btn.dataset.filter) btn.addEventListener('click', ()=> setFilter(btn.dataset.filter));
+	});
+	
+	// zoom
+	let zoom=1; const gridScale=document.getElementById('gridScale');
+	function updateZoom(){ gridScale.style.transform=`scale(${zoom})`; document.getElementById('zoomLevel').textContent=Math.round(zoom*100)+'%'; }
+	document.getElementById('zoomIn').addEventListener('click', ()=>{ zoom=Math.min(2.0, +(zoom+0.1).toFixed(2)); updateZoom(); });
+	document.getElementById('zoomOut').addEventListener('click', ()=>{ zoom=Math.max(0.5, +(zoom-0.1).toFixed(2)); updateZoom(); });
+	document.getElementById('zoomFit').addEventListener('click', ()=>{ zoom=1; updateZoom(); }); updateZoom();
+	
+	// pré-requisitos (realce por cor)
+	const branchColors=['br0','br1','br2','br3','br4','br5','br6','br7','br8','br9','br10'];
+	function depsFrom(root, seen=new Set()){
+		const kids=(prereqByName[root]||[]);
+		for(const k of kids){ if(!seen.has(k)){ seen.add(k); depsFrom(k,seen); } }
+		return Array.from(seen);
+	}
+	
+	let lastFocused = null;
+	function clearFocusPreservingPlan(){
+		document.querySelectorAll('.card').forEach(c=>{
+		c.classList.remove('focus');
+		if(!planned.has(c.dataset.id) && !c.classList.contains('need')){
+			c.classList.remove('br0','br1','br2','br3','br4','br5','br6','br7','br8','br9','br10');
+		}
+		});
+	}
+	function highlightPrereqs(card){
+		const id=card.dataset.id;
+		if(lastFocused === id){
+		clearFocusPreservingPlan();
+		lastFocused = null;
+		return;
+		}
+		clearFocusPreservingPlan();
+		card.classList.add('focus');
+		const roots=(prereqByName[id]||[]).slice(0, branchColors.length);
+		roots.forEach((rid,i)=>{
+		const cls=branchColors[i];
+		const chain=[rid, ...depsFrom(rid)];
+		chain.forEach(nid=>{
+			const el=document.querySelector(`.card[data-id="${nid}"]`);
+			if(el) el.classList.add(cls);
+		});
+		});
+		lastFocused = id;
+	}
+	function onCardClick(e){
+		const card=e.currentTarget;
+		if(planningMode){ togglePlanColor(card.dataset.id); }
+		else { highlightPrereqs(card); }
+	}
+	
+	// === Planejamento multicolor ===
+	const colorForPlan = {}; // id -> cor
+	const needOwners = {};   // prereqId -> Set(planId)
+	
+	function nextColorIndex(){
+		const used = new Set(Object.values(colorForPlan));
+		for(let i=0;i<branchColors.length;i++){ if(!used.has(i)) return i; }
+		return 0;
+	}
+	function getMissingPrereqs(rootId){
+		const seen=new Set(), out=[];
+		(function walk(id){
+		const kids=(prereqByName[id]||[]);
+		for(const k of kids){
+			if(seen.has(k)) continue; seen.add(k);
+			const el=document.querySelector(`.card[data-id="${k}"]`);
+			if(!el) continue;
+			const st=el.dataset.status;
+			if (st!=='feito' && st!=='matriculado'){ out.push(k); walk(k); }
+		}
+		})(rootId);
+		return out;
+	}
+	function ensureDots(el){ let d=el.querySelector('.need-dots'); if(!d){ d=document.createElement('div'); d.className='need-dots'; el.appendChild(d); } return d; }
+	function addDot(el, cls){ const d=ensureDots(el); const s=document.createElement('span'); s.className='dot '+cls; d.appendChild(s); }
+	function refreshNeedVisual(nid){
+		const el=document.querySelector(`.card[data-id="${nid}"]`);
+		if(!el) return;
+		const owners = needOwners[nid]? Array.from(needOwners[nid]) : [];
+		const ownerNames = owners.map(pid=>{ const p=document.querySelector(`.card[data-id="${pid}"] .title`); return p? p.textContent.trim(): pid; });
+		el.classList.toggle('need', owners.length>0);
+		const d=el.querySelector('.need-dots'); if(d) d.remove();
+		el.classList.remove('br0','br1','br2','br3','br4','br5','br6','br7','br8','br9','br10');
+		el.setAttribute('title', ownerNames.length?('Pré de: '+ownerNames.join(', ')): '');
+		if(owners.length>0){
+		const colors = owners.map(pid=> branchColors[colorForPlan[pid]] ).filter(Boolean);
+		if(colors.length>0){ el.classList.add(colors[0]); }
+		colors.forEach(c=> addDot(el, c));
+		}
+	}
+	function setPlanBadge(id){
+		const el=document.querySelector(`.card[data-id="${id}"]`); if(!el) return;
+		let b=el.querySelector('.plan-badge'); if(!b){ b=document.createElement('span'); b.className='plan-badge'; el.appendChild(b); }
+		const idx=colorForPlan[id]; const cls=branchColors[idx];
+		b.className='plan-badge '+(cls||''); b.textContent = (idx!=null? (idx+1) : '');
+	}
+	function clearPlanBadge(id){
+		const el=document.querySelector(`.card[data-id="${id}"]`);
+		if(!el) return; const b=el.querySelector('.plan-badge'); if(b) b.remove();
+	}
+	function nameOf(id){ const t = document.querySelector(`.card[data-id="${id}"] .title`); return t ? t.textContent.trim() : id; }
+	
+	function openPrereqOverlay(courseId, missIds){
+		const overlay = document.getElementById('prereqOverlay');
+		const msg = document.getElementById('prereqMsg');
+		const list = document.getElementById('prereqList');
+		const ok = document.getElementById('prereqOk');
+	
+		msg.textContent = `Para planejar "${nameOf(courseId)}", conclua antes:`;
+		list.innerHTML = '';
+		missIds.forEach(id=>{
+		const li = document.createElement('li');
+		li.textContent = nameOf(id);
+		li.addEventListener('click', ()=>{
+			close();
+			document.querySelector(`.card[data-id="${id}"]`)?.scrollIntoView({behavior:'smooth', block:'center'});
+		});
+		list.appendChild(li);
+		});
+	
+		function onKey(e){ if(e.key==='Escape' || e.key==='Enter' || e.code==='Space'){ close(); } }
+		function close(){
+		overlay.classList.add('hidden');
+		ok.removeEventListener('click', close);
+		document.removeEventListener('keydown', onKey);
+		}
+		
+		ok.addEventListener('click', close);
+		document.addEventListener('keydown', onKey);
+		overlay.classList.remove('hidden');
+		ok.focus();
+	}
+  function openNoPlanOverlay(){
+    const secPlanner = document.getElementById('plannerSection');
+    const secGrid = document.getElementById('materiasSection');
+    const btn = document.getElementById('planningBtn');
+    const ov = document.getElementById('noPlanOverlay');
+    const ok = document.getElementById('noPlanOk');
+    function close(){ ov.classList.add('hidden'); ok.removeEventListener('click', go); document.removeEventListener('keydown', onKey); }
+    function go(){
+      // fecha planner e abre grade
+      secPlanner.style.display='none';
+      if(secGrid) secGrid.style.display='block';
+      // sincroniza UI como se tivesse clicado no botão "Horário/Grade"
+      var btnOpen = document.getElementById('btnOpenPlanner');
+      if (btnOpen) btnOpen.textContent = 'Horário';
+    
+      var clearBtn = document.getElementById('btnClearPlanner');
+      if (clearBtn && clearBtn.style) clearBtn.style.display = 'none';
+
+      var clearBtn = document.getElementById('btnClearPlanner');
+      if (clearBtn && clearBtn.style) clearBtn.style.display = 'none';
+    
+      var instr = document.getElementById('schedule-instruction');
+      if (instr && instr.style) instr.style.display = 'none';
+      // entra em modo planejamento
+      planningMode = true;
+      setPlanningUI();
+      applyStatusColors();
+      recalcAndRenderSummary();
+      close();
+    }
+    function onKey(e){ if(e.key==='Escape' || e.key==='Enter' || e.code==='Space'){ go(); } }
+    ok.addEventListener('click', go);
+    document.addEventListener('keydown', onKey);
+    ov.classList.remove('hidden');
+    ok.focus();
+  }
+  function openRemoveOverlay({gid, label, hours}){
+    const ov = document.getElementById('removeOverlay');
+    const desc = document.getElementById('removeDesc');
+    const ok = document.getElementById('removeOk');
+    const cancel = document.getElementById('removeCancel');
+    desc.textContent = `Remover "${label}" (${hours}h) desta grade?`;
+    function close(){ ov.classList.add('hidden'); ok.removeEventListener('click', onOk); cancel.removeEventListener('click', onCancel); document.removeEventListener('keydown', onKey); }
+    function onOk(){ window.removeGroup(gid); close(); }
+    function onCancel(){ close(); }
+    function onKey(e){ if(e.key==='Escape'){ close(); } if(e.key==='Enter'){ onOk(); } }
+    ok.addEventListener('click', onOk);
+    cancel.addEventListener('click', onCancel);
+    document.addEventListener('keydown', onKey);
+    ov.classList.remove('hidden');
+    ok.focus();
+  }
+  function togglePlanColor(id){
+    const el=document.querySelector(`.card[data-id="${id}"]`); if(!el) return;
+    const st=el.dataset.status;
+    if(st!=='faltando') return; // só planeja pendente
+    if(planned.has(id)){
+      planned.delete(id);
+      const clr=colorForPlan[id]; delete colorForPlan[id];
+      el.classList.remove('planned','br0','br1','br2','br3','br4','br5','br6','br7','br8','br9','br10'); clearPlanBadge(id);
+      Object.keys(needOwners).forEach(n=>{ if(needOwners[n]){ needOwners[n].delete(id); refreshNeedVisual(n); } });
+    }else{
+      const miss = getMissingPrereqs(id);
+      if (miss.length){ openPrereqOverlay(id, miss); return; }
+      planned.add(id);
+      const clr = nextColorIndex();
+      colorForPlan[id] = clr;
+      el.classList.add('planned', branchColors[clr]);
+      setPlanBadge(id);
+    }
+    applyStatusColors(); recalcAndRenderSummary(); updatePermalink();
+  }
+
+	// planning UI
+const planningBtn=document.getElementById('planningBtn');
+const planInfo=document.getElementById('planInfo');
+function setPlanningUI(){
+  if(!planningBtn) return;
+  planningBtn.classList.toggle('active', planningMode);
+  planningBtn.textContent = planningMode ? 'Selecionando…' : 'Selecionar matérias';
+}
+planningBtn?.addEventListener('click', ()=>{
+  planningMode = !planningMode;
+  setPlanningUI();
+  applyStatusColors(); recalcAndRenderSummary();
+});
+	
+	// tema (robusto, não quebra se o botão não existir)
+	const themeToggle = document.getElementById('themeToggle');
+	const savedTheme = localStorage.getItem('theme') || '';
+	if (savedTheme === 'dark') {document.body.classList.add('dark'); }
+	if (themeToggle) {
+	const setLabel = () => {
+		const dark = document.body.classList.contains('dark');
+		themeToggle.textContent = dark ? '☀️ Modo claro' : '🌙 Modo escuro';
+		themeToggle.setAttribute('aria-pressed', String(dark));
+	};
+	setLabel();
+	themeToggle.addEventListener('click', () => {
+		document.body.classList.toggle('dark');
+		localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+		setLabel();
+	});
+	}
+
+function recalcAndRenderSummary(){
+	const done={OB:0,OP:0,EST:0,COMP:0}; const mat={OB:0,OP:0,EST:0,COMP:0}; const plan={OB:0,OP:0,EST:0,COMP:0};
+	document.querySelectorAll('.card').forEach(card=>{
+	const id=card.dataset.id; const st=card.dataset.status; const chs=chsById[id]||0; const bucket=bucketById[id]||'OB';
+	if(st==='feito'){ done[bucket]+=chs; return; }
+	if(st==='matriculado'){ mat[bucket]+=chs; }
+	if(planned.has(id) && st==='faltando'){ plan[bucket]+=chs; }
+	});
+	if(compRealizadoExtra>0) done.COMP += compRealizadoExtra;
+
+	function fmt(key){
+	const req=required[key]; const D=done[key], M=mat[key], P=plan[key];
+	let header;
+	if(key==='COMP'){header = req? `${D} / ${req} CHS` : `${D} CHS`;
+	}else{header = req? `${M} + ${D} / ${req} CHS` : `${M} + ${D} CHS`; }
+	const falta=req? Math.max(0, req - ( (key==='COMP')? D : (M + D) )) : 0;
+	const smallParts=[];
+	if(req) smallParts.push(`faltam ${falta} CHS`);
+	if(P>0 && key!=='COMP') smallParts.push(`planejamento ${P} CHS`);
+	return {header, small: smallParts.join(' · ')};
+	}
+	const ob=fmt('OB'), op=fmt('OP'), es=fmt('EST'), cp=fmt('COMP');
+	document.getElementById('sum-ob').textContent=ob.header; document.getElementById('sum-op').textContent=op.header; document.getElementById('sum-est').textContent=es.header; document.getElementById('sum-comp').textContent=cp.header;
+	document.getElementById('sum-ob-small').textContent=ob.small; document.getElementById('sum-op-small').textContent=op.small; document.getElementById('sum-est-small').textContent=es.small; document.getElementById('sum-comp-small').textContent=cp.small;
+
+	const totalPlan=plan.OB+plan.OP+plan.EST+plan.COMP;
+	planInfo.textContent=planningMode?`Planejadas: ${totalPlan} CHS`:'';
+}
+// esconde colunas vazias só no mobile
+function hideEmptyPeriodsIfMobile(){
+	const isMobile=window.matchMedia(`(max-width:${MOBILE_BREAK}px)`).matches;
+	for(let i=1;i<=10;i++){
+		const wrap=document.getElementById('col-'+i)?.parentElement; if(!wrap) continue;
+		if(isMobile){
+			const has=!!document.querySelector(`#col-${i} .card:not(.hidden)`);
+			wrap.style.display=has?'':'none';
+		}else wrap.style.display='';
+	}
+}
+window.addEventListener('resize', hideEmptyPeriodsIfMobile);
+
+	// permalink — desativado (no-op)
+	function updatePermalink(){ /* noop */ }
+	function loadPlanFromUrl(){ /* noop */ }	
+</script>
+<script>
+/* ======== PLANNER ======== */
+	(function(){
+	const DIAS = ['Seg','Ter','Qua','Qui','Sex','Sáb'];
+	  // ---- SLOTS: 07:00–18:00 e 18:30–22:30 ----
+	const pad = n => String(n).padStart(2,'0');
+	function buildTimeSlots(){
+		const arr = [];
+		for (let h=7; h<18; h++)   arr.push({ start:`${pad(h)}:00`, end:`${pad(h+1)}:00`, label:`${pad(h)}:00 - ${pad(h+1)}:00` });
+		for (let h=18; h<22; h++)  arr.push({ start:`${pad(h)}:30`, end:`${pad(h+1)}:30`, label:`${pad(h)}:30 - ${pad(h+1)}:30` });
+		return arr;
+	}
+	const SLOTS = buildTimeSlots();
+	
+	// helpers públicos (se precisar em outros pontos)
+	const slotIndexFromStart = (hhmm)=> SLOTS.findIndex(s=>s.start===hhmm);
+	const slotLabel          = (i)=> SLOTS[i]?.label || '';
+	
+	const root = document.getElementById('planner');
+	const modal = document.getElementById('plannerModal');
+	const selMateria = document.getElementById('pl-materia');
+	const durGrid = document.getElementById('pl-durGrid');
+	const durInput = document.getElementById('pl-horas');
+	const diaTxt = document.getElementById('pl-dia');
+	const horaTxt = document.getElementById('pl-hora');
+	
+	let built=false;
+	let busy = Object.fromEntries(DIAS.map(d=>[d, Array(SLOTS.length).fill(false)]));
+	let ctx = null;
+	
+	function head(txt){ const n=document.createElement('div'); n.className='head'; n.textContent=txt; return n; }
+	function timeCell(label, idx){ const n=document.createElement('div'); n.className='time'; n.innerHTML=`<span style="margin:auto;">${label}</span>`; return n; }
+	
+	function buildIfNeeded(){
+		if(built) return;
+		root.innerHTML='';
+		root.appendChild(head(''));
+		DIAS.forEach(d=> root.appendChild(head(d)));
+		SLOTS.forEach((s, idx)=>{
+		root.appendChild(timeCell(`${s.label}`, s.idx));
+		DIAS.forEach(d=>{
+			const c = document.createElement('div');
+			c.className='cell';
+			c.id=`cell-${d}-${s.start}`;
+			c.dataset.dia=d; c.dataset.start=s.start; c.dataset.slotIdx=idx;
+			c.addEventListener('click', onCellClick);
+			root.appendChild(c);
+		});
+		});
+		root.style.gridTemplateRows = ['56px'].concat(Array(SLOTS.length).fill('48px')).join(' ');
+		built=true;
+	}
+	
+	function openModal(dia, inicio, slotIdx){
+		ctx = {dia, inicio, slotIdx};
+		diaTxt.textContent = dia;
+		horaTxt.textContent = inicio;
+	
+    const list = collectPlannedSubjects();
+    selMateria.innerHTML='';
+    if(!list.length){ openNoPlanOverlay(); return; }
+    list.forEach(m=>{
+      const o=document.createElement('option');
+      o.value=m.id; o.textContent=m.nome; o.dataset.cor=m.cor||'#1680ff';
+      selMateria.appendChild(o);
+    });
+	
+		setDur(2);
+		modal.style.display='flex';
+	}
+	function closeModal(){ modal.style.display='none'; }
+	function setDur(h){
+		durInput.value=String(h);
+		durGrid.querySelectorAll('button').forEach(b=> b.classList.toggle('active', b.dataset.h===String(h)));
+	}
+	durGrid.addEventListener('click', e=>{
+		const btn=e.target.closest('button[data-h]'); if(!btn) return; setDur(btn.dataset.h);
+	});
+	document.getElementById('pl-cancel').addEventListener('click', closeModal);
+	document.getElementById('pl-ok').addEventListener('click', ()=>{
+		if(!ctx) return;
+		const opt = selMateria.selectedOptions[0];
+		const nome = opt ? opt.textContent : 'Matéria';
+		const cor  = opt ? (opt.dataset.cor || '#1680ff') : '#1680ff';
+		const horas = parseInt(durInput.value,10)||1;
+		addBlock({dia:ctx.dia, inicio:ctx.inicio, horas, nome, cor});
+		closeModal();
+	});
+  function clearCells(cells){
+    cells.forEach(c=>{
+      const d = c.dataset.dia;
+      const i = parseInt(c.dataset.slotIdx, 10);
+      if (d && Number.isInteger(i)) busy[d][i] = false;    // <== igual ao teu limpar
+      c.classList.remove('in-block','block-end');
+      c.removeAttribute('data-group');
+      c.style.removeProperty('--aula-bg');
+      c.style.removeProperty('--aula-fg');
+    });
+  }
+  // Limpar TUDO (mantém teu comportamento atual, só usando o helper)
+  document.getElementById('btnClearPlanner')?.addEventListener('click', ()=>{
+    root.querySelectorAll('.lesson-block').forEach(n=>n.remove());
+    clearCells(Array.from(root.querySelectorAll('.cell')));
+    // zera o que sobrar (se existir dia sem células marcadas)
+    Object.keys(busy).forEach(d=> busy[d].fill(false));
+  });
+  
+  // Remover APENAS um grupo (usa a MESMA “faxina” do limpar)
+  window.removeGroup = function removeGroup(gid){
+    const cells = Array.from(root.querySelectorAll(`.cell[data-group="${gid}"]`));
+  
+    // remove o bloco visual do grupo (se estiver no owner)
+    const owner = cells.find(c=> c.querySelector('.lesson-block'));
+    if (owner) owner.querySelector('.lesson-block')?.remove();
+    // também remove qualquer bloco que tenha sido marcado com data-group no próprio bloco
+    root.querySelectorAll(`.lesson-block[data-group="${gid}"]`).forEach(n=>n.remove());
+  
+    // aplica a MESMA limpeza do “Limpar”, mas só nessas células
+    clearCells(cells);
+  }
+  function onCellClick(e){
+    const c=e.currentTarget;
+    const gid=c.dataset.group;
+    if(gid){ // clique remove bloco inteiro (com confirmação)
+      const groupCells = Array.from(root.querySelectorAll(`.cell[data-group="${gid}"]`));
+      const owner = groupCells.find(k=> k.querySelector('.lesson-block'));
+      const label = owner ? owner.querySelector('.lesson-block').textContent.trim() : 'Alocação';
+      openRemoveOverlay({gid, label, hours: groupCells.length});
+      return;
+    }
+    openModal(c.dataset.dia, c.dataset.start, parseInt(c.dataset.slotIdx,10));
+  }
+
+	function idealTextColor(bg){
+		const t=document.createElement('span'); t.style.color=bg; document.body.appendChild(t);
+		const rgb=getComputedStyle(t).color.match(/\d+/g).map(Number)||[0,0,0]; t.remove();
+		const [r,g,b]=rgb;
+		const toLin=v=>{v/=255; return v<=0.03928? v/12.92 : Math.pow((v+0.055)/1.055,2.4)};
+		const L=0.2126*toLin(r)+0.7152*toLin(g)+0.0722*toLin(b);
+		return L>0.53?'#111':'#fff';
+	}
+	
+	function addBlock({dia,inicio,horas,nome,cor}){
+		const startIdx = SLOTS.findIndex(s=>s.start===inicio);
+		if(startIdx<0) return alert('Início inválido');
+		if(!(horas>=1 && horas<=5 && Number.isInteger(horas))) return alert('Duração deve ser 1–5h');
+		if(startIdx + horas > SLOTS.length) return alert('Ultrapassa a grade');
+		for(let i=startIdx;i<startIdx+horas;i++) if(busy[dia][i]) return alert(`Conflito: ${dia} ${SLOTS[i].start}`);
+		for(let i=startIdx;i<startIdx+horas;i++) busy[dia][i]=true;
+	
+		const gid='g'+Date.now()+Math.random().toString(16).slice(2,7);
+		for(let i=startIdx;i<startIdx+horas;i++){
+		const cell=document.getElementById(`cell-${dia}-${SLOTS[i].start}`);
+		if(!cell) continue;
+		cell.dataset.group=gid;
+		cell.classList.add('in-block');
+		cell.classList.toggle('block-end', i===startIdx+horas-1);
+		cell.style.setProperty('--aula-bg', cor);
+		cell.style.setProperty('--aula-fg', idealTextColor(cor));
+		}
+		const first=document.getElementById(`cell-${dia}-${SLOTS[startIdx].start}`);
+		const blk=document.createElement('div');
+		blk.className='lesson-block';
+		blk.style.height=`calc(48px * ${horas})`;
+		blk.textContent=nome;
+		blk.addEventListener('click', (ev)=>{ ev.stopPropagation(); openRemoveOverlay({gid, label:nome, hours:horas}); });
+		blk.style.setProperty('--aula-bg', cor);
+		blk.style.setProperty('--aula-fg', idealTextColor(cor));
+		first.appendChild(blk);
+	}
+	
+	function collectPlannedSubjects(){
+		try{
+		if(typeof planned==='undefined' || planned.size===0) return [];
+		const colorVar = (cls)=>{
+			const val = getComputedStyle(document.documentElement).getPropertyValue('--'+cls).trim();
+			return val || '#1680ff';
+		};
+		const out=[];
+		planned.forEach(id=>{
+			const card=document.querySelector(`.card[data-id="${id}"]`);
+			if(!card) return;
+			const nome=(card.querySelector('.title')||{}).textContent?.trim()||id;
+			const br=[...card.classList].find(c=>/^br\d+$/.test(c));
+			const cor=br? colorVar(br) : '#1680ff';
+			out.push({id, nome, cor});
+		});
+		return out;
+		}catch{ return []; }
+	}
+	
+	// Botão Horário/Grade (reutiliza o que você já tem)
+	const btnOpen = document.getElementById('btnOpenPlanner');
+	btnOpen?.addEventListener('click', ()=>{
+		buildIfNeeded();
+		const sec = document.getElementById('plannerSection');
+		const map = document.getElementById('materiasSection');
+		const isOpen = sec.style.display==='block';
+		if(isOpen){
+		sec.style.display='none';
+		if(map) map.style.display='block';
+		btnOpen.textContent='Horário';
+		document.getElementById('btnClearPlanner')?.style.setProperty('display','none');
+		document.getElementById('schedule-instruction')?.style.setProperty('display','none');
+		}else{
+		sec.style.display='block';
+		fitPlannerToCard();
+		responsiveTimeLabels();
+		if(map) map.style.display='none';
+		btnOpen.textContent='Grade';
+		document.getElementById('btnClearPlanner')?.style.setProperty('display','inline-block');
+		document.getElementById('schedule-instruction')?.style.setProperty('display','inline');
+		}
+	});
+	
+	// Limpar
+	document.getElementById('btnClearPlanner')?.addEventListener('click', ()=>{
+		root.querySelectorAll('.lesson-block').forEach(n=>n.remove());
+		root.querySelectorAll('.cell').forEach(c=>{
+		c.classList.remove('in-block','block-end');
+		c.removeAttribute('data-group');
+		c.style.removeProperty('--aula-bg'); c.style.removeProperty('--aula-fg');
+		});
+		Object.keys(busy).forEach(d=> busy[d].fill(false));
+	});
+	})();
+
+/* ======== Controles extras ======== */
+document.getElementById('clearPlan').addEventListener('click', ()=>{
+  planned.clear();
+  Object.keys(colorForPlan).forEach(k=>delete colorForPlan[k]);
+  Object.keys(needOwners).forEach(n=>delete needOwners[n]);
+  document.querySelectorAll('.card').forEach(el=>{
+    el.classList.remove('planned','need','br0','br1','br2','br3','br4','br5','br6','br7','br8','br9','br10');
+    const b=el.querySelector('.plan-badge'); if(b) b.remove();
+    const d=el.querySelector('.need-dots'); if(d) d.remove();
+  });
+  applyStatusColors(); recalcAndRenderSummary(); updatePermalink();
+});
+
+function fitPlannerToCard(){
+  const card = document.querySelector('#plannerSection .pl-card');
+  const grid = document.getElementById('planner');
+  if (!card || !grid) return;
+
+  // largura visível menos padding interno
+  const available = card.clientWidth - 8; 
+  const needed = grid.scrollWidth;        // largura real do conteúdo
+
+  let scale = 1;
+  if (needed > 0 && available > 0) {
+    scale = Math.min(1, available / needed);
+  }
+
+  // aplica escala com origem à esquerda
+  grid.style.transformOrigin = '0 0';
+  grid.style.transform = `scale(${scale})`;
+}
+
+// chame quando abrir o planner e ao redimensionar
+window.addEventListener('resize', fitPlannerToCard);
+
+function shortHourLabel(txt){
+  // "07:00 - 08:00" → "7h" ; "18:00 - 19:00" → "18h"
+  const m = String(txt).trim().match(/^(\d{1,2})/);
+  if (!m) return txt;
+  const h = parseInt(m[1], 10);
+  return (isFinite(h) ? h + 'h' : txt);
+}
+
+function responsiveTimeLabels(){
+  const isMobile = window.innerWidth <= 640;
+  document.querySelectorAll('#plannerSection .time').forEach(td=>{
+    if (!td.dataset.fulltime) td.dataset.fulltime = td.textContent.trim();
+    td.textContent = isMobile ? shortHourLabel(td.dataset.fulltime) : td.dataset.fulltime;
+  });
+}
+
+// rode ao abrir o planner e em resizes
+window.addEventListener('resize', responsiveTimeLabels);
+
+// Inicial
+setPlanningUI();
+</script>
+<script async defer src="https://accounts.google.com/gsi/client"></script><script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
+<script>
+// ======== CONFIGURE SEU CLIENT ID (OAuth Web) ========
+const GOOGLE_CLIENT_ID = '857964279049-oijsae1g1jgql21plpiblq49arerejjt.apps.googleusercontent.com';
+const GOOGLE_SCOPES = "https://www.googleapis.com/auth/spreadsheets";
+// =====================================================
+
+let __oauth = { token: null, tokenClient: null, pending: null };
+
+function initGoogleOAuth(){
+  if (__oauth.tokenClient) return;
+  __oauth.tokenClient = google.accounts.oauth2.initTokenClient({
+    client_id: GOOGLE_CLIENT_ID,
+    scope: GOOGLE_SCOPES,
+    prompt: '',
+    callback: (resp) => {
+      if (resp && resp.access_token){
+        __oauth.token = resp.access_token;
+        __oauth.pending?.resolve(resp.access_token);
+        __oauth.pending = null;
+      } else {
+        __oauth.pending?.reject(new Error('Falha no OAuth'));
+        __oauth.pending = null;
+      }
+    }
+  });
+}
+
+function ensureAccessToken(){
+  initGoogleOAuth();
+  if (__oauth.token) return Promise.resolve(__oauth.token);
+  if (__oauth.pending) return __oauth.pending.promise;
+  let resolve, reject;
+  const promise = new Promise((res, rej)=>{ resolve=res; reject=rej; });
+  __oauth.pending = { resolve, reject, promise };
+  __oauth.tokenClient.requestAccessToken();
+  return promise;
+}
+
+async 
+async function revokeAccessTokenOnce(){
+  try{
+    const tok = __oauth && __oauth.token;
+    if (tok){
+      await new Promise((res) => google.accounts.oauth2.revoke(tok, () => res()));
+    }
+  }catch(e){
+    console.warn('Revogar token falhou:', e);
+  }finally{
+    if (__oauth){
+      __oauth.token = null;
+      __oauth.pending = null;
+    }
+  }
+}
+function gfetch(url, opts={}){
+  const token = await ensureAccessToken();
+  const headers = Object.assign({}, opts.headers||{}, { Authorization: `Bearer ${token}` });
+  return fetch(url, Object.assign({}, opts, { headers }));
+}
+
+// Ýrea alvo para captura/planilha
+function getPlannerTarget(){
+  const card = document.querySelector('#plannerSection .pl-card');
+  return card || document.getElementById('planner');
+}
+
+// ===== JPG =====
+async function exportJPG(){
+  const el = getPlannerTarget();
+  if(!el) return alert('Planner não encontrado.');
+
+  // fundo branco e scale alto ajudam a nitidez
+  const canvas = await html2canvas(el, {
+    backgroundColor: '#ffffff',
+    scale: 2,
+    useCORS: true
+  });
+
+  const quality = 0.92; // ajuste 0.7..1.0 conforme tamanho/qualidade
+
+  if (canvas.toBlob) {
+    canvas.toBlob((blob)=>{
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'horario.jpg';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }, 'image/jpeg', quality);
+  } else {
+    // fallback raro (navegadores antigos)
+    const dataURL = canvas.toDataURL('image/jpeg', quality);
+    const a = document.createElement('a');
+    a.href = dataURL;
+    a.download = 'horario.jpg';
+    a.click();
+  }
+}
+
+// ===== PDF =====
+async function exportPDF(){
+  const el = getPlannerTarget();
+  if(!el) return alert('Planner não encontrado.');
+  const canvas = await html2canvas(el, {backgroundColor:'#ffffff', scale:2, useCORS:true});
+  const imgData = canvas.toDataURL('image/jpg');
+  const { jsPDF } = window.jspdf;
+  const landscape = canvas.width >= canvas.height;
+  const pdf = new jsPDF(landscape ? 'l' : 'p', 'pt', 'a4');
+  const pageW = pdf.internal.pageSize.getWidth();
+  const pageH = pdf.internal.pageSize.getHeight();
+  const ratio = Math.min(pageW/canvas.width, pageH/canvas.height);
+  const w = canvas.width * ratio, h = canvas.height * ratio;
+  const x = (pageW - w)/2, y = (pageH - h)/2;
+  pdf.addImage(imgData, 'JPG', x, y, w, h);
+  pdf.save('horario.pdf');
+}
+
+// ===== XLSX (local) =====
+function buildWorksheetFromDOM(){
+  const grid = document.getElementById('planner');
+  if(!grid) throw new Error('Planner não encontrado.');
+  const heads = Array.from(grid.querySelectorAll('.head')).map(h => h.textContent.trim());
+  const kids = Array.from(grid.children);
+  const COLS = 1 + heads.length;
+  const times = [];
+  for(let r=1;; r++){
+    const el = kids[r*COLS + 0];
+    if(!el || !el.classList || !el.classList.contains('time')) break;
+    const label = (el.dataset && el.dataset.fulltime) ? el.dataset.fulltime : (el.textContent||'').trim();
+    times.push(label);
+  }
+  const aoa = [];
+  aoa.push(['Horário', ...heads]);
+  times.forEach(t => aoa.push([t, ...Array(heads.length).fill('')]));
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.aoa_to_sheet(aoa);
+  ws['!cols'] = [{wch:9}, ...heads.map(()=>({wch:16}))];
+  ws['!rows'] = Array(aoa.length).fill({hpt:22});
+  const merges = [];
+  const baseCellH = (grid.querySelector('.cell')?.getBoundingClientRect().height) || 48;
+  const blocks = grid.querySelectorAll('.lesson-block');
+  blocks.forEach(block=>{
+    const cell = block.closest('.cell');
+    if(!cell) return;
+    const idx = kids.indexOf(cell);
+    const colIdx = idx % COLS;
+    if(colIdx <= 0) return;
+    const startIdx = parseInt(cell.dataset.slotIdx, 10);
+    if(!Number.isInteger(startIdx)) return;
+    const horas = block.dataset.hours ? parseInt(block.dataset.hours,10)
+                : Math.max(1, Math.round((block.getBoundingClientRect().height || baseCellH)/baseCellH));
+    const sheetRowStart = 1 + startIdx;
+    const sheetRowEnd = sheetRowStart + horas - 1;
+    const sheetCol = colIdx;
+    const addr = XLSX.utils.encode_cell({r: sheetRowStart, c: sheetCol});
+    ws[addr] = { t:'s', v: (block.textContent||'').trim() };
+    merges.push({ s:{r:sheetRowStart, c:sheetCol}, e:{r:sheetRowEnd, c:sheetCol} });
+  });
+  if(merges.length) ws['!merges'] = merges;
+  return { wb, ws };
+}
+
+function toARGB({red,green,blue}){
+  // ExcelJS espera ARGB: FF + RRGGBB
+  const r = Math.round((red||0)*255).toString(16).padStart(2,'0').toUpperCase();
+  const g = Math.round((green||0)*255).toString(16).padStart(2,'0').toUpperCase();
+  const b = Math.round((blue||0)*255).toString(16).padStart(2,'0').toUpperCase();
+  return 'FF'+r+g+b;
+}
+function setThinBorders(cell){
+  cell.border = {
+    top:    {style:'thin'},
+    left:   {style:'thin'},
+    bottom: {style:'thin'},
+    right:  {style:'thin'}
+  };
+}
+async function exportXLSX(opts={}){
+  const { aoa, merges, formatBlocks, headsCount, rowsCount } = buildSheetDataFromDOM();
+
+  const wb = new ExcelJS.Workbook();
+  const ws = wb.addWorksheet('Horário');
+
+  // 1) Preenche linhas
+  aoa.forEach(row => ws.addRow(row));
+
+  const endCol = 1 + headsCount; // 1 ("Horário") + N dias
+  const endRow = rowsCount;
+
+  // 2) Larguras: A mais estreita, dias mais largos
+  ws.getColumn(1).width = 12;             // "Horário"
+  for(let c=2;c<=endCol;c++) ws.getColumn(c).width = 20;
+
+  // 3) Alinhamento + wrap para tudo
+  for(let r=1;r<=endRow;r++){
+    for(let c=1;c<=endCol;c++){
+      const cell = ws.getCell(r,c);
+      cell.alignment = { horizontal:'center', vertical:'middle', wrapText:true };
+    }
+  }
+
+  // 4) Cabeçalho em negrito
+  for(let c=1;c<=endCol;c++){
+    const cell = ws.getCell(1,c);
+    cell.font = Object.assign({}, cell.font, { bold:true });
+  }
+
+  // 5) Bordas finas (toda a grade usada)
+  for(let r=1;r<=endRow;r++){
+    for(let c=1;c<=endCol;c++){
+      setThinBorders(ws.getCell(r,c));
+    }
+  }
+
+  // 6) Mesclas (mesmos índices da versão Sheets, ajustados para 1-based)
+  merges.forEach(m=>{
+    // m.s.r / m.s.c já são 0-based com offset de cabeçalho/horário aplicados lá.
+    ws.mergeCells(m.s.r+1, m.s.c+1, m.e.r+1, m.e.c+1);
+  });
+
+  // 7) Cores dos blocos + negrito
+  formatBlocks.forEach(b=>{
+    // decidir cor do texto
+    const fg01 = opts?.forceWhite
+      ? {red:1,green:1,blue:1}
+      : (opts?.autoContrast ? pickSheetsTextColor(b.color) : null);
+  
+    for(let r=b.r0+1; r<=b.r1+1; r++){
+      for(let c=b.c0+1; c<=b.c1+1; c++){
+        const cell = ws.getCell(r,c);
+        cell.fill = { type:'pattern', pattern:'solid', fgColor:{ argb: toARGB01(b.color) } };
+        cell.font = Object.assign({}, cell.font, {
+          bold: true,
+          ...(fg01 ? { color:{ argb: toARGB01(fg01) } } : {})
+        });
+        setThinBorders(cell);
+      }
+    }
+  });
+
+  // 8) Salvar
+  const buf = await wb.xlsx.writeBuffer();
+  const blob = new Blob([buf], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'horario.xlsx';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(a.href);
+}
+
+// ===== Google Sheets (OAuth + APIs) =====
+function rgbCssToSheetColor(css){
+  // aceita "rgb( r, g, b )" ou "rgba( r, g, b, a )"
+  const m = css && css.match(/rgba?\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/i);
+  if(!m) return null;
+  const r = parseInt(m[1],10)/255, g = parseInt(m[2],10)/255, b = parseInt(m[3],10)/255;
+  return { red: r, green: g, blue: b };
+}
+
+function buildSheetDataFromDOM(){
+  const grid = document.getElementById('planner');
+  if (!grid) throw new Error('Planner não encontrado');
+
+  // heads às vezes traz um cabeçalho vazio (o canto superior esquerdo).
+  // Filtramos vazios e qualquer variação de "Horário" nos heads.
+  const rawHeads = Array.from(grid.querySelectorAll('.head')).map(h => h.textContent.trim());
+  const heads = rawHeads.filter(h => h && !/^hor[aá]rio$/i.test(h));
+
+  // times (texto "07:00 - 08:00" ou dataset)
+  const times = Array.from(grid.querySelectorAll('.time'))
+    .map(el => (el.dataset && el.dataset.fulltime) ? el.dataset.fulltime : (el.textContent || '').trim());
+
+  // AOA: primeira linha = cabeçalho
+  const aoa = [];
+  aoa.push(['Horário/Dia', ...heads]);
+  times.forEach(t => aoa.push([t, ...Array(heads.length).fill('')]));
+
+  // Merges + formatações por bloco (cores, negrito)
+  const merges = [];
+  const formatBlocks = []; // {r0,r1,c0,c1,color}
+
+  const sampleCell = grid.querySelector('.cell');
+  const baseH = sampleCell ? sampleCell.getBoundingClientRect().height : 48;
+
+  grid.querySelectorAll('.lesson-block').forEach(block=>{
+    const cell = block.closest('.cell'); if (!cell) return;
+
+    // "dia" deve bater com cabeçalhos tratados acima
+    const dia = cell.dataset.dia;
+    const dayIndex = heads.indexOf(dia); // 0..(heads-1)
+    if (dayIndex < 0) return;
+
+    const sheetCol = 1 + dayIndex;            // +1 por causa da coluna "Horário"
+    const startIdx = parseInt(cell.dataset.slotIdx, 10); // 0..N-1 (linhas de tempo)
+    if (!Number.isInteger(startIdx)) return;
+
+    const horas = block.dataset.hours ? parseInt(block.dataset.hours,10)
+                 : Math.max(1, Math.round((block.getBoundingClientRect().height || baseH)/baseH));
+
+    const r0 = 1 + startIdx;        // +1 porque linha 0 é cabeçalho
+    const r1 = r0 + horas - 1;
+    const c0 = sheetCol, c1 = sheetCol;
+
+    // texto do bloco
+    if (aoa[r0]) aoa[r0][c0] = (block.textContent||'').trim();
+
+    merges.push({ s:{r:r0,c:c0}, e:{r:r1,c:c1} });
+
+    // cor vinda do CSS do bloco
+    const cssBg = getComputedStyle(block).backgroundColor; // pega var(--aula-bg, #1680ff) resolvida
+    const color = rgbCssToSheetColor(cssBg);
+    if (color) formatBlocks.push({ r0, r1, c0, c1, color });
+  });
+
+  return { aoa, merges, formatBlocks, headsCount: heads.length, rowsCount: aoa.length };
+}
+
+async function exportSheets(opts={}){
+  const { aoa, merges, formatBlocks, headsCount, rowsCount } = buildSheetDataFromDOM();
+
+  // 1) Cria planilha
+  const createResp = await gfetch('https://sheets.googleapis.com/v4/spreadsheets', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ properties:{ title:'Horário' } })
+  });
+  const sheet = await createResp.json();
+  const spreadsheetId = sheet.spreadsheetId;
+  const sheetId = sheet.sheets?.[0]?.properties?.sheetId;
+
+  // 2) Preenche valores (A1)
+  await gfetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/A1:append?valueInputOption=RAW`, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ values: aoa })
+  });
+
+  // 3) BatchUpdate para merges, bordas, alinhamento, congelamento, larguras e cores
+  const endCol = 1 + headsCount;       // colunas: 1 (Horário) + N dias
+  const endRow = rowsCount;            // linhas totais
+  const requests = [];
+
+  // 3.1 merges
+  if (sheetId != null && merges.length){
+    requests.push(...merges.map(m=>({
+      mergeCells: {
+        range: { sheetId,
+          startRowIndex: m.s.r, endRowIndex: m.e.r+1,
+          startColumnIndex: m.s.c, endColumnIndex: m.e.c+1
+        },
+        mergeType: 'MERGE_ALL'
+      }
+    })));
+  }
+
+  // 3.2 alinhamento central (horizontal + vertical) + wrap
+  requests.push({
+    repeatCell: {
+      range: { sheetId, startRowIndex:0, endRowIndex:endRow, startColumnIndex:0, endColumnIndex:endCol },
+      cell: { userEnteredFormat: { horizontalAlignment:'CENTER', verticalAlignment:'MIDDLE', wrapStrategy:'WRAP' } },
+      fields: 'userEnteredFormat(horizontalAlignment,verticalAlignment,wrapStrategy)'
+    }
+  });
+
+  // 3.3 cabeçalho em negrito
+  requests.push({
+    repeatCell: {
+      range: { sheetId, startRowIndex:0, endRowIndex:1, startColumnIndex:0, endColumnIndex:endCol },
+      cell: { userEnteredFormat: { textFormat: { bold: true } } },
+      fields: 'userEnteredFormat.textFormat.bold'
+    }
+  });
+
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  requests.push({
+    updateSheetProperties: {
+      properties: { sheetId, gridProperties: { frozenRowCount:1, frozenColumnCount: isMobile ? 0 : 1 } },
+      fields: 'gridProperties.frozenRowCount,gridProperties.frozenColumnCount'
+    }
+  });
+
+  // 3.4 bordas (externas + internas)
+  const black = { red:0, green:0, blue:0 };
+  const solid = (side)=>({ style:'SOLID', color: black, width:1 });
+  requests.push({
+    updateBorders: {
+      range: { sheetId, startRowIndex:0, endRowIndex:endRow, startColumnIndex:0, endColumnIndex:endCol },
+      top: solid(), bottom: solid(), left: solid(), right: solid(),
+      innerHorizontal: solid(), innerVertical: solid()
+    }
+  });
+
+  // 3.5 congelar linha 1 e coluna A
+  requests.push({
+    updateSheetProperties: {
+      properties: { sheetId, gridProperties: { frozenRowCount:0, frozenColumnCount:0 } },
+      fields: 'gridProperties.frozenRowCount,gridProperties.frozenColumnCount'
+    }
+  });
+
+  // 3.6 larguras de coluna (A um pouco mais estreita; demais mais largas)
+  requests.push({
+    updateDimensionProperties: {
+      range: { sheetId, dimension:'COLUMNS', startIndex:0, endIndex:1 }, // A
+      properties: { pixelSize: 95 },
+      fields: 'pixelSize'
+    }
+  });
+  requests.push({
+    updateDimensionProperties: {
+      range: { sheetId, dimension:'COLUMNS', startIndex:1, endIndex:endCol }, // B..última
+      properties: { pixelSize: 150 },
+      fields: 'pixelSize'
+    }
+  });
+
+  // 3.7 aplicar cor de fundo + **TEXTO BRANCO** só nos blocos (NÃO mexe no cabeçalho)
+  if (formatBlocks.length){
+    requests.push(...formatBlocks.map(b=>{
+      const fg = opts?.forceWhite
+        ? {red:1, green:1, blue:1}
+        : (opts?.autoContrast ? pickSheetsTextColor(b.color) : null); // retorna branco ou preto
+  
+      return {
+        repeatCell: {
+          range: {
+            sheetId,
+            startRowIndex: b.r0, endRowIndex: b.r1+1,
+            startColumnIndex: b.c0, endColumnIndex: b.c1+1
+          },
+          cell: {
+            userEnteredFormat: Object.assign(
+              { backgroundColor: b.color, textFormat: { bold:true } },
+              fg ? { textFormat: { bold:true, foregroundColor: fg } } : {}
+            )
+          },
+          fields: 'userEnteredFormat(backgroundColor,textFormat.bold' + (fg ? ',textFormat.foregroundColor' : '') + ')'
+        }
+      };
+    }));
+  }
+
+  // dispara formatações
+  await gfetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}:batchUpdate`, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ requests })
+  });
+
+  // 4) abre a planilha
+  openSheetPreferApp(spreadsheetId, sheetId /* gid da 1ª aba */, 'A3');
+
+  try{}finally{ await revokeAccessTokenOnce(); }
+}
+
+
+function openSheetPreferApp(spreadsheetId, gid, anchorCell = 'A3'){
+  const baseWeb    = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit#gid=${encodeURIComponent(gid ?? 0)}`;
+  const webMobile  = `${baseWeb}&range=${encodeURIComponent(anchorCell)}`; // só p/ mobile web
+  const webDesktop = baseWeb;                                             // desktop sem âncora
+
+  const ua = navigator.userAgent || '';
+  const isAndroid = /Android/i.test(ua);
+  const isIOS     = /iPhone|iPad|iPod/i.test(ua);
+
+  if (isAndroid){
+    // Tenta abrir no app; se não rolar, cai para a versão web MOBILE (com âncora)
+    const intentUrl =
+      `intent://docs.google.com/spreadsheets/d/${spreadsheetId}/edit` +
+      `#Intent;scheme=https;package=com.google.android.apps.docs.editors.sheets;` +
+      `S.browser_fallback_url=${encodeURIComponent(webMobile)};end`;
+
+    window.location.href = intentUrl;
+    return;
+  }
+
+  if (isIOS){
+    // iOS → tenta esquema do app; se falhar, abre web MOBILE (com âncora)
+    const candidates = [
+      `googlesheets://doc/${spreadsheetId}`,
+      `googlesheets://spreadsheets/d/${spreadsheetId}`,
+      `googlesheets://?action=open&sid=${spreadsheetId}`
+    ];
+
+    let tried = 0;
+    const tryOpen = () => {
+      if (tried >= candidates.length){
+        // fallback mobile web COM âncora
+        window.location.href = webMobile;
+        return;
+      }
+      const url = candidates[tried++];
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.src = url;
+      document.body.appendChild(iframe);
+      setTimeout(()=>{
+        try { document.body.removeChild(iframe); } catch(e){}
+        if (tried === candidates.length){
+          window.location.href = webMobile;
+        }
+      }, 1200);
+    };
+    tryOpen();
+    return;
+  }
+
+  // Desktop/PC → abre em nova aba SEM âncora
+  window.open(webDesktop, '_blank');
+}
+
+function openSheetInApp(spreadsheetId){
+  const httpsUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit`;
+  const ua = navigator.userAgent || '';
+  const isAndroid = /Android/i.test(ua);
+  const isIOS = /iPhone|iPad|iPod/i.test(ua);
+
+  if (isAndroid){
+    // Android → tenta abrir no app Google Sheets
+    const intentUrl =
+      `intent://docs.google.com/spreadsheets/d/${spreadsheetId}/edit` +
+      `#Intent;scheme=https;package=com.google.android.apps.docs.editors.sheets;` +
+      `S.browser_fallback_url=${encodeURIComponent(httpsUrl)};end`;
+
+    window.location.href = intentUrl;
+    return;
+  }
+
+  if (isIOS){
+    // iOS → tenta esquemas de URL do app
+    const candidates = [
+      `googlesheets://doc/${spreadsheetId}`,
+      `googlesheets://spreadsheets/d/${spreadsheetId}`,
+      `googlesheets://?action=open&sid=${spreadsheetId}`
+    ];
+
+    let tried = 0;
+    const tryOpen = () => {
+      if (tried >= candidates.length){
+        window.open(httpsUrl, "_blank");
+        return;
+      }
+      const url = candidates[tried++];
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.src = url;
+      document.body.appendChild(iframe);
+      setTimeout(()=>{
+        try { document.body.removeChild(iframe); } catch(e){}
+        if (tried === candidates.length){
+          window.open(httpsUrl, "_blank");
+        }
+      }, 1200);
+    };
+    tryOpen();
+    return;
+  }
+
+  // Desktop → sempre abre em nova aba
+  window.open(httpsUrl, "_blank");
+}
+
+  function lin01(u){ return (u<=0.04045)? (u/12.92) : Math.pow((u+0.055)/1.055, 2.4); } // u em [0..1]
+  function luminance01(rgb01){ // rgb01: {red,green,blue} em [0..1]
+    const R=lin01(rgb01.red||0), G=lin01(rgb01.green||0), B=lin01(rgb01.blue||0);
+    return 0.2126*R + 0.7152*G + 0.0722*B;
+  }
+  function pickSheetsTextColor(bg01){ // retorna {red,green,blue} em [0..1]
+    const L = luminance01(bg01);                // 0..1
+    const cW = (1.0+0.05)/(L+0.05);             // contraste com branco
+    const cB = (L+0.05)/(0.0+0.05);             // contraste com preto
+    return (cW >= cB) ? {red:1,green:1,blue:1} : {red:0,green:0,blue:0};
+  }
+  function toARGB01(rgb01){ // para ExcelJS
+    const r=Math.round((rgb01.red||0)*255).toString(16).padStart(2,'0');
+    const g=Math.round((rgb01.green||0)*255).toString(16).padStart(2,'0');
+    const b=Math.round((rgb01.blue||0)*255).toString(16).padStart(2,'0');
+    return ('FF'+r+g+b).toUpperCase();
+  }
+
+// --- modal handlers ---
+(function (){
+  // --- elementos do modal ---
+  const btnOpen   = document.getElementById('btnExportOpen');
+  const modal     = document.getElementById('exportModal');
+  const btnGo     = document.getElementById('btnExportGo');
+  const btnCancel = document.getElementById('btnExportCancel');
+
+  // --- helpers de abrir/fechar ---
+  function openModal(){ modal?.classList.remove('hidden'); }
+  function closeModal(){ modal?.classList.add('hidden'); }
+
+  // fecha com ESC por acessibilidade
+  function onKeyDown(e){
+    if (e.key === 'Escape') closeModal();
+  }
+
+  // tipo selecionado (pdf | xlsx | jpg | sheets)
+  function selectedType(){
+    return document.querySelector('input[name="expType"]:checked')?.value || 'pdf';
+  }
+
+  // opções de cor do texto (prioridade: forçar branco > auto-contraste)
+  function getTextColorOpts(){
+    const forceWhiteEl   = document.getElementById('optForceWhite');
+    const autoContrastEl = document.getElementById('optAutoContrast');
+    const forceWhite   = !!(forceWhiteEl && forceWhiteEl.checked);
+    const autoContrast = !forceWhite && !!(autoContrastEl && autoContrastEl.checked);
+    return { forceWhite, autoContrast };
+  }
+
+  // --- binds ---
+  btnOpen  && btnOpen.addEventListener('click', openModal);
+  btnCancel&& btnCancel.addEventListener('click', closeModal);
+  modal    && modal.addEventListener('click', (e)=>{ if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', onKeyDown);
+
+  // --- export ---
+  btnGo && btnGo.addEventListener('click', async ()=>{
+    try{
+      const type = selectedType();
+      const opts = getTextColorOpts(); // usado por Sheets/Excel
+
+      if      (type === 'pdf')    { await exportPDF(); }
+      else if (type === 'xlsx')   { await exportXLSX(opts); }
+      else if (type === 'jpg')    { await exportJPG(); }
+      else if (type === 'sheets') { await exportSheets(opts); }
+
+      closeModal();
+    }catch(err){
+      console.error(err);
+      alert('Falha ao exportar.');
+    }
+  });
+})();
+(function(){
+  const footer = document.getElementById('plannerExportFooter');
+
+  // considera a grade "visível" se existir e não estiver escondida (display:none etc.)
+  function isPlannerVisible(){
+    const sec  = document.querySelector('#plannerSection');
+    if(!sec) return false;
+
+    // tenta achar a grade por seletor usado no seu CSS
+    const grid = sec.querySelector('.planner-grid') || document.getElementById('planner');
+    if(!grid) return false;
+
+    // checa estilos computados
+    const secStyle  = getComputedStyle(sec);
+    const gridStyle = getComputedStyle(grid);
+    if (secStyle.display === 'none' || secStyle.visibility === 'hidden') return false;
+    if (gridStyle.display === 'none' || gridStyle.visibility === 'hidden' || gridStyle.opacity === '0') return false;
+
+    // offsetParent null normalmente indica invisível (ou position:fixed, mas com display!=none)
+    if (!grid.offsetParent && gridStyle.position !== 'fixed') return false;
+
+    return true;
+  }
+
+  function updateExportVisibility(){
+    if (!footer) return;
+    const show = isPlannerVisible();
+    footer.classList.toggle('hidden', !show);
+  }
+
+  // roda já, e sempre que algo no DOM muda (ex.: troca de abas, classes, estilos)
+  document.addEventListener('DOMContentLoaded', updateExportVisibility);
+  window.addEventListener('resize', updateExportVisibility);
+
+  const mo = new MutationObserver(updateExportVisibility);
+  mo.observe(document.body, { subtree:true, attributes:true, attributeFilter:['class','style'] });
+
+  // se você tem funções que trocam de tela/aba, chama isso nelas também:
+  // ex.: afterSwitchView -> updateExportVisibility();
+})();
+</script>
+</body>
+</html>
