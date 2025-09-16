@@ -1,0 +1,817 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Mapa Curricular</title>
+
+<!-- pdf.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+  if (window['pdfjsLib']) {
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+  }
+</script>
+
+<style>
+  :root{
+    /* CLARO */
+    --bg-base: #f8f9fb;
+    --text-base: #111;
+    --surface-1: #ffffff;
+    --surface-2: #f6f7f9;
+    --surface-neutral: #e9ecef;
+    --border: #e3e6ea;
+    --border-subtle: #cfd3d8;
+    --interactive: #ffffff;
+    --interactive-hover: #f0f2f4;
+    --interactive-active: #e7eaee;
+    --interactive-subtle: #f6f7f9;
+    --interactive-subtle-hover: #eef0f3;
+    --interactive-subtle-active: #e6e9ed;
+    --disabled: #e7eaee;
+    --disabled-subtle: #f2f4f7;
+    --inverted: #0f1117;
+
+    /* Estados (claro) */
+    --ok:#b6fcb6;
+    --faltando:#ffcccc;
+    --mat:#ffe8a3;
+    --planned:#efe6ff;
+    --focus:#8a2be2;
+
+    /* Cores por “ramo” */
+    --br0:#007aff; --br1:#f58518; --br2:#e434e5; --br3:#27526d; --br4:#813d2d;
+    --br5:#b279a2; --br6:#500097; --br7:#e45756; --br8:#4b7f32; --br9:#1db3a8; --br10:#819700;
+  }
+
+  /* ESCURO — incluindo pastéis mais escuros para melhor contraste */
+  body.dark{
+    --bg-base: #101418;
+    --text-base: #f8f9fa;
+    --surface-1: #202122;
+    --surface-2: #27292d;
+    --surface-neutral: #202122;
+
+    --border: #404244;
+    --border-subtle: #404244;
+
+    --interactive: #27292d;
+    --interactive-hover: #404244;
+    --interactive-active: #54595d;
+    --interactive-subtle: #202122;
+    --interactive-subtle-hover: #27292d;
+    --interactive-subtle-active: #404244;
+    --disabled: #404244;
+    --disabled-subtle: #27292d;
+
+    /* Pastéis “dark” (um pouco mais fechados) */
+    --ok:#90d690;          /* antes #b6fcb6 */
+    --faltando:#ffb3b3;    /* antes #ffcccc */
+    --mat:#ffd36a;         /* antes #ffe8a3 */
+    --planned:#292243;     /* era #1d2540 → um pouco mais visível */
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:14px;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    background:var(--bg-base);
+    color:var(--text-base);
+  }
+
+  /* header com tema sempre visível */
+  .header{display:flex;align-items:center;gap:10px;margin:6px 0 10px}
+  .header h1{flex:1;margin:0;font-size:24px}
+
+  .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px}
+  .group{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .grow{flex:1 1 100%}
+
+  .btn{
+    border:1px solid var(--border);
+    background:var(--interactive);
+    color:var(--text-base);
+    padding:6px 10px;border-radius:10px;cursor:pointer;
+    transition:.15s background,.15s border-color,.15s color;
+  }
+  .btn:hover{ background:var(--interactive-hover) }
+  .btn:active{ background:var(--interactive-active) }
+  .btn.active{ background:#111;color:#fff;border-color:#111 }
+  body.dark .btn.active{ background:#f8f9fa;color:#101418;border-color:#f8f9fa }
+
+  .zoom-btn{width:40px;text-align:center}
+  .zoom-level{min-width:60px;text-align:center;font-variant-numeric:tabular-nums}
+
+  .planning{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:10px 0}
+  .sum-small{opacity:.85}
+
+  .grid-shell{border:1px solid var(--border);background:var(--surface-1);border-radius:12px;padding:12px;overflow:auto;-webkit-overflow-scrolling:touch}
+  .grid-scale{transform-origin:0 0}
+
+  .grid{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:12px 18px;align-items:start}
+  .period{display:flex;flex-direction:column;gap:12px}
+  .col-head{background:var(--surface-neutral);border:1px solid var(--border);border-radius:10px;padding:6px 10px;font-weight:600;text-align:center}
+  .col{display:flex;flex-direction:column;gap:12px;min-height:40px}
+
+  .card{background:var(--surface-2);border:2px solid var(--border-subtle);border-radius:12px;padding:10px 12px;min-height:56px;display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer;transition:transform .06s ease,box-shadow .06s ease,background .15s,border-color .15s;position:relative}
+  .card:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(0,0,0,.08)}
+
+  /* Estados */
+  .card.ok{background:var(--ok);border-color:var(--border)}
+  .card.faltando{background:var(--faltando);border-color:var(--border)}
+  .card.mat{background:var(--mat);border-color:var(--border)}
+
+  /* Planejado: só a borda tracejada colorida (sem borda dupla) */
+  .card.planned{background:var(--planned);border-style:dashed;border-width:4px;border-color:var(--focus)}
+  .card.planned.br0{  border-color:var(--br0)!important }
+  .card.planned.br1{  border-color:var(--br1)!important }
+  .card.planned.br2{  border-color:var(--br2)!important }
+  .card.planned.br3{  border-color:var(--br3)!important }
+  .card.planned.br4{  border-color:var(--br4)!important }
+  .card.planned.br5{  border-color:var(--br5)!important }
+  .card.planned.br6{  border-color:var(--br6)!important }
+  .card.planned.br7{  border-color:var(--br7)!important }
+  .card.planned.br8{  border-color:var(--br8)!important }
+  .card.planned.br9{  border-color:var(--br9)!important }
+  .card.planned.br10{ border-color:var(--br10)!important }
+
+  .card.focus{box-shadow:0 0 0 4px var(--focus)}
+  .card.need{box-shadow:inset 0 0 0 4px #ff8800}
+
+  .summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:8px 0 12px}
+  .sum-card{background:var(--surface-1);border:1px solid var(--border);border-radius:10px;padding:10px}
+  .sum-title{font-weight:700;margin-bottom:6px}
+  .sum-num{font-variant-numeric:tabular-nums}
+
+  .legend{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 10px}
+  .legend span{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border:1px solid var(--border);border-radius:8px;background:var(--surface-1)}
+  .swatch{width:12px;height:12px;border-radius:50%;display:inline-block}
+
+  .empty{opacity:.7;font-style:italic;padding:6px}
+  .hidden{display:none!important}
+  .area-head{background:var(--surface-neutral);border:1px solid var(--border);border-radius:10px;padding:6px 10px;font-weight:600;text-align:left;margin:0 0 8px}
+
+  .opt-area{margin-top:18px}
+  .opt-grid{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:12px 18px;margin-top:12px}
+  .opt-grid .card .title{white-space:normal;display:block;overflow:visible;text-overflow:clip}
+  .head-hidden{display:none}
+
+  /* Cores por “ramo” aplicadas como inner outline */
+  .card.br0{box-shadow:inset 0 0 0 4px var(--br0)}
+  .card.br1{box-shadow:inset 0 0 0 4px var(--br1)}
+  .card.br2{box-shadow:inset 0 0 0 4px var(--br2)}
+  .card.br3{box-shadow:inset 0 0 0 4px var(--br3)}
+  .card.br4{box-shadow:inset 0 0 0 4px var(--br4)}
+  .card.br5{box-shadow:inset 0 0 0 4px var(--br5)}
+  .card.br6{box-shadow:inset 0 0 0 4px var(--br6)}
+  .card.br7{box-shadow:inset 0 0 0 4px var(--br7)}
+  .card.br8{box-shadow:inset 0 0 0 4px var(--br8)}
+  .card.br9{box-shadow:inset 0 0 0 4px var(--br9)}
+  .card.br10{box-shadow:inset 0 0 0 4px var(--br10)}
+
+  .plan-badge{position:absolute;top:6px;right:6px;width:14px;height:14px;line-height:14px;font-size:10px;font-weight:700;text-align:center;color:#fff;border-radius:50%;display:inline-block;box-shadow:0 0 0 2px var(--surface-1) inset}
+  .plan-badge.br0{ background: var(--br0) }
+  .plan-badge.br1{ background: var(--br1) }
+  .plan-badge.br2{ background: var(--br2) }
+  .plan-badge.br3{ background: var(--br3) }
+  .plan-badge.br4{ background: var(--br4) }
+  .plan-badge.br5{ background: var(--br5) }
+  .plan-badge.br6{ background: var(--br6) }
+  .plan-badge.br7{ background: var(--br7) }
+  .plan-badge.br8{ background: var(--br8) }
+  .plan-badge.br9{ background: var(--br9) }
+  .plan-badge.br10{ background: var(--br10) }
+
+  .need-dots{position:absolute;top:6px;left:6px;display:flex;gap:4px}
+  .need-dots .dot{width:8px;height:8px;border-radius:50%;display:inline-block;box-shadow:0 0 0 2px var(--surface-1) inset}
+  .need-dots .dot.br0{ background: var(--br0) }
+  .need-dots .dot.br1{ background: var(--br1) }
+  .need-dots .dot.br2{ background: var(--br2) }
+  .need-dots .dot.br3{ background: var(--br3) }
+  .need-dots .dot.br4{ background: var(--br4) }
+  .need-dots .dot.br5{ background: var(--br5) }
+  .need-dots .dot.br6{ background: var(--br6) }
+  .need-dots .dot.br7{ background: var(--br7) }
+  .need-dots .dot.br8{ background: var(--br8) }
+  .need-dots .dot.br9{ background: var(--br9) }
+  .need-dots .dot.br10{ background: var(--br10) }
+
+  @media (max-width:1100px){
+    .grid{grid-template-columns:repeat(3,minmax(260px,1fr))}
+    .opt-grid{grid-template-columns:repeat(3,minmax(260px,1fr))}
+    .summary{grid-template-columns:repeat(2,minmax(0,1fr))}
+  }
+  @media (max-width:800px){
+    .grid,.opt-grid{grid-template-columns:repeat(2,minmax(260px,1fr))}
+    .controls{gap:8px}
+    .header h1{font-size:20px}
+    .grow{flex-basis:100%}
+  }
+  @media (max-width:560px){
+    .grid,.opt-grid{grid-template-columns:repeat(1,minmax(260px,1fr))}
+    .btn{padding:6px 8px}
+    .grow{flex-basis:100%}
+    .summary{grid-template-columns:repeat(1,minmax(0,1fr))}
+  }
+</style>
+
+<style>
+
+/* === Patch: Pastéis legíveis apenas no modo escuro === */
+body.dark{
+  --pastel-fg:#000;
+}
+body.dark .ok,
+body.dark .faltando,
+body.dark .mat,
+body.dark .badge.ok,
+body.dark .badge.faltando,
+body.dark .badge.mat,
+body.dark .card.ok,
+body.dark .card.faltando,
+body.dark .card.mat{
+  color:var(--pastel-fg) !important;
+}
+body.dark .ok a,
+body.dark .faltando a,
+body.dark .mat a{ color:inherit; }
+body.dark .ok svg,
+body.dark .faltando svg,
+body.dark .mat svg{ fill:currentColor; }
+
+</style>
+</head>
+<body>
+  <!-- Cabeçalho com tema (sempre visível) -->
+  <div class="header">
+    <h1>Mapa Curricular</h1>
+    <button class="btn" id="themeToggle" title="Alternar modo escuro">🌙 Modo escuro</button>
+  </div>
+
+  <div class="controls">
+    <label class="group"><b>Grade:</b> <input type="file" id="gradeFile" accept=".pdf,application/pdf"></label>
+    <label class="group"><b>Integralização:</b> <input type="file" id="pdfFile" accept=".pdf,application/pdf"></label>
+    <div class="group grow" id="filters">
+      <span><b>Mostrar:</b></span>
+      <button class="btn active" data-filter="todas">Todas</button>
+      <button class="btn" data-filter="ok">Aprovadas</button>
+      <button class="btn" data-filter="mat">Matriculadas</button>
+      <button class="btn" data-filter="faltando">Pendentes</button>
+    </div>
+    <div class="group">
+      <span><b>Zoom:</b></span>
+      <button class="btn zoom-btn" id="zoomOut">−</button>
+      <span class="zoom-level" id="zoomLevel">100%</span>
+      <button class="btn zoom-btn" id="zoomIn">+</button>
+      <button class="btn" id="zoomFit" title="Ajustar à largura">Ajustar</button>
+    </div>
+    <span id="err" class="error"></span>
+  </div>
+
+  <!-- Legenda e painéis só aparecem após carregar a Grade -->
+  <div class="legend hidden">
+    <span><span class="swatch" style="background:var(--ok)"></span> Aprovado/Aproveitado</span>
+    <span><span class="swatch" style="background:var(--mat)"></span> Matriculado</span>
+    <span><span class="swatch" style="background:var(--faltando)"></span> Não realizada</span>
+    <span><span class="swatch" style="background:var(--planned)"></span> Planejada</span>
+  </div>
+
+  <div class="summary hidden" id="summary">
+    <div class="sum-card"><div class="sum-title">Obrigatórias</div><div class="sum-num" id="sum-ob">—</div><div class="sum-small" id="sum-ob-small"></div></div>
+    <div class="sum-card"><div class="sum-title">Optativas</div><div class="sum-num" id="sum-op">—</div><div class="sum-small" id="sum-op-small"></div></div>
+    <div class="sum-card"><div class="sum-title">Estágio</div><div class="sum-num" id="sum-est">—</div><div class="sum-small" id="sum-est-small"></div></div>
+    <div class="sum-card"><div class="sum-title">Complementares</div><div class="sum-num" id="sum-comp">—</div><div class="sum-small" id="sum-comp-small"></div></div>
+  </div>
+
+  <div class="planning hidden">
+    <button class="btn" id="planningBtn" title="Selecionar matérias para planejar">Selecionar matérias</button>
+    <span id="planInfo" class="sum-small"></span>
+    <button class="btn" id="clearPlan">Limpar plano</button>
+  </div>
+
+  <div class="grid-shell">
+    <div class="grid-scale" id="gridScale">
+
+      <div class="area-head">Obrigatórias</div>
+      <div class="grid" id="grid">
+        <div class="period"><div class="col-head head-hidden">Período 1</div><div class="col" id="col-1"><div class="empty">Carregue a Grade…</div></div></div>
+        <div class="period"><div class="col-head head-hidden">Período 2</div><div class="col" id="col-2"></div></div>
+        <div class="period"><div class="col-head head-hidden">Período 3</div><div class="col" id="col-3"></div></div>
+        <div class="period"><div class="col-head head-hidden">Período 4</div><div class="col" id="col-4"></div></div>
+        <div class="period"><div class="col-head head-hidden">Período 5</div><div class="col" id="col-5"></div></div>
+        <div class="period"><div class="col-head head-hidden">Período 6</div><div class="col" id="col-6"></div></div>
+        <div class="period"><div class="col-head head-hidden">Período 7</div><div class="col" id="col-7"></div></div>
+        <div class="period"><div class="col-head head-hidden">Período 8</div><div class="col" id="col-8"></div></div>
+        <div class="period"><div class="col-head head-hidden">Período 9</div><div class="col" id="col-9"></div></div>
+        <div class="period"><div class="col-head head-hidden">Período 10</div><div class="col" id="col-10"></div></div>
+      </div>
+
+      <div class="opt-area">
+        <div class="area-head">Optativas</div>
+        <div class="opt-grid" id="opt-grid"></div>
+      </div>
+
+    </div>
+  </div>
+
+<script>
+  const MOBILE_BREAK=800;
+  const errEl=document.getElementById('err'); function setErr(m){errEl.textContent=m||''}
+  const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  const isSafari=/^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+  async function ensurePdfJs(){
+    if(window.pdfjsLib) return;
+    await new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.min.js';s.onload=res;s.onerror=rej;document.head.appendChild(s)}).catch(()=>{});
+    if(window.pdfjsLib){
+      pdfjsLib.GlobalWorkerOptions.workerSrc=(isIOS&&isSafari)?'':'https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+    }else{ setErr('Falha ao carregar pdf.js'); throw new Error('no pdfjs'); }
+  }
+  async function fileToArrayBuffer(f){ if(f.arrayBuffer){ try{return await f.arrayBuffer()}catch{} } return await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=()=>rej(r.error||new Error('fr'));r.readAsArrayBuffer(f)}); }
+  async function loadPdfFromArrayBuffer(buf){ await ensurePdfJs(); try{ if(isIOS&&isSafari) throw new Error('force'); return await pdfjsLib.getDocument({data:buf}).promise; }catch(e){ return await pdfjsLib.getDocument({data:buf,disableWorker:true,useWorkerFetch:false}).promise; } }
+  async function pageToLines(p){ const c=await p.getTextContent(); const items=c.items.map(it=>{const m=it.transform||it.matrix||[1,0,0,1,0,0];return{s:it.str,x:m[4],y:m[5]}}); const tol=4; items.sort((a,b)=>(b.y-a.y)||(a.x-b.x)); const lines=[]; let row=null; for(const it of items){ if(!row){row={y:it.y,buf:[it]};continue} if(Math.abs(it.y-row.y)<=tol){row.buf.push(it)} else{row.buf.sort((a,b)=>a.x-b.x);lines.push(row.buf.map(k=>k.s).join(' ').replace(/\s+/g,' ').trim());row={y:it.y,buf:[it]}} } if(row&&row.buf.length){row.buf.sort((a,b)=>a.x-b.x);lines.push(row.buf.map(k=>k.s).join(' ').replace(/\s+/g,' ').trim());} return lines.filter(Boolean) }
+
+  let prereqByName={}, isOpt={}, chsById={}, bucketById={}, required={OB:null,OP:null,EST:null,COMP:null,TOTAL:null};
+  let compRealizadoExtra=0;
+  const planned=new Set(); let planningMode=false; let gradeLoaded=false;
+
+  let canonNameById={}, tokensById={}, allIds=[];
+  let aliasToCanon={};
+
+  function slug(s){return (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
+  const LOWER_PT=new Set(['de','da','do','das','dos','e','a','o','as','os','em','no','na','nos','nas','para','por','pra','com','ao','aos','à','às','pelo','pela','pelos','pelas','entre','sob','sobre','sem','até','após','ante','desde','contra','ou']);
+  const romanRx=/^(?:M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))$/i;
+  function titleCase(s){ if(!s) return ''; s=s.replace(/\s+/g,' ').trim().toLowerCase(); return s.split(' ').map((w,i)=>{ if(romanRx.test(w)) return w.toUpperCase(); const parts=w.split('-').map((p,idx)=>{ const isFirst=(i===0&&idx===0); if(!isFirst&&LOWER_PT.has(p)) return p; return p.charAt(0).toUpperCase()+p.slice(1);}); return parts.join('-');}).join(' '); }
+  function cleanName(n){ n=n.replace(/\s+\d+\s*$/,''); n=n.replace(/\b[A-Z]{2,4}\d{4,6}\b/g,'').replace(/\s{2,}/g,' ').trim(); return titleCase(n); }
+
+  function normTokens(name){
+    const base = name.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+    return base.split(/[^a-z0-9]+/).filter(t=>t && t.length>=3 && !LOWER_PT.has(t));
+  }
+  function jaccard(a,b){
+    const A=new Set(a), B=new Set(b); let inter=0;
+    for(const x of A) if(B.has(x)) inter++;
+    const uni=A.size+B.size-inter;
+    return uni? inter/uni : 0;
+  }
+  function resolveCanonicalId(id, rawName){
+    if(canonNameById[id]) return id;
+    if(aliasToCanon[id]) return aliasToCanon[id];
+    const toks = normTokens(rawName);
+    let best=null, bestScore=0;
+    for(const cid of allIds){
+      const score = jaccard(toks, tokensById[cid]||[]);
+      const subset = tokensById[cid]?.every(t=>toks.includes(t));
+      const adj = subset ? score + 0.15 : score;
+      if(adj>bestScore){ bestScore=adj; best=cid; }
+    }
+    if(best && bestScore>=0.5){
+      aliasToCanon[id]=best;
+      return best;
+    }
+    return id;
+  }
+
+  function statusFrom(t){t=t.toLowerCase(); if(/aprov|aproveit|dispens|equival/.test(t)) return 'feito'; if(/matric/.test(t)) return 'matriculado'; return 'faltando';}
+  function validP(p){return p>=1&&p<=10}
+
+  const gradeInput=document.getElementById('gradeFile'); const integInput=document.getElementById('pdfFile');
+  function toggleHeads(show){document.querySelectorAll('.col-head').forEach(h=>h.classList.toggle('head-hidden',!show))}
+  function resetGrid(){ for(let i=1;i<=10;i++) document.getElementById('col-'+i).innerHTML=''; document.getElementById('opt-grid').innerHTML=''; }
+
+  /* LEITURA DA GRADE */
+  gradeInput.addEventListener('change', async (e)=>{
+    try{
+      const f=e.target.files[0]; if(!f){ setErr('Nenhum PDF da Grade.'); return; }
+      resetGrid(); toggleHeads(false);
+      /* Revela UI quando a Grade é carregada */
+      document.querySelector('.legend')?.classList.remove('hidden');
+      document.getElementById('summary')?.classList.remove('hidden');
+      document.querySelector('.planning')?.classList.remove('hidden');
+
+      const pdf=await loadPdfFromArrayBuffer(await fileToArrayBuffer(f));
+      prereqByName={}; isOpt={}; chsById={}; bucketById={}; required={OB:null,OP:null,EST:null,COMP:null,TOTAL:null};
+      canonNameById={}; tokensById={}; aliasToCanon={}; allIds=[];
+      let curPeriod=null; let currentSection='OB'; let lines=[];
+      for(let i=1;i<=pdf.numPages;i++){ const p=await pdf.getPage(i); lines=lines.concat(await pageToLines(p)); }
+
+      const rxOb=/DISCIPLINAS OBRIGAT[ÓO]RIAS.*CARGA HOR[ÁA]RIA EXIGIDA\s*:\s*(\d+)/i;
+      const rxOp=/DISCIPLINAS OP[T]?ATIVAS.*CARGA HOR[ÁA]RIA EXIGIDA\s*:\s*(\d+)/i;
+      const rxEst=/EST[ÁA]GIO.*CARGA HOR[ÁA]RIA EXIGIDA\s*:\s*(\d+)/i;
+      const rxComp=/(ATIVIDADES|ATIV\.)\s+COMPLEMENTAR(?:ES)? .*CARGA HOR[ÁA]RIA EXIGIDA\s*:\s*(\d+)/i;
+      const rxTotal=/CARGA HOR[ÁA]RIA TOTAL.*FORMATURA.*:\s*(\d+)/i;
+
+      const periodHdr=/^PER[IÍ]ODO:\s*(\d+)/i;
+      const headerCap=/^([A-Z]{2,4}\d{4,6})\s+(.+?)\s+((?:\d+\s+){1,6})([A-Z]{2,3})\s*$/i;
+      const pureCodeLine=/^[A-Z]{2,4}\d{4,6}\s+(.+)$/i;
+
+      for(let i=0;i<lines.length;i++){
+        const L=lines[i];
+        if(/DISCIPLINAS OBRIGAT[ÓO]RIAS/i.test(L)) currentSection='OB';
+        if(/DISCIPLINAS OP[T]?ATIVAS/i.test(L)) currentSection='OP';
+        if(/EST[ÁA]GIO/i.test(L)) currentSection='EST';
+        if(/COMPLEMENTAR/i.test(L)) currentSection='COMP';
+
+        let m;
+        if(!required.OB && (m=L.match(rxOb))) required.OB=parseInt(m[1],10);
+        if(!required.OP && (m=L.match(rxOp))) required.OP=parseInt(m[1],10);
+        if(!required.EST && (m=L.match(rxEst))) required.EST=parseInt(m[1],10);
+        if(!required.COMP && (m=L.match(rxComp))) required.COMP=parseInt(m[1],10);
+        if(!required.TOTAL && (m=L.match(rxTotal))) required.TOTAL=parseInt(m[1],10);
+
+        const pm=L.match(periodHdr); if(pm){ curPeriod=parseInt(pm[1],10); continue; }
+
+        const h=L.match(headerCap); if(!h) continue;
+        const headName=cleanName(h[2]); const nums=(h[3]||'').trim().split(/\s+/).map(x=>parseInt(x,10)).filter(n=>Number.isFinite(n)); const chs=nums.length?nums[nums.length-1]:0; const tail=(h[4]||'').toUpperCase();
+        const id=slug(headName); const period=validP(curPeriod)?curPeriod:10;
+
+        let bucket;
+        const nameLC=headName.toLowerCase();
+        if(tail==='OP'||currentSection==='OP') bucket='OP';
+        else if(/est[aá]gio/.test(nameLC)||tail==='EC'||currentSection==='EST') bucket='EST';
+        else if(/complementar/.test(nameLC)||currentSection==='COMP') bucket='COMP';
+        else bucket='OB';
+
+        ensureCard(bucket==='OP'?'opt':period, headName);
+        chsById[id]=chs; bucketById[id]=bucket; if(bucket==='OP') isOpt[id]=true;
+
+        canonNameById[id]=headName; tokensById[id]=normTokens(headName); allIds.push(id);
+
+        const reqs=[]; let j=i+1;
+        while(j<lines.length){
+          const nx=lines[j];
+          if(periodHdr.test(nx)) break;
+          if(headerCap.test(nx)) break;
+          if(/^Total do Per[ií]odo/i.test(nx)) break;
+          if(/N[aã]o possui pr[eé]-?requisit/i.test(nx)){ reqs.length=0; j++; break; }
+          const pm2=nx.match(pureCodeLine);
+          if(pm2){ const reqName=cleanName(pm2[1]); if(reqName) reqs.push(slug(reqName)); j++; continue; }
+          break;
+        }
+        prereqByName[id]=Array.from(new Set(reqs));
+        i=j-1;
+      }
+      gradeLoaded=true;
+      applyStatusColors(); applyFilter(); toggleHeads(true); hideEmptyPeriodsIfMobile(); recalcAndRenderSummary(); loadPlanFromUrl();
+    }catch(err){ console.error(err); setErr('Erro ao ler a Grade.'); }
+  });
+
+  /* INTEGRALIZAÇÃO */
+  integInput.addEventListener('change', async (e)=>{
+    try{
+      const f=e.target.files[0]; if(!f){ setErr('Nenhum PDF da Integralização.'); return; }
+      resetBeforeIntegralizacao();
+      const pdf=await loadPdfFromArrayBuffer(await fileToArrayBuffer(f));
+      let lines=[]; for(let i=1;i<=pdf.numPages;i++){ const p=await pdf.getPage(i); lines=lines.concat(await pageToLines(p)); }
+
+      const statusWords="Aprovado|Aproveitado|Matriculado|Não realizada|Nao realizada|Dispensado|Equival[eê]ncia|Equivalencia";
+      const rxPeriodFirst=new RegExp(String.raw`^(\d{1,2})\s+[A-Z]{2,4}\d{4,6}\s+(.+?)\s+(\d{1,4})\s+(\d{1,3})\s+(${statusWords})$`,"i");
+      const rxCodeFirstEndPer=new RegExp(String.raw`^[A-Z]{2,4}\d{4,6}\s+(.+?)\s+(\d{1,4})\s+(\d{1,3})\s+(${statusWords})\s+(\d{1,2})$`,"i");
+      const rxB=new RegExp(String.raw`^[A-Z]{2,4}\d{4,6}\s+(.+?)\s+(\d{1,4})\s+(${statusWords})\s+(\d{1,2})$`,"i");
+      const rxA=new RegExp(String.raw`^(\d{1,2})\s+[A-Z]{2,4}\d{4,6}\s+(.+?)\s+(\d{1,4})\s+(${statusWords})$`,"i");
+
+      function pickCHSFromLine(ln){
+        const nums = (ln.match(/\d+/g)||[]).map(n=>parseInt(n,10)).filter(Number.isFinite);
+        let chs=0;
+        for(const n of nums){ if(n>=30 && n<=400) chs=n; }
+        return chs;
+      }
+      function guessBucket(name){
+        const lc=name.toLowerCase();
+        if(/est[aá]gio/.test(lc)) return 'EST';
+        if(/complementar/.test(lc)) return 'COMP';
+        return 'OB';
+      }
+      function apply(name, st, per, chs){
+        name=cleanName(name);
+        let id=slug(name);
+        id = resolveCanonicalId(id, name);
+        const bucket=bucketById[id]||guessBucket(name);
+        let el=document.querySelector(`.card[data-id="${id}"]`);
+
+        if (el){
+          const rank={faltando:0, matriculado:1, feito:2};
+          const cur=el.dataset.status||'faltando';
+          if(rank[st] > rank[cur]) el.dataset.status=st;
+        } else {
+          const target=(bucket==='OP')?'opt':(validP(per)?per:1);
+          const newEl = ensureCard(target, name, st);
+          if(newEl) { newEl.dataset.adhoc='1'; }
+          bucketById[id]=bucket; if(bucket==='OP') isOpt[id]=true;
+        }
+        if(chs && chs>0){
+          if(per===99){
+            if((bucketById[id]||bucket)==='OP'){
+              chsById[id] = Math.max(chs, chsById[id]||0);
+            }
+          }else{
+            chsById[id] = Math.max(chs, chsById[id]||0);
+          }
+        }
+      }
+
+      for(const ln of lines){
+        let m;
+        if((m=ln.match(rxPeriodFirst))){ apply(m[2], statusFrom(m[5]), parseInt(m[1],10), pickCHSFromLine(ln)); continue; }
+        if((m=ln.match(rxCodeFirstEndPer))){ apply(m[1], statusFrom(m[4]), parseInt(m[5],10), pickCHSFromLine(ln)); continue; }
+        if((m=ln.match(rxB))){ apply(m[1], statusFrom(m[3]), parseInt(m[4],10), pickCHSFromLine(ln)); continue; }
+        if((m=ln.match(rxA))){ apply(m[2], statusFrom(m[4]), parseInt(m[1],10), parseInt(m[3],10)); continue; }
+      }
+
+      for(const ln of lines){
+        if(/Disciplinas?\s+Obrigat[óo]rias?/i.test(ln)){
+          const nums=(ln.match(/\d+/g)||[]).map(n=>parseInt(n,10)).filter(Number.isFinite);
+          if(nums.length>=1){ const req = Math.max(...nums); if(Number.isFinite(req)) required.OB = required.OB || req; }
+        }
+        if(/Disciplinas?\s+Optativas?/i.test(ln)){
+          const nums=(ln.match(/\d+/g)||[]).map(n=>parseInt(n,10)).filter(Number.isFinite);
+          if(nums.length>=1){ const req = Math.max(...nums); if(Number.isFinite(req)) required.OP = required.OP || req; }
+        }
+      }
+
+      compRealizadoExtra = 0;
+      for(const ln of lines){
+        if(/Atividades?\s+Complementar(?:es)?/i.test(ln)){
+          const nums=(ln.match(/\d+/g)||[]).map(n=>parseInt(n,10)).filter(Number.isFinite);
+          if(nums.length>=2){
+            const prefixIsIdx = nums[0] <= 12;
+            const req = prefixIsIdx ? nums[1] : Math.max(...nums);
+            const realized = prefixIsIdx ? (nums.length>=3 ? nums[2] : 0) : (nums.length>=2 ? nums[nums.length-1] : 0);
+            if(Number.isFinite(req)) required.COMP = required.COMP || req;
+            if(Number.isFinite(realized)) compRealizadoExtra = realized;
+          }
+        }
+        if(/Est[áa]gio/i.test(ln)){
+          const nums=(ln.match(/\d+/g)||[]).map(n=>parseInt(n,10)).filter(Number.isFinite);
+          if(nums.length>=2){
+            const prefixIsIdx = nums[0] <= 12;
+            const req = prefixIsIdx ? nums[1] : Math.max(...nums);
+            if(Number.isFinite(req)) required.EST = required.EST || req;
+          }
+        }
+      }
+
+      applyStatusColors(); applyFilter(); hideEmptyPeriodsIfMobile(); recalcAndRenderSummary();
+    }catch(err){ console.error(err); setErr('Erro ao ler a Integralização.'); }
+  });
+
+  function ensureCard(target, name, st='faltando'){
+    const id=slug(name); const existed=document.querySelector(`.card[data-id="${id}"]`); if(existed) return existed;
+    const card=document.createElement('div'); card.className='card'; card.dataset.id=id; card.dataset.nome=name; card.dataset.status=st;
+    card.innerHTML=`<div class="title">${name}</div>`; card.addEventListener('click', onCardClick);
+    if(target==='opt') document.getElementById('opt-grid').appendChild(card);
+    else document.getElementById('col-'+target).appendChild(card);
+    return card;
+  }
+
+  function applyStatusColors(){
+    document.querySelectorAll('.card').forEach(card=>{
+      card.classList.remove('ok','faltando','mat','planned');
+      const st=card.dataset.status;
+      if(st==='feito') card.classList.add('ok');
+      else if(st==='matriculado') card.classList.add('mat');
+      else card.classList.add('faltando');
+      if(planned.has(card.dataset.id) && st!=='feito') card.classList.add('planned');
+    });
+  }
+  function setFilter(f){ document.querySelectorAll('#filters .btn').forEach(b=>b.classList.toggle('active',b.dataset.filter===f)); applyFilter(); hideEmptyPeriodsIfMobile(); recalcAndRenderSummary(); }
+  function applyFilter(){
+    const f=document.querySelector('#filters .btn.active')?.dataset.filter||'todas';
+    document.querySelectorAll('.card').forEach(card=>{
+      const st=card.dataset.status; card.classList.remove('hidden');
+      if(f==='ok' && st!=='feito') card.classList.add('hidden');
+      if(f==='mat' && st!=='matriculado') card.classList.add('hidden');
+      if(f==='faltando' && st!=='faltando') card.classList.add('hidden');
+    });
+  }
+  document.querySelectorAll('#filters .btn').forEach(btn=>{
+    if(btn.dataset.filter) btn.addEventListener('click', ()=> setFilter(btn.dataset.filter));
+  });
+
+  let zoom=1; const gridScale=document.getElementById('gridScale');
+  function updateZoom(){ gridScale.style.transform=`scale(${zoom})`; document.getElementById('zoomLevel').textContent=Math.round(zoom*100)+'%'; }
+  document.getElementById('zoomIn').addEventListener('click', ()=>{ zoom=Math.min(2.0, +(zoom+0.1).toFixed(2)); updateZoom(); });
+  document.getElementById('zoomOut').addEventListener('click', ()=>{ zoom=Math.max(0.5, +(zoom-0.1).toFixed(2)); updateZoom(); });
+  document.getElementById('zoomFit').addEventListener('click', ()=>{ zoom=1; updateZoom(); }); updateZoom();
+
+  const branchColors=['br0','br1','br2','br3','br4','br5','br6','br7','br8','br9','br10'];
+  function depsFrom(root, seen=new Set()){
+    const kids=(prereqByName[root]||[]);
+    for(const k of kids){ if(!seen.has(k)){ seen.add(k); depsFrom(k,seen); } }
+    return Array.from(seen);
+  }
+  function highlightPrereqs(card){
+    document.querySelectorAll('.card').forEach(c=>c.classList.remove('focus','br0','br1','br2','br3','br4','br5','br6','br7','br8','br9','br10'));
+    card.classList.add('focus');
+    const id=card.dataset.id;
+    const roots=(prereqByName[id]||[]).slice(0, branchColors.length);
+    roots.forEach((rid,i)=>{
+      const cls=branchColors[i];
+      const chain=[rid, ...depsFrom(rid)];
+      chain.forEach(nid=>{
+        const el=document.querySelector(`.card[data-id="${nid}"]`);
+        if(el) el.classList.add(cls);
+      });
+    });
+  }
+/* Helper: limpa destaque/foco e marcadores de necessidade */
+function clearHighlight(){
+  document.querySelectorAll('.card').forEach(function(c){
+    c.classList.remove('focus','need','br0','br1','br2','br3','br4','br5','br6','br7','br8','br9','br10');
+    var d=c.querySelector('.need-dots'); if(d) d.remove();
+  });
+}
+
+  function onCardClick(e){
+  const card = e.currentTarget;
+  if(planningMode){ togglePlanColor(card.dataset.id); }
+  else {
+    if(card.classList.contains('focus')){ clearHighlight(); }
+    else { highlightPrereqs(card); }
+  }
+}
+
+  const colorForPlan = {};
+  const needOwners = {};
+
+  function nextColorIndex(){
+    const used = new Set(Object.values(colorForPlan));
+    for(let i=0;i<branchColors.length;i++){ if(!used.has(i)) return i; }
+    return 0;
+  }
+  function getMissingPrereqs(rootId){
+    const seen=new Set(), out=[];
+    (function walk(id){
+      const kids=(prereqByName[id]||[]);
+      for(const k of kids){
+        if(seen.has(k)) continue; seen.add(k);
+        const el=document.querySelector(`.card[data-id="${k}"]`);
+        if(!el) continue;
+        const st=el.dataset.status;
+        if(st!=='feito'){ out.push(k); walk(k); }
+      }
+    })(rootId);
+    return out;
+  }
+  function ensureDots(el){ let d=el.querySelector('.need-dots'); if(!d){ d=document.createElement('div'); d.className='need-dots'; el.appendChild(d); } return d; }
+  function addDot(el, cls){ const d=ensureDots(el); const s=document.createElement('span'); s.className='dot '+cls; d.appendChild(s); }
+  function refreshNeedVisual(nid){
+    const el=document.querySelector(`.card[data-id="${nid}"]`);
+    if(!el) return;
+    const owners = needOwners[nid]? Array.from(needOwners[nid]) : [];
+    const ownerNames = owners.map(pid=>{ const p=document.querySelector(`.card[data-id="${pid}"] .title`); return p? p.textContent.trim(): pid; });
+    el.classList.toggle('need', owners.length>0);
+    const d=el.querySelector('.need-dots'); if(d) d.remove();
+    el.classList.remove('br0','br1','br2','br3','br4','br5','br6','br7','br8','br9','br10');
+    el.setAttribute('title', ownerNames.length?('Pré de: '+ownerNames.join(', ')): '');
+    if(owners.length>0){
+      const colors = owners.map(pid=> branchColors[colorForPlan[pid]] ).filter(Boolean);
+      if(colors.length>0){ el.classList.add(colors[0]); }
+      colors.forEach(c=> addDot(el, c));
+    }
+  }
+  function setPlanBadge(id){
+    const el=document.querySelector(`.card[data-id="${id}"]`);
+    if(!el) return;
+    let b=el.querySelector('.plan-badge'); if(!b){ b=document.createElement('span'); b.className='plan-badge'; el.appendChild(b); }
+    const idx=colorForPlan[id]; const cls=branchColors[idx];
+    b.className='plan-badge '+(cls||''); b.textContent = (idx!=null? (idx+1) : '');
+  }
+  function clearPlanBadge(id){
+    const el=document.querySelector(`.card[data-id="${id}"]`);
+    if(!el) return; const b=el.querySelector('.plan-badge'); if(b) b.remove();
+  }
+  function togglePlanColor(id){
+    const el=document.querySelector(`.card[data-id="${id}"]`); if(!el) return;
+    const st=el.dataset.status;
+    if(st!=='faltando') return; // só planeja pendentes
+    if(planned.has(id)){
+      planned.delete(id);
+      const clr=colorForPlan[id]; delete colorForPlan[id];
+      el.classList.remove('planned','br0','br1','br2','br3','br4','br5','br6','br7','br8','br9','br10'); clearPlanBadge(id);
+      Object.keys(needOwners).forEach(n=>{ if(needOwners[n]){ needOwners[n].delete(id); refreshNeedVisual(n); } });
+    }else{
+      planned.add(id);
+      const clr=nextColorIndex(); colorForPlan[id]=clr;
+      el.classList.add('planned', branchColors[clr]); setPlanBadge(id);
+      const miss=getMissingPrereqs(id);
+      miss.forEach(n=>{ if(!needOwners[n]) needOwners[n]=new Set(); needOwners[n].add(id); refreshNeedVisual(n); });
+    }
+    applyStatusColors(); recalcAndRenderSummary(); updatePermalink();
+  }
+
+  const planningBtn=document.getElementById('planningBtn');
+  const planInfo=document.getElementById('planInfo');
+  function setPlanningUI(){
+    planningBtn.classList.toggle('active', planningMode);
+    planningBtn.textContent = planningMode ? 'Selecionando…' : 'Selecionar matérias';
+  }
+  planningBtn.addEventListener('click', ()=>{
+    planningMode = !planningMode;
+    setPlanningUI();
+    applyStatusColors(); recalcAndRenderSummary();
+  });
+
+  const themeToggle=document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme')||'';
+  if(savedTheme==='dark'){ document.body.classList.add('dark'); themeToggle.textContent='☀️ Modo claro'; }
+  themeToggle.addEventListener('click', ()=>{
+    document.body.classList.toggle('dark');
+    const dark = document.body.classList.contains('dark');
+    localStorage.setItem('theme', dark?'dark':'light');
+    themeToggle.textContent = dark ? '☀️ Modo claro' : '🌙 Modo escuro';
+  });
+
+  document.getElementById('clearPlan').addEventListener('click', ()=>{
+    planned.clear();
+    Object.keys(colorForPlan).forEach(k=>delete colorForPlan[k]);
+    Object.keys(needOwners).forEach(n=>delete needOwners[n]);
+    document.querySelectorAll('.card').forEach(el=>{
+      el.classList.remove('planned','need','br0','br1','br2','br3','br4','br5','br6','br7','br8','br9','br10');
+      const b=el.querySelector('.plan-badge'); if(b) b.remove();
+      const d=el.querySelector('.need-dots'); if(d) d.remove();
+    });
+    applyStatusColors(); recalcAndRenderSummary(); updatePermalink();
+  });
+
+  function updatePermalink(){
+    const arr=[...planned.values()];
+    const params=new URLSearchParams(window.location.search);
+    if(arr.length) params.set('plan',arr.join(','));
+    else params.delete('plan');
+    const url=`${location.pathname}?${params.toString()}`;
+    history.replaceState(null,'',url);
+  }
+  function loadPlanFromUrl(){
+    const params=new URLSearchParams(window.location.search);
+    const plan=params.get('plan');
+    if(plan){ plan.split(',').forEach(id=>planned.add(id)); applyStatusColors(); recalcAndRenderSummary(); }
+  }
+
+  function resetBeforeIntegralizacao(){
+    planned.clear();
+    document.querySelectorAll('.card').forEach(el=>{
+      el.dataset.status='faltando';
+      el.classList.remove('planned','need','ok','mat','faltando','br0','br1','br2','br3','br4','br5','br6','br7','br8','br9','br10','focus');
+      const d=el.querySelector('.need-dots'); if(d) d.remove();
+      const b=el.querySelector('.plan-badge'); if(b) b.remove();
+    });
+    document.querySelectorAll('.card[data-adhoc="1"]').forEach(el=>el.remove());
+    aliasToCanon = {};
+    compRealizadoExtra = 0;
+    recalcAndRenderSummary();
+  }
+
+  function recalcAndRenderSummary(){
+    const done={OB:0,OP:0,EST:0,COMP:0}; const mat={OB:0,OP:0,EST:0,COMP:0}; const plan={OB:0,OP:0,EST:0,COMP:0};
+    document.querySelectorAll('.card').forEach(card=>{
+      const id=card.dataset.id; const st=card.dataset.status; const chs=chsById[id]||0; const bucket=bucketById[id]||'OB';
+      if(st==='feito'){ done[bucket]+=chs; return; }
+      if(st==='matriculado'){ mat[bucket]+=chs; }
+      if(planned.has(id) && st==='faltando'){ plan[bucket]+=chs; }
+    });
+    if(compRealizadoExtra>0) done.COMP += compRealizadoExtra;
+
+    function fmt(key){
+      const req=required[key]; const D=done[key], M=mat[key], P=plan[key];
+      let header;
+      if(key==='COMP'){ header = req? `${D} / ${req} CHS` : `${D} CHS`; }
+      else{ header = req? `${M} + ${D} / ${req} CHS` : `${M} + ${D} CHS`; }
+      const falta=req? Math.max(0, req - ( (key==='COMP')? D : (M + D) )) : 0;
+      const smallParts=[];
+      if(req) smallParts.push(`faltam ${falta} CHS`);
+      if(P>0 && key!=='COMP') smallParts.push(`planejamento ${P} CHS`);
+      return {header, small: smallParts.join(' · ')};
+    }
+    const ob=fmt('OB'), op=fmt('OP'), es=fmt('EST'), cp=fmt('COMP');
+    document.getElementById('sum-ob').textContent=ob.header; document.getElementById('sum-op').textContent=op.header; document.getElementById('sum-est').textContent=es.header; document.getElementById('sum-comp').textContent=cp.header;
+    document.getElementById('sum-ob-small').textContent=ob.small; document.getElementById('sum-op-small').textContent=op.small; document.getElementById('sum-est-small').textContent=es.small; document.getElementById('sum-comp-small').textContent=cp.small;
+
+    const totalPlan=plan.OB+plan.OP+plan.EST+plan.COMP;
+    planInfo.textContent=planningMode?`Planejadas: ${totalPlan} CHS`:'';
+  }
+
+  function hideEmptyPeriodsIfMobile(){
+    const isMobile=window.matchMedia(`(max-width:${MOBILE_BREAK}px)`).matches;
+    for(let i=1;i<=10;i++){
+      const wrap=document.getElementById('col-'+i)?.parentElement; if(!wrap) continue;
+      if(isMobile){
+        const has=!!document.querySelector(`#col-${i} .card:not(.hidden)`);
+        wrap.style.display=has?'':'none';
+      }else wrap.style.display='';
+    }
+  }
+  window.addEventListener('resize', hideEmptyPeriodsIfMobile);
+
+// Limpar destaque ao clicar fora das cartas (na área da grade) e ao pressionar ESC
+(function(){
+  var gridShell = document.querySelector('.grid-shell');
+  window.addEventListener('keydown', function(ev){
+    if(ev.key === 'Escape'){ clearHighlight(); }
+  });
+})();
+</script>
+</body>
+</html>

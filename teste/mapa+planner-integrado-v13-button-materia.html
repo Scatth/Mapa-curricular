@@ -1,0 +1,1341 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Mapa Curricular</title>
+
+<!-- pdf.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+  if (window['pdfjsLib']) {
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+  }
+</script>
+
+<style>
+  /* =========================================================
+     1) PALETA E FUNDOS — SOMENTE CORES (o resto usa estas vars)
+     ========================================================= */
+  :root{
+    /* Paleta do modo claro */
+    --bg-base: #f8f9fb;                 /* fundo da página */
+    --text-base: #111;                  /* cor do texto padrão */
+
+    --surface-1: #ffffff;               /* cards/painéis principais */
+    --surface-2: #f6f7f9;               /* superfícies sutis */
+    --surface-neutral: #e9ecef;         /* cabeçalhos / “pill” */
+
+    --border: #e3e6ea;                  /* bordas padrão */
+    --border-subtle: #cfd3d8;           /* bordas sutis */
+
+    --interactive: #ffffff;             /* botões/base */
+    --interactive-hover: #f0f2f4;
+    --interactive-active: #e7eaee;
+
+    --interactive-subtle: #f6f7f9;      /* botões sutis */
+    --interactive-subtle-hover: #eef0f3;
+    --interactive-subtle-active: #e6e9ed;
+
+    --disabled: #e7eaee;                /* estados desabilitados */
+    --disabled-subtle: #f2f4f7;
+
+    --inverted: #0f1117;                /* texto invertido em chips/badges */
+
+    /* Cores de status */
+    --ok:#b6fcb6;       /* aprovado/aproveitado */
+    --faltando:#ffcccc; /* não realizada */
+    --mat:#ffe8a3;      /* matriculado */
+    --planned:#efe6ff;  /* planejado (base) */
+    --focus:#8a2be2;    /* foco */
+
+    /* Cores para ramificações (pré-reqs por “cor”) */
+    --br0:#007aff; --br1:#f58518; --br2:#e434e5; --br3:#27526d; --br4:#813d2d;
+    --br5:#b279a2; --br6:#500097; --br7:#e45756; --br8:#4b7f32; --br9:#1db3a8; --br10:#819700;
+
+    /* Variáveis de botão (claro) */
+    --btn-bg: var(--interactive);
+    --btn-fg: var(--text-base);
+    --btn-bd: var(--border);
+    
+    /* Selecionado no claro = preto com texto branco */
+    --btn-active-bg: #000;
+    --btn-active-fg: #fff;
+    --btn-active-bd: #000;
+  }
+
+  /* Tema escuro — mapeado da paleta fornecida */
+  body.dark{
+    --bg-base: #101418;
+    --text-base: #f8f9fa;
+
+    --surface-1: #202122;
+    --surface-2: #27292d;
+    --surface-neutral: #202122;
+
+    --border: #404244;
+    --border-subtle: #404244;
+
+    --interactive: #27292d;
+    --interactive-hover: #404244;
+    --interactive-active: #54595d;
+
+    --interactive-subtle: #202122;
+    --interactive-subtle-hover: #27292d;
+    --interactive-subtle-active: #404244;
+
+    --disabled: #404244;
+    --disabled-subtle: #27292d;
+
+    /* base de planejado mais escura p/ contraste */
+    --planned:#efe6ff;
+
+    /* Variáveis de botão (escuro) */
+    --btn-bg: var(--interactive);
+    --btn-fg: var(--text-base);
+    --btn-bd: var(--border);
+    
+    /* Selecionado no escuro = branco com texto preto */
+    --btn-active-bg: #fff;
+    --btn-active-fg: #000;
+    --btn-active-bd: #fff;
+  }
+
+  /* =========================================================
+     2) APLICAÇÃO DAS VARIÁVEIS
+     ========================================================= */
+  *{box-sizing:border-box}
+  body{
+    margin:14px;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    background:var(--bg-base);
+    color:var(--text-base);
+  }
+
+  h1{margin:6px 0 10px;font-size:24px}
+
+  .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px}
+  .group{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .grow{flex:1 1 100%}
+
+  .btn{
+    border:1px solid var(--btn-bd);
+    background:var(--btn-bg);
+    color:var(--btn-fg);
+    padding:6px 10px;border-radius:10px;cursor:pointer;
+    transition:.15s background,.15s border-color,.15s color;
+  }
+  .btn:hover{ background:var(--interactive-hover) }
+  .btn:active{ background:var(--interactive-active) }
+  
+  /* ativo funciona por classe ou por aria-pressed */
+  .btn.active,
+  .btn[aria-pressed="true"]{
+    background:var(--btn-active-bg);
+    color:var(--btn-active-fg);
+    border-color:var(--btn-active-bd);
+  }
+
+  /* mantém o layout em flex com wrap */
+  .controls{
+    display:flex;
+    flex-wrap:wrap;
+    column-gap:3px;    /* espaço horizontal entre os grupos */
+    row-gap:6px;       /* espaço vertical entre as linhas (Zoom x Mostrar) */
+  }
+  
+  /* força quebra de linha onde você quer */
+  .break-row{ flex-basis:100%; height:0; }
+  
+  /* se quiser ainda mais espaço entre Zoom e Mostrar */
+  #filters{ margin-top:1px; }
+
+  .zoom-btn{width:40px;text-align:center}
+  .zoom-level{min-width:60px;text-align:center;font-variant-numeric:tabular-nums}
+
+  .planning{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:10px 0}
+  .sum-small{opacity:.85}
+
+  .grid-shell{
+    border:1px solid var(--border);
+    background:var(--surface-1);
+    border-radius:12px;padding:12px;overflow:auto;-webkit-overflow-scrolling:touch
+  }
+  .grid-scale{transform-origin:0 0}
+
+  .grid{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:12px 18px;align-items:start}
+  .period{display:flex;flex-direction:column;gap:12px}
+
+  .col-head{
+    background:var(--surface-neutral);
+    border:1px solid var(--border);
+    border-radius:10px;padding:6px 10px;font-weight:600;text-align:center
+  }
+
+  .col{display:flex;flex-direction:column;gap:12px;min-height:40px}
+
+  .card{
+    background:var(--surface-2);
+    border:2px solid var(--border-subtle);
+    border-radius:12px;padding:10px 12px;min-height:56px;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    cursor:pointer;transition:transform .06s ease,box-shadow .06s ease,background .15s,border-color .15s;
+    position:relative;
+  }
+  .card:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(0,0,0,.08)}
+
+  /* Status */
+  .card.ok{background:var(--ok);border-color:var(--border)}
+  .card.faltando{background:var(--faltando);border-color:var(--border)}
+  .card.mat{background:var(--mat);border-color:var(--border)}
+
+  /* Melhor contraste no escuro para cartões claros (texto fica escuro) */
+  body.dark .card.ok,
+  body.dark .card.faltando,
+  body.dark .card.mat { color:#111; }
+
+  /* ========= PLANEJADO (sem borda dupla) ========= */
+  .card.planned{
+    background:var(--planned);
+    border-style:dashed;
+    border-width:4px;
+    border-color:var(--focus); /* fallback se não houver cor brX */
+  }
+  .card.planned.br0,  .card.planned.br1,  .card.planned.br2,
+  .card.planned.br3,  .card.planned.br4,  .card.planned.br5,
+  .card.planned.br6,  .card.planned.br7,  .card.planned.br8,
+  .card.planned.br9,  .card.planned.br10 { box-shadow:none; }
+  .card.planned.br0{  border-color:var(--br0)!important }
+  .card.planned.br1{  border-color:var(--br1)!important }
+  .card.planned.br2{  border-color:var(--br2)!important }
+  .card.planned.br3{  border-color:var(--br3)!important }
+  .card.planned.br4{  border-color:var(--br4)!important }
+  .card.planned.br5{  border-color:var(--br5)!important }
+  .card.planned.br6{  border-color:var(--br6)!important }
+  .card.planned.br7{  border-color:var(--br7)!important }
+  .card.planned.br8{  border-color:var(--br8)!important }
+  .card.planned.br9{  border-color:var(--br9)!important }
+  .card.planned.br10{ border-color:var(--br10)!important }
+
+  /* Foco e necessidade (pré-requisito) */
+  .card.focus{box-shadow:0 0 0 4px var(--focus)}
+  .card.need{box-shadow:inset 0 0 0 4px #ff8800}
+
+  /* Sumário e legendas */
+  .summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:8px 0 12px}
+  .sum-card{background:var(--surface-1);border:1px solid var(--border);border-radius:10px;padding:10px}
+  .sum-title{font-weight:700;margin-bottom:6px}
+  .sum-num{font-variant-numeric:tabular-nums}
+
+  .legend{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 10px}
+  .legend span{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border:1px solid var(--border);border-radius:8px;background:var(--surface-1)}
+  .swatch{width:12px;height:12px;border-radius:50%;display:inline-block}
+
+  .empty{opacity:.7;font-style:italic;padding:6px}
+  .hidden{display:none!important}
+  .area-head{background:var(--surface-neutral);border:1px solid var(--border);border-radius:10px;padding:6px 10px;font-weight:600;text-align:left;margin:0 0 8px}
+
+  .opt-area{margin-top:18px}
+  .opt-grid{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:12px 18px;margin-top:12px}
+  .opt-grid .card .title{white-space:normal;display:block;overflow:visible;text-overflow:clip}
+  .head-hidden{display:none}
+  .error{color:#b00020;font-weight:600;margin-left:8px}
+
+  /* Ramificações (cores) — para PRÉ e “need” */
+  .card.br0{box-shadow:inset 0 0 0 4px var(--br0)}
+  .card.br1{box-shadow:inset 0 0 0 4px var(--br1)}
+  .card.br2{box-shadow:inset 0 0 0 4px var(--br2)}
+  .card.br3{box-shadow:inset 0 0 0 4px var(--br3)}
+  .card.br4{box-shadow:inset 0 0 0 4px var(--br4)}
+  .card.br5{box-shadow:inset 0 0 0 4px var(--br5)}
+  .card.br6{box-shadow:inset 0 0 0 4px var(--br6)}
+  .card.br7{box-shadow:inset 0 0 0 4px var(--br7)}
+  .card.br8{box-shadow:inset 0 0 0 4px var(--br8)}
+  .card.br9{box-shadow:inset 0 0 0 4px var(--br9)}
+  .card.br10{box-shadow:inset 0 0 0 4px var(--br10)}
+
+  /* Badges & dots (numeração do plano + pontinhos dos PRÉ) */
+  .plan-badge{
+    position:absolute;top:2px;right:1px;width:16px;height:16px;
+    line-height:14px;font-size:10px;font-weight:700;text-align:center;
+    color:#fff;border-radius:50%;display:inline-block;box-shadow:0 0 0 2px var(--surface-1) inset
+  }
+  .plan-badge.br0{ background: var(--br0) }
+  .plan-badge.br1{ background: var(--br1) }
+  .plan-badge.br2{ background: var(--br2) }
+  .plan-badge.br3{ background: var(--br3) }
+  .plan-badge.br4{ background: var(--br4) }
+  .plan-badge.br5{ background: var(--br5) }
+  .plan-badge.br6{ background: var(--br6) }
+  .plan-badge.br7{ background: var(--br7) }
+  .plan-badge.br8{ background: var(--br8) }
+  .plan-badge.br9{ background: var(--br9) }
+  .plan-badge.br10{ background: var(--br10) }
+
+  .need-dots{position:absolute;top:6px;left:6px;display:flex;gap:4px}
+  .need-dots .dot{width:8px;height:8px;border-radius:50%;display:inline-block;box-shadow:0 0 0 2px var(--surface-1) inset}
+  .need-dots .dot.br0{ background: var(--br0) }
+  .need-dots .dot.br1{ background: var(--br1) }
+  .need-dots .dot.br2{ background: var(--br2) }
+  .need-dots .dot.br3{ background: var(--br3) }
+  .need-dots .dot.br4{ background: var(--br4) }
+  .need-dots .dot.br5{ background: var(--br5) }
+  .need-dots .dot.br6{ background: var(--br6) }
+  .need-dots .dot.br7{ background: var(--br7) }
+  .need-dots .dot.br8{ background: var(--br8) }
+  .need-dots .dot.br9{ background: var(--br9) }
+  .need-dots .dot.br10{ background: var(--br10) }
+
+  /* Responsivo */
+  @media (max-width:1100px){
+    .grid{grid-template-columns:repeat(3,minmax(260px,1fr))}
+    .opt-grid{grid-template-columns:repeat(3,minmax(260px,1fr))}
+    .summary{grid-template-columns:repeat(2,minmax(0,1fr))}
+  }
+  @media (max-width:800px){
+    .grid,.opt-grid{grid-template-columns:repeat(2,minmax(260px,1fr))}
+    .controls{gap:8px}
+    h1{font-size:20px}
+    .grow{flex-basis:100%}
+  }
+  @media (max-width:560px){
+    .grid,.opt-grid{grid-template-columns:repeat(1,minmax(260px,1fr))}
+    .btn{padding:6px 8px}
+    .grow{flex-basis:100%}
+    .summary{grid-template-columns:repeat(1,minmax(0,1fr))}
+  }
+
+  /* === Header bar and legend visibility === */
+  .header-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:6px 0 12px}
+  #legend{display:none}
+  #legend.visible{display:flex}
+
+  .modal{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+          background:rgba(0,0,0,.4); z-index:9999; }
+  .modal.hidden{ display:none; }
+  .modal-card{ background:var(--surface-1); color:var(--text-base); border:1px solid var(--border);
+               border-radius:12px; padding:16px 18px; width:min(520px, 92vw);
+               box-shadow:0 10px 24px rgba(0,0,0,.2); }
+  .modal-card h3{ margin:0 0 8px; font-size:18px; }
+  .modal-card p{ margin:0 0 8px; }
+  .modal-card ul{ margin:0 0 10px 18px; }
+  .modal-card li{ cursor:pointer; }
+  .modal-card li:hover{ text-decoration:underline; }
+  .modal-actions{ text-align:right; margin-top:10px; }
+
+
+#schedule-instruction { display: none; margin-left: 10px; font-weight: bold; }
+</style>
+
+<style>
+/* === Planner styles === */
+#plannerSection .planner{ position:relative; display:grid; grid-template-columns:140px repeat(6,1fr);
+  border:2px solid #000; border-bottom-width:1px; background:#fff; user-select:none; }
+#plannerSection .cell,#plannerSection .time,#plannerSection .head{ color:#111; border-right:2px solid #000; border-bottom:1px solid #000; min-height:42px; background:#fff; }
+#plannerSection .head{ color:#111; position:sticky; top:0; z-index:3; background:#f5f5f5; font-weight:700; font-size:26px; text-align:center; padding:10px 6px; }
+#plannerSection .time{ color:#111; background:#fff; font-size:14px; padding:8px 8px; display:flex; align-items:center; justify-content:space-between; }
+.time .idx{ font-weight:700; font-size:12px; opacity:.65 }
+#plannerSection .overlay{ position:absolute; inset:0; z-index:2; pointer-events:none; }
+#plannerSection .aula{
+  position:absolute; border-radius:14px; padding:10px 12px; border:1px solid #0000001a;
+  background: linear-gradient(#ffffff80, #ffffff40), var(--aula-bg, #ffe8a3);
+  box-shadow:0 6px 16px #0000001f, inset 0 1px 0 #ffffff80;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  font-weight:600; color:var(--aula-fg,#111); pointer-events:auto; overflow:hidden;
+  transition:transform .08s ease, box-shadow .08s ease;
+}
+#plannerSection .aula:hover{ transform:translateY(-1px); box-shadow:0 8px 20px #00000026, inset 0 1px 0 #ffffff80; }
+#plannerSection .aula::before{ content:""; position:absolute; inset:0 auto 0 0; width:6px; border-radius:14px 0 0 14px; background:#00000026; mix-blend-mode:multiply; }
+#plannerSection .aula span{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:70% }
+#plannerSection .aula small{ font-weight:500; opacity:.85 }
+.cell:hover{ background:#f7fbff }
+
+/* Modal (reusa sua #plannerSection .mask/#plannerSection .modal se já existir; se não, define aqui) */
+#plannerSection .mask{ position:fixed; inset:0; background:#0006; display:none; align-items:center; justify-content:center; z-index:1000; }
+#plannerSection .modal{ width:min(480px, 92vw); max-height:35vh;background:var(--surface-1); border:1px solid var(--border);border-radius:14px; padding:16px; box-shadow:0 12px 40px #0008; margin:auto; }
+#plannerSection .modal h2{ margin:0 0 250px 0; font-size:18px }
+.pl-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px }
+.pl-grid label{ font-size:12px; opacity:.8 }
+.pl-grid input, .pl-grid select{ width:100%; padding:8px 10px; border:1px solid #0002; border-radius:10px }
+.pl-row{ display:flex; gap:10px; align-items:center }
+.pl-right{ display:flex; gap:8px; justify-content:flex-end; margin-top:12px }
+
+/* removed pl-header {
+  display:inline-block;
+  padding:8px 12px;
+  border-radius:10px;
+  background:linear-gradient(180deg,#ffffff80,#ffffff60);
+  border:1px solid #00000012;
+  box-shadow:0 1px 2px #0000000f;
+  font-weight:700;
+  letter-spacing:.02em;
+  color:#111;
+  margin:0 0 10px 0;
+}
+#plannerSection .pl-card{
+  background:var(--surface-1);
+  border:1px solid var(--border);
+  border-radius:14px;
+  box-shadow:0 6px 18px #0000001a;
+  padding:12px;
+}
+#plannerSection .pl-toolbar{
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:8px;
+}
+/* Improve time visibility and hide index */
+#plannerSection .time span:first-child{ font-weight:700; color:#111; font-size:15px; }
+#plannerSection .time .idx{ display:none; }
+#plannerSection .head{ font-weight:800; color:#111; }
+
+#plannerSection .planner-instruction{
+  margin: 0 0 10px 4px;
+  font-size: 14px;
+  opacity: .85;
+}
+#plannerSection .pl-card{
+  background:var(--surface-1);
+  border:1px solid var(--border);
+  border-radius:14px;
+  box-shadow:0 6px 18px #0000001a;
+  padding:12px;
+}
+
+/* === Materia buttons === */
+#plannerSection .pl-mat-buttons{ display:grid; grid-template-columns: repeat(auto-fill,minmax(160px,1fr)); gap:8px; margin-top:6px; max-height:240px; overflow:auto; padding-right:2px }
+#plannerSection .pl-mat-btn{ display:flex; align-items:center; gap:8px; padding:8px 10px; border:1px solid #ffffff22; border-radius:10px; background:#2a2a2a; color:#fff; cursor:pointer; font-weight:600 }
+#plannerSection .pl-mat-btn .dot{ width:10px; height:10px; border-radius:50%; flex:0 0 10px; border:1px solid #00000055 }
+#plannerSection .pl-mat-btn.active{ outline:2px solid #ffffff; background:#3a3a3a }
+</style>
+</head>
+<body>
+  <div class="header-bar"><h1>Mapa Curricular</h1><button class="btn" id="themeToggle" title="Alternar tema">🌙 Modo escuro</button></div>
+
+  <div class="controls">
+    <label class="group hidden" id="grade">
+      <span><b>Grade:</b><span>
+      <input type="file" id="gradeFile" accept=".pdf,application/pdf">
+    </label>
+    <label class="group hidden" id="integralizacao">
+      <span><b>Integralização:</b><span> 
+      <input type="file" id="pdfFile" accept=".pdf,application/pdf" disabled>
+    </label>
+	<div class="break-row"></div>
+    <div class="group hidden" id="zoomControls">
+      <span><b>Zoom:</b></span>
+      <button class="btn zoom-btn" id="zoomOut">−</button>
+      <span class="zoom-level" id="zoomLevel">100%</span>
+      <button class="btn zoom-btn" id="zoomIn">+</button>
+      <button class="btn" id="zoomFit" title="Ajustar à largura">Ajustar</button>
+    </div>
+    <div class="group grow hidden" id="filters">
+      <span><b>Mostrar:</b></span>
+      <button class="btn active" data-filter="todas">Todas</button>
+      <button class="btn" data-filter="ok">Aprovadas</button>
+      <button class="btn" data-filter="mat">Matriculadas</button>
+      <button class="btn" data-filter="faltando">Pendentes</button>
+    </div>
+    <span id="err" class="error"></span>
+  </div>
+
+  <div class="legend" id="legend">
+    <span><span class="swatch" style="background:var(--ok)"></span> Aprovado/Aproveitado</span>
+    <span><span class="swatch" style="background:var(--mat)"></span> Matriculado</span>
+    <span><span class="swatch" style="background:var(--faltando)"></span> Não realizada</span>
+    <span><span class="swatch" style="background:var(--planned)"></span> Planejada</span>
+  </div>
+
+  <!-- mini sumário -->
+  <div class="summary hidden" id="summary">
+    <div class="sum-card"><div class="sum-title">Obrigatórias</div><div class="sum-num" id="sum-ob">—</div><div class="sum-small" id="sum-ob-small"></div></div>
+    <div class="sum-card"><div class="sum-title">Optativas</div><div class="sum-num" id="sum-op">—</div><div class="sum-small" id="sum-op-small"></div></div>
+    <div class="sum-card"><div class="sum-title">Estágio</div><div class="sum-num" id="sum-est">—</div><div class="sum-small" id="sum-est-small"></div></div>
+    <div class="sum-card"><div class="sum-title">Complementares</div><div class="sum-num" id="sum-comp">—</div><div class="sum-small" id="sum-comp-small"></div></div>
+  </div>
+
+  <div class="planning">
+    <button class="btn hidden" id="planningBtn" title="Selecionar matérias para planejar">Selecionar matérias</button>
+    <span id="planInfo" class="sum-small"></span>
+    <button class="btn hidden" id="clearPlan">Limpar plano</button>
+    <button class="btn hidden" id="btnOpenPlanner" title="Abrir planner de horários">Horário</button>
+<button class="btn" id="btnClearPlanner" style="display:none" title="Limpar a planilha">Limpar planilha</button><span id="plannerHint" class="sum-small" style="margin-left:12px"><span id="schedule-instruction">Selecione as matérias e defina seus horários abaixo.</span></span></div>
+
+  <div id="prereqModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="prereqTitle">
+    <div class="modal-card">
+      <h3 id="prereqTitle">Pré-requisito pendente</h3>
+      <p id="prereqMsg"></p>
+      <ul id="prereqList"></ul>
+      <div class="modal-actions">
+        <button class="btn" id="prereqOk" aria-label="Fechar aviso">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <section id="onboarding" aria-live="polite">
+    <div class="onb-card">
+      <h2>Comece carregando a <b>Grade</b></h2>
+      
+      <div id="gradeDrop" class="dropzone" role="button" tabindex="0"
+           aria-label="Arraste o PDF da Grade aqui ou clique para selecionar">
+        Arraste o PDF da Grade Curricular do seu Curso aqui ou <button type="button" class="btn" id="pickGradeBtn">procurar arquivo…</button>
+      </div>
+	  
+	  <ol class="onb-steps">
+        <li>Clique em <b>Grade → Escolher ficheiro</b> e selecione o PDF da grade.</li>
+        <li>Depois que a grade carregar, anexe o PDF da <b>Integralização</b>.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="materiasSection" class="hidden">
+   <div class="grid-shell">
+     <div class="grid-scale" id="gridScale">
+  
+       <div class="area-head">Obrigatórias</div>
+       <div class="grid" id="grid">
+         <div class="period"><div class="col-head head-hidden">Período 1</div><div class="col" id="col-1"><div class="empty">Carregue a Grade…</div></div></div>
+         <div class="period"><div class="col-head head-hidden">Período 2</div><div class="col" id="col-2"></div></div>
+         <div class="period"><div class="col-head head-hidden">Período 3</div><div class="col" id="col-3"></div></div>
+         <div class="period"><div class="col-head head-hidden">Período 4</div><div class="col" id="col-4"></div></div>
+         <div class="period"><div class="col-head head-hidden">Período 5</div><div class="col" id="col-5"></div></div>
+         <div class="period"><div class="col-head head-hidden">Período 6</div><div class="col" id="col-6"></div></div>
+         <div class="period"><div class="col-head head-hidden">Período 7</div><div class="col" id="col-7"></div></div>
+         <div class="period"><div class="col-head head-hidden">Período 8</div><div class="col" id="col-8"></div></div>
+         <div class="period"><div class="col-head head-hidden">Período 9</div><div class="col" id="col-9"></div></div>
+         <div class="period"><div class="col-head head-hidden">Período 10</div><div class="col" id="col-10"></div></div>
+       </div>
+  
+       <div class="opt-area">
+         <div class="area-head">Optativas</div>
+         <div class="opt-grid" id="opt-grid"></div>
+       </div>
+  
+     </div>
+   </div>
+  
+  </section>
+
+
+  <section id="plannerSection" style="display:none">
+  <div class="pl-card">
+    <div class="area-head">Horário</div>
+    <div id="planner" class="planner"></div>
+
+    
+  
+  </div>
+  <div id="plannerMask" class="mask" style="display:none">
+      <div class="modal">
+        <h2>Agendar aula</h2>
+        <div class="pl-grid" style="margin-bottom:8px">
+          <div>
+            <label>Início</label>
+            <input id="pl-inicio" type="text" readonly>
+          </div>
+          <div>
+            <label>Matéria</label>
+            <select id="pl-materia"></select>
+          </div>
+          <div>
+            <label>Duração (h)</label>
+            <select id="pl-horas"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+          </div>
+          <div class="pl-row">
+            <label>Cor</label>
+            <input id="pl-cor" type="color" value="#ffe8a3" style="width:60px; padding:0; height:36px">
+            <input id="pl-cor-texto" type="text" placeholder="cinza, laranja, #cdeffd" style="flex:1">
+          </div>
+        </div>
+        <div class="pl-right">
+          <button id="pl-cancel">Cancelar</button>
+          <button id="pl-ok">Adicionar</button>
+        </div>
+      </div>
+    </div>
+  
+
+</section>
+
+
+
+<script>
+  const MOBILE_BREAK=800;
+  const errEl=document.getElementById('err'); function setErr(m){errEl.textContent=m||''}
+  const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  const isSafari=/^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+  async function ensurePdfJs(){
+    if(window.pdfjsLib) return;
+    await new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.min.js';s.onload=res;s.onerror=rej;document.head.appendChild(s)}).catch(()=>{});
+    if(window.pdfjsLib){
+      pdfjsLib.GlobalWorkerOptions.workerSrc=(isIOS&&isSafari)?'':'https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+    }else{ setErr('Falha ao carregar pdf.js'); throw new Error('no pdfjs'); }
+  }
+  async function fileToArrayBuffer(f){ if(f.arrayBuffer){ try{return await f.arrayBuffer()}catch{} } return await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=()=>rej(r.error||new Error('fr'));r.readAsArrayBuffer(f)}); }
+  async function loadPdfFromArrayBuffer(buf){ await ensurePdfJs(); try{ if(isIOS&&isSafari) throw new Error('force'); return await pdfjsLib.getDocument({data:buf}).promise; }catch(e){ return await pdfjsLib.getDocument({data:buf,disableWorker:true,useWorkerFetch:false}).promise; } }
+
+  // Junta texto por linha usando coordenadas
+  async function pageToLines(p){
+    const c=await p.getTextContent();
+    const items=c.items.map(it=>{const m=it.transform||it.matrix||[1,0,0,1,0,0];return{s:it.str,x:m[4],y:m[5]}});
+    const tol=4; items.sort((a,b)=>(b.y-a.y)||(a.x-b.x));
+    const lines=[]; let row=null;
+    for(const it of items){
+      if(!row){row={y:it.y,buf:[it]};continue}
+      if(Math.abs(it.y-row.y)<=tol){row.buf.push(it)}
+      else{
+        row.buf.sort((a,b)=>a.x-b.x);
+        lines.push(row.buf.map(k=>k.s).join(' ').replace(/\s+/g,' ').trim());
+        row={y:it.y,buf:[it]}
+      }
+    }
+    if(row&&row.buf.length){
+      row.buf.sort((a,b)=>a.x-b.x);
+      lines.push(row.buf.map(k=>k.s).join(' ').replace(/\s+/g,' ').trim());
+    }
+    return lines.filter(Boolean)
+  }
+
+  // estado
+  let prereqByName={}, isOpt={}, chsById={}, bucketById={}, required={OB:null,OP:null,EST:null,COMP:null,TOTAL:null};
+  let compRealizadoExtra=0;
+  const planned=new Set(); let planningMode=false; let gradeLoaded=false;
+
+  function resetBeforeIntegralizacao(){
+    planned.clear();
+    document.querySelectorAll('.card').forEach(el=>{
+      el.dataset.status='faltando';
+      el.classList.remove('planned','need','ok','mat','faltando','br0','br1','br2','br3','br4','br5','br6','br7','br8','br9','br10','focus');
+      const d=el.querySelector('.need-dots'); if(d) d.remove();
+      const b=el.querySelector('.plan-badge'); if(b) b.remove();
+    });
+    document.querySelectorAll('.card[data-adhoc="1"]').forEach(el=>el.remove());
+    aliasToCanon = {};
+    compRealizadoExtra = 0;
+    recalcAndRenderSummary();
+  }
+
+  // nomes canônicos
+  let canonNameById={}, tokensById={}, allIds=[]; // grade
+  let aliasToCanon={}; // integralização -> id canônico
+
+  function slug(s){return (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
+  const LOWER_PT=new Set(['de','da','do','das','dos','e','a','o','as','os','em','no','na','nos','nas','para','por','pra','com','ao','aos','à','às','pelo','pela','pelos','pelas','entre','sob','sobre','sem','até','após','ante','desde','contra','ou']);
+  const romanRx=/^(?:M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3}))$/i;
+  function titleCase(s){ if(!s) return ''; s=s.replace(/\s+/g,' ').trim().toLowerCase(); return s.split(' ').map((w,i)=>{ if(romanRx.test(w)) return w.toUpperCase(); const parts=w.split('-').map((p,idx)=>{ const isFirst=(i===0&&idx===0); if(!isFirst&&LOWER_PT.has(p)) return p; return p.charAt(0).toUpperCase()+p.slice(1);}); return parts.join('-');}).join(' ') }
+  function cleanName(n){ n=n.replace(/\s+\d+\s*$/,''); n=n.replace(/\b[A-Z]{2,4}\d{4,6}\b/g,'').replace(/\s{2,}/g,' ').trim(); return titleCase(n); }
+
+  function normTokens(name){
+    const base = name.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+    return base.split(/[^a-z0-9]+/).filter(t=>t && t.length>=3 && !LOWER_PT.has(t));
+  }
+  function jaccard(a,b){
+    const A=new Set(a), B=new Set(b); let inter=0;
+    for(const x of A) if(B.has(x)) inter++;
+    const uni=A.size+B.size-inter;
+    return uni? inter/uni : 0;
+  }
+  function resolveCanonicalId(id, rawName){
+    if(canonNameById[id]) return id;
+    if(aliasToCanon[id]) return aliasToCanon[id];
+    const toks = normTokens(rawName);
+    let best=null, bestScore=0;
+    for(const cid of allIds){
+      const score = jaccard(toks, tokensById[cid]||[]);
+      const subset = tokensById[cid]?.every(t=>toks.includes(t));
+      const adj = subset ? score + 0.15 : score;
+      if(adj>bestScore){ bestScore=adj; best=cid; }
+    }
+    if(best && bestScore>=0.5){
+      aliasToCanon[id]=best;
+      return best;
+    }
+    return id;
+  }
+
+  function statusFrom(t){t=t.toLowerCase(); if(/aprov|aproveit|dispens|equival/.test(t)) return 'feito'; if(/matric/.test(t)) return 'matriculado'; return 'faltando'}
+  function validP(p){return p>=1&&p<=10}
+
+  const gradeInput=document.getElementById('gradeFile'); const integInput=document.getElementById('pdfFile');
+  function toggleHeads(show){document.querySelectorAll('.col-head').forEach(h=>h.classList.toggle('head-hidden',!show))}
+  function resetGrid(){ for(let i=1;i<=10;i++) document.getElementById('col-'+i).innerHTML=''; document.getElementById('opt-grid').innerHTML='' }
+
+  function showOnboarding(){ document.getElementById('onboarding')?.classList.remove('hidden'); }
+  function hideOnboarding(){ document.getElementById('onboarding')?.classList.add('hidden'); }
+  
+  (function hookOnboarding(){
+    const gradeInput = document.getElementById('gradeFile');
+    const pickBtn = document.getElementById('pickGradeBtn');
+    const drop = document.getElementById('gradeDrop');
+    if (!gradeInput || !pickBtn || !drop) return;
+  
+    pickBtn.addEventListener('click', () => gradeInput.click());
+  
+    // drag & drop para o PDF da Grade
+    function allow(e){ e.preventDefault(); }
+    drop.addEventListener('dragover', (e)=>{ allow(e); drop.classList.add('drag'); });
+    drop.addEventListener('dragleave', ()=> drop.classList.remove('drag'));
+    drop.addEventListener('drop', (e)=>{
+      allow(e); drop.classList.remove('drag');
+      const files = [...e.dataTransfer.files].filter(f => /\.pdf$/i.test(f.name) || f.type==='application/pdf');
+      if (!files.length) return;
+      const dt = new DataTransfer(); dt.items.add(files[0]);
+      gradeInput.files = dt.files;
+      gradeInput.dispatchEvent(new Event('change', { bubbles:true }));
+    });
+  
+    // acessibilidade: Enter/Espaço ativa o botão
+    drop.addEventListener('keydown', (e)=>{
+      if (e.key === 'Enter' || e.code === 'Space'){ e.preventDefault(); gradeInput.click(); }
+    });
+  })();
+
+  /* ======== LEITURA DA GRADE ======== */
+  gradeInput.addEventListener('change', async (e)=>{
+    try{
+      const f=e.target.files[0]; if(!f){ setErr('Nenhum PDF da Grade.'); return; }
+      resetGrid(); toggleHeads(false);
+      resetBeforeIntegralizacao();
+      // esconde a área de matérias enquanto carrega a nova Grade
+      document.getElementById('materiasSection')?.classList.add('hidden');
+      const integGroup = document.getElementById('integralizacao');
+      const integInput = document.getElementById('pdfFile');
+      integInput.value = '';
+      integInput.disabled = true;
+      integGroup.classList.add('hidden');
+      const pdf=await loadPdfFromArrayBuffer(await fileToArrayBuffer(f));
+      prereqByName={}; isOpt={}; chsById={}; bucketById={}; required={OB:null,OP:null,EST:null,COMP:null,TOTAL:null};
+      canonNameById={}; tokensById={}; aliasToCanon={}; allIds=[];
+      let curPeriod=null; let currentSection='OB'; let lines=[];
+      for(let i=1;i<=pdf.numPages;i++){ const p=await pdf.getPage(i); lines=lines.concat(await pageToLines(p)); }
+
+      const rxOb=/DISCIPLINAS OBRIGAT[ÓO]RIAS.*CARGA HOR[ÁA]RIA EXIGIDA\s*:\s*(\d+)/i;
+      const rxOp=/DISCIPLINAS OP[T]?ATIVAS.*CARGA HOR[ÁA]RIA EXIGIDA\s*:\s*(\d+)/i;
+      const rxEst=/EST[ÁA]GIO.*CARGA HOR[ÁA]RIA EXIGIDA\s*:\s*(\d+)/i;
+      const rxComp=/(ATIVIDADES|ATIV\.)\s+COMPLEMENTAR(?:ES)? .*CARGA HOR[ÁA]RIA EXIGIDA\s*:\s*(\d+)/i;
+      const rxTotal=/CARGA HOR[ÁA]RIA TOTAL.*FORMATURA.*:\s*(\d+)/i;
+
+      const periodHdr=/^PER[IÍ]ODO:\s*(\d+)/i;
+      const headerCap=/^([A-Z]{2,4}\d{4,6})\s+(.+?)\s+((?:\d+\s+){1,6})([A-Z]{2,3})\s*$/i;
+      const pureCodeLine=/^[A-Z]{2,4}\d{4,6}\s+(.+)$/i;
+
+      for(let i=0;i<lines.length;i++){
+        const L=lines[i];
+        if(/DISCIPLINAS OBRIGAT[ÓO]RIAS/i.test(L)) currentSection='OB';
+        if(/DISCIPLINAS OP[T]?ATIVAS/i.test(L)) currentSection='OP';
+        if(/EST[ÁA]GIO/i.test(L)) currentSection='EST';
+        if(/COMPLEMENTAR/i.test(L)) currentSection='COMP';
+
+        let m;
+        if(!required.OB && (m=L.match(rxOb))) required.OB=parseInt(m[1],10);
+        if(!required.OP && (m=L.match(rxOp))) required.OP=parseInt(m[1],10);
+        if(!required.EST && (m=L.match(rxEst))) required.EST=parseInt(m[1],10);
+        if(!required.COMP && (m=L.match(rxComp))) required.COMP=parseInt(m[1],10);
+        if(!required.TOTAL && (m=L.match(rxTotal))) required.TOTAL=parseInt(m[1],10);
+
+        const pm=L.match(periodHdr); if(pm){ curPeriod=parseInt(pm[1],10); continue; }
+
+        const h=L.match(headerCap); if(!h) continue;
+        const headName=cleanName(h[2]);
+        const nums=(h[3]||'').trim().split(/\s+/).map(x=>parseInt(x,10)).filter(n=>Number.isFinite(n));
+        const chs=nums.length?nums[nums.length-1]:0;
+        const tail=(h[4]||'').toUpperCase();
+        const id=slug(headName); const period=validP(curPeriod)?curPeriod:10;
+
+        let bucket;
+        const nameLC=headName.toLowerCase();
+        if(tail==='OP'||currentSection==='OP') bucket='OP';
+        else if(/est[aá]gio/.test(nameLC)||tail==='EC'||currentSection==='EST') bucket='EST';
+        else if(/complementar/.test(nameLC)||currentSection==='COMP') bucket='COMP';
+        else bucket='OB';
+
+        ensureCard(bucket==='OP'?'opt':period, headName);
+        chsById[id]=chs; bucketById[id]=bucket; if(bucket==='OP') isOpt[id]=true;
+
+        canonNameById[id]=headName; tokensById[id]=normTokens(headName); allIds.push(id);
+
+        // pré-requisitos da grade
+        const reqs=[]; let j=i+1;
+        while(j<lines.length){
+          const nx=lines[j];
+          if(periodHdr.test(nx)) break;
+          if(headerCap.test(nx)) break;
+          if(/^Total do Per[ií]odo/i.test(nx)) break;
+          if(/N[aã]o possui pr[eé]-?requisit/i.test(nx)){ reqs.length=0; j++; break; }
+          const pm2=nx.match(pureCodeLine);
+          if(pm2){ const reqName=cleanName(pm2[1]); if(reqName) reqs.push(slug(reqName)); j++; continue; }
+          break;
+        }
+        prereqByName[id]=Array.from(new Set(reqs));
+        i=j-1;
+      }
+      gradeLoaded=true;
+      applyStatusColors(); applyFilter(); toggleHeads(true); hideEmptyPeriodsIfMobile(); recalcAndRenderSummary();
+      document.getElementById('zoomControls')?.classList.remove('hidden');
+      document.getElementById('grade')?.classList.remove('hidden');
+      document.getElementById('summary')?.classList.remove('hidden');
+      document.getElementById('filters')?.classList.remove('hidden');
+      integInput.disabled = false;
+      integGroup.classList.remove('hidden');
+      document.getElementById('materiasSection')?.classList.remove('hidden');
+      hideOnboarding();
+    }catch(err){ console.error(err); setErr('Erro ao ler a Grade.');
+    document.getElementById('pdfFile').disabled = true;
+    document.getElementById('grade').classList.add('hidden');
+    document.getElementById('integralizacao').classList.add('hidden');
+    document.getElementById('materiasSection')?.classList.add('hidden');
+    showOnboarding();
+    }
+  });
+
+  /* ======== LEITURA DA INTEGRALIZAÇÃO ======== */
+  integInput.addEventListener('change', async (e)=>{
+    try{
+      const f=e.target.files[0]; if(!f){ setErr('Nenhum PDF da Integralização.'); return; }
+      resetBeforeIntegralizacao();
+      const pdf=await loadPdfFromArrayBuffer(await fileToArrayBuffer(f));
+      let lines=[]; for(let i=1;i<=pdf.numPages;i++){ const p=await pdf.getPage(i); lines=lines.concat(await pageToLines(p)); }
+
+      const statusWords="Aprovado|Aproveitado|Matriculado|Não realizada|Nao realizada|Dispensado|Equival[eê]ncia|Equivalencia";
+      const rxPeriodFirst=new RegExp(String.raw`^(\d{1,2})\s+[A-Z]{2,4}\d{4,6}\s+(.+?)\s+(\d{1,4})\s+(\d{1,3})\s+(${statusWords})$`,"i");
+      const rxCodeFirstEndPer=new RegExp(String.raw`^[A-Z]{2,4}\d{4,6}\s+(.+?)\s+(\d{1,4})\s+(\d{1,3})\s+(${statusWords})\s+(\d{1,2})$`,"i");
+      const rxB=new RegExp(String.raw`^[A-Z]{2,4}\d{4,6}\s+(.+?)\s+(\d{1,4})\s+(${statusWords})\s+(\d{1,2})$`,"i");
+      const rxA=new RegExp(String.raw`^(\d{1,2})\s+[A-Z]{2,4}\d{4,6}\s+(.+?)\s+(\d{1,4})\s+(${statusWords})$`,"i");
+
+      function pickCHSFromLine(ln){
+        const nums = (ln.match(/\d+/g)||[]).map(n=>parseInt(n,10)).filter(Number.isFinite);
+        let chs=0;
+        for(const n of nums){ if(n>=30 && n<=400) chs=n; }
+        return chs;
+      }
+      function guessBucket(name){
+        const lc=name.toLowerCase();
+        if(/est[aá]gio/.test(lc)) return 'EST';
+        if(/complementar/.test(lc)) return 'COMP';
+        return 'OB';
+      }
+      function apply(name, st, per, chs){
+        name=cleanName(name);
+        let id=slug(name);
+        id = resolveCanonicalId(id, name);
+        const bucket=bucketById[id]||guessBucket(name);
+        let el=document.querySelector(`.card[data-id="${id}"]`);
+
+        if (el){
+          const rank={faltando:0, matriculado:1, feito:2};
+          const cur=el.dataset.status||'faltando';
+          if(rank[st] > rank[cur]) el.dataset.status=st;
+        } else {
+          const target=(bucket==='OP')?'opt':(validP(per)?per:1);
+          const newEl = ensureCard(target, name, st);
+          if(newEl) { newEl.dataset.adhoc='1'; }
+          bucketById[id]=bucket; if(bucket==='OP') isOpt[id]=true;
+        }
+        if(chs && chs>0){
+          if(per===99){
+            if((bucketById[id]||bucket)==='OP'){
+              chsById[id] = Math.max(chs, chsById[id]||0);
+            }
+          }else{
+            chsById[id] = Math.max(chs, chsById[id]||0);
+          }
+        }
+      }
+
+      for(const ln of lines){
+        let m;
+        if((m=ln.match(rxPeriodFirst))){ apply(m[2], statusFrom(m[5]), parseInt(m[1],10), pickCHSFromLine(ln)); continue; }
+        if((m=ln.match(rxCodeFirstEndPer))){ apply(m[1], statusFrom(m[4]), parseInt(m[5],10), pickCHSFromLine(ln)); continue; }
+        if((m=ln.match(rxB))){ apply(m[1], statusFrom(m[3]), parseInt(m[4],10), pickCHSFromLine(ln)); continue; }
+        if((m=ln.match(rxA))){ apply(m[2], statusFrom(m[4]), parseInt(m[1],10), parseInt(m[3],10)); continue; }
+      }
+
+      // Resumos (OB/OP) — exigido
+      for(const ln of lines){
+        if(/Disciplinas?\s+Obrigat[óo]rias?/i.test(ln)){
+          const nums=(ln.match(/\d+/g)||[]).map(n=>parseInt(n,10)).filter(Number.isFinite);
+          if(nums.length>=1){ const req = Math.max(...nums); if(Number.isFinite(req)) required.OB = required.OB || req; }
+        }
+        if(/Disciplinas?\s+Optativas?/i.test(ln)){
+          const nums=(ln.match(/\d+/g)||[]).map(n=>parseInt(n,10)).filter(Number.isFinite);
+          if(nums.length>=1){ const req = Math.max(...nums); if(Number.isFinite(req)) required.OP = required.OP || req; }
+        }
+      }
+
+      // Complementares (realizado) e Estágio (exigido)
+      compRealizadoExtra = 0;
+      for(const ln of lines){
+        if(/Atividades?\s+Complementar(?:es)?/i.test(ln)){
+          const nums=(ln.match(/\d+/g)||[]).map(n=>parseInt(n,10)).filter(Number.isFinite);
+          if(nums.length>=2){
+            const prefixIsIdx = nums[0] <= 12;
+            const req = prefixIsIdx ? nums[1] : Math.max(...nums);
+            const realized = prefixIsIdx ? (nums.length>=3 ? nums[2] : 0) : (nums.length>=2 ? nums[nums.length-1] : 0);
+            if(Number.isFinite(req)) required.COMP = required.COMP || req;
+            if(Number.isFinite(realized)) compRealizadoExtra = realized;
+          }
+        }
+        if(/Est[áa]gio/i.test(ln)){
+          const nums=(ln.match(/\d+/g)||[]).map(n=>parseInt(n,10)).filter(Number.isFinite);
+          if(nums.length>=2){
+            const prefixIsIdx = nums[0] <= 12;
+            const req = prefixIsIdx ? nums[1] : Math.max(...nums);
+            if(Number.isFinite(req)) required.EST = required.EST || req;
+          }
+        }
+      }
+
+      applyStatusColors(); applyFilter(); hideEmptyPeriodsIfMobile(); recalcAndRenderSummary();
+      document.getElementById('zoomControls')?.classList.remove('hidden');
+      document.getElementById('grade')?.classList.remove('hidden');
+      document.getElementById('summary')?.classList.remove('hidden');
+      document.getElementById('filters')?.classList.remove('hidden');
+      document.getElementById('planningBtn')?.classList.remove('hidden');
+      document.getElementById('clearPlan')?.classList.remove('hidden');
+      document.getElementById('btnOpenPlanner')?.classList.remove('hidden');
+    }catch(err){ console.error(err); setErr('Erro ao ler a Integralização.'); }
+  });
+
+  /* ======== UI DE CARTÕES ======== */
+  function ensureCard(target, name, st='faltando'){
+    const id=slug(name); const existed=document.querySelector(`.card[data-id="${id}"]`); if(existed) return existed;
+    const card=document.createElement('div'); card.className='card'; card.dataset.id=id; card.dataset.nome=name; card.dataset.status=st;
+    card.innerHTML=`<div class="title">${name}</div>`; card.addEventListener('click', onCardClick);
+    if(target==='opt') document.getElementById('opt-grid').appendChild(card);
+    else document.getElementById('col-'+target).appendChild(card);
+    return card;
+  }
+
+  function applyStatusColors(){
+    document.querySelectorAll('.card').forEach(card=>{
+      card.classList.remove('ok','faltando','mat','planned');
+      const st=card.dataset.status;
+      if(st==='feito') card.classList.add('ok');
+      else if(st==='matriculado') card.classList.add('mat');
+      else card.classList.add('faltando');
+      if(planned.has(card.dataset.id) && st!=='feito'){
+        const idx=colorForPlan[card.dataset.id];
+        card.classList.add('planned');
+        if(idx!=null) card.classList.add(branchColors[idx]);
+      }
+    });
+  }
+  function setFilter(f){ document.querySelectorAll('#filters .btn').forEach(b=>b.classList.toggle('active',b.dataset.filter===f)); applyFilter(); hideEmptyPeriodsIfMobile(); recalcAndRenderSummary(); }
+  function applyFilter(){
+    const f=document.querySelector('#filters .btn.active')?.dataset.filter||'todas';
+    document.querySelectorAll('.card').forEach(card=>{
+      const st=card.dataset.status; card.classList.remove('hidden');
+      if(f==='ok' && st!=='feito') card.classList.add('hidden');
+      if(f==='mat' && st!=='matriculado') card.classList.add('hidden');
+      if(f==='faltando' && st!=='faltando') card.classList.add('hidden');
+    });
+  }
+  document.querySelectorAll('#filters .btn').forEach(btn=>{
+    if(btn.dataset.filter) btn.addEventListener('click', ()=> setFilter(btn.dataset.filter));
+  });
+
+  // zoom
+  let zoom=1; const gridScale=document.getElementById('gridScale');
+  function updateZoom(){ gridScale.style.transform=`scale(${zoom})`; document.getElementById('zoomLevel').textContent=Math.round(zoom*100)+'%'; }
+  document.getElementById('zoomIn').addEventListener('click', ()=>{ zoom=Math.min(2.0, +(zoom+0.1).toFixed(2)); updateZoom(); });
+  document.getElementById('zoomOut').addEventListener('click', ()=>{ zoom=Math.max(0.5, +(zoom-0.1).toFixed(2)); updateZoom(); });
+  document.getElementById('zoomFit').addEventListener('click', ()=>{ zoom=1; updateZoom(); }); updateZoom();
+
+  // pré-requisitos (realce por cor)
+  const branchColors=['br0','br1','br2','br3','br4','br5','br6','br7','br8','br9','br10'];
+  function depsFrom(root, seen=new Set()){
+    const kids=(prereqByName[root]||[]);
+    for(const k of kids){ if(!seen.has(k)){ seen.add(k); depsFrom(k,seen); } }
+    return Array.from(seen);
+  }
+
+  let lastFocused = null;
+  function clearFocusPreservingPlan(){
+    document.querySelectorAll('.card').forEach(c=>{
+      c.classList.remove('focus');
+      if(!planned.has(c.dataset.id) && !c.classList.contains('need')){
+        c.classList.remove('br0','br1','br2','br3','br4','br5','br6','br7','br8','br9','br10');
+      }
+    });
+  }
+  function highlightPrereqs(card){
+    const id=card.dataset.id;
+    if(lastFocused === id){
+      clearFocusPreservingPlan();
+      lastFocused = null;
+      return;
+    }
+    clearFocusPreservingPlan();
+    card.classList.add('focus');
+    const roots=(prereqByName[id]||[]).slice(0, branchColors.length);
+    roots.forEach((rid,i)=>{
+      const cls=branchColors[i];
+      const chain=[rid, ...depsFrom(rid)];
+      chain.forEach(nid=>{
+        const el=document.querySelector(`.card[data-id="${nid}"]`);
+        if(el) el.classList.add(cls);
+      });
+    });
+    lastFocused = id;
+  }
+  function onCardClick(e){
+    const card=e.currentTarget;
+    if(planningMode){ togglePlanColor(card.dataset.id); }
+    else { highlightPrereqs(card); }
+  }
+
+  // === Planejamento multicolor ===
+  const colorForPlan = {}; // id -> cor
+  const needOwners = {};   // prereqId -> Set(planId)
+
+  function nextColorIndex(){
+    const used = new Set(Object.values(colorForPlan));
+    for(let i=0;i<branchColors.length;i++){ if(!used.has(i)) return i; }
+    return 0;
+  }
+  function getMissingPrereqs(rootId){
+    const seen=new Set(), out=[];
+    (function walk(id){
+      const kids=(prereqByName[id]||[]);
+      for(const k of kids){
+        if(seen.has(k)) continue; seen.add(k);
+        const el=document.querySelector(`.card[data-id="${k}"]`);
+        if(!el) continue;
+        const st=el.dataset.status;
+        if (st!=='feito' && st!=='matriculado'){ out.push(k); walk(k); }
+      }
+    })(rootId);
+    return out;
+  }
+  function ensureDots(el){ let d=el.querySelector('.need-dots'); if(!d){ d=document.createElement('div'); d.className='need-dots'; el.appendChild(d); } return d; }
+  function addDot(el, cls){ const d=ensureDots(el); const s=document.createElement('span'); s.className='dot '+cls; d.appendChild(s); }
+  function refreshNeedVisual(nid){
+    const el=document.querySelector(`.card[data-id="${nid}"]`);
+    if(!el) return;
+    const owners = needOwners[nid]? Array.from(needOwners[nid]) : [];
+    const ownerNames = owners.map(pid=>{ const p=document.querySelector(`.card[data-id="${pid}"] .title`); return p? p.textContent.trim(): pid; });
+    el.classList.toggle('need', owners.length>0);
+    const d=el.querySelector('.need-dots'); if(d) d.remove();
+    el.classList.remove('br0','br1','br2','br3','br4','br5','br6','br7','br8','br9','br10');
+    el.setAttribute('title', ownerNames.length?('Pré de: '+ownerNames.join(', ')): '');
+    if(owners.length>0){
+      const colors = owners.map(pid=> branchColors[colorForPlan[pid]] ).filter(Boolean);
+      if(colors.length>0){ el.classList.add(colors[0]); }
+      colors.forEach(c=> addDot(el, c));
+    }
+  }
+  function setPlanBadge(id){
+    const el=document.querySelector(`.card[data-id="${id}"]`);
+    if(!el) return;
+    let b=el.querySelector('.plan-badge'); if(!b){ b=document.createElement('span'); b.className='plan-badge'; el.appendChild(b); }
+    const idx=colorForPlan[id]; const cls=branchColors[idx];
+    b.className='plan-badge '+(cls||''); b.textContent = (idx!=null? (idx+1) : '');
+  }
+  function clearPlanBadge(id){
+    const el=document.querySelector(`.card[data-id="${id}"]`);
+    if(!el) return; const b=el.querySelector('.plan-badge'); if(b) b.remove();
+  }
+  function nameOf(id){
+    const t = document.querySelector(`.card[data-id="${id}"] .title`);
+    return t ? t.textContent.trim() : id;
+  }
+  
+  function openPrereqModal(courseId, missIds){
+    const modal = document.getElementById('prereqModal');
+    const msg = document.getElementById('prereqMsg');
+    const list = document.getElementById('prereqList');
+    const ok = document.getElementById('prereqOk');
+  
+    msg.textContent = `Para planejar "${nameOf(courseId)}", conclua antes:`;
+    list.innerHTML = '';
+    missIds.forEach(id=>{
+      const li = document.createElement('li');
+      li.textContent = nameOf(id);
+      li.addEventListener('click', ()=>{
+        close();
+        document.querySelector(`.card[data-id="${id}"]`)?.scrollIntoView({behavior:'smooth', block:'center'});
+      });
+      list.appendChild(li);
+    });
+  
+    function onKey(e){ if(e.key==='Escape' || e.key==='Enter' || e.code==='Space'){ close(); } }
+    function close(){
+      modal.classList.add('hidden');
+      ok.removeEventListener('click', close);
+      document.removeEventListener('keydown', onKey);
+    }
+  
+    ok.addEventListener('click', close);
+    document.addEventListener('keydown', onKey);
+    modal.classList.remove('hidden');
+    ok.focus();
+  }
+  function togglePlanColor(id){
+    const el=document.querySelector(`.card[data-id="${id}"]`); if(!el) return;
+    const st=el.dataset.status;
+    if(st!=='faltando') return; // só planeja pendente
+    if(planned.has(id)){
+      planned.delete(id);
+      const clr=colorForPlan[id]; delete colorForPlan[id];
+      el.classList.remove('planned','br0','br1','br2','br3','br4','br5','br6','br7','br8','br9','br10'); clearPlanBadge(id);
+      Object.keys(needOwners).forEach(n=>{ if(needOwners[n]){ needOwners[n].delete(id); refreshNeedVisual(n); } });
+    }else{
+      // checa pré-requisitos; considera 'feito' (e, se quiser, 'matriculado' também)
+      const miss = getMissingPrereqs(id); // se quiser aceitar matriculado, ajuste a função: st!=='feito' && st!=='matriculado'
+      if (miss.length){
+        // NÃO planeja; NÃO chama highlightPrereqs; NÃO faz scroll
+        openPrereqModal(id, miss);
+        return;
+    }
+
+      // OK: pode planejar
+      planned.add(id);
+      const clr = nextColorIndex();
+      colorForPlan[id] = clr;
+      el.classList.add('planned', branchColors[clr]);
+      setPlanBadge(id);
+    }
+    applyStatusColors(); recalcAndRenderSummary(); updatePermalink();
+  }
+
+  // planning UI
+  const planningBtn=document.getElementById('planningBtn');
+  const planInfo=document.getElementById('planInfo');
+  function setPlanningUI(){
+    planningBtn.classList.toggle('active', planningMode);
+    planningBtn.textContent = planningMode ? 'Selecionando…' : 'Selecionar matérias';
+  }
+  planningBtn.addEventListener('click', ()=>{
+    planningMode = !planningMode;
+    setPlanningUI();
+    applyStatusColors(); recalcAndRenderSummary();
+  });
+
+  // tema (robusto, não quebra se o botão não existir)
+const themeToggle = document.getElementById('themeToggle');
+const savedTheme = localStorage.getItem('theme') || '';
+
+if (savedTheme === 'dark') {
+  document.body.classList.add('dark');
+}
+
+if (themeToggle) {
+  const setLabel = () => {
+    const dark = document.body.classList.contains('dark');
+    themeToggle.textContent = dark ? '☀️ Modo claro' : '🌙 Modo escuro';
+    themeToggle.setAttribute('aria-pressed', String(dark));
+  };
+  setLabel();
+
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    setLabel();
+  });
+}
+
+  function revealSummary() {
+    const s = document.getElementById('summary');
+    if (s) s.classList.remove('hidden');
+  }
+
+  document.getElementById('clearPlan').addEventListener('click', ()=>{
+    planned.clear();
+    Object.keys(colorForPlan).forEach(k=>delete colorForPlan[k]);
+    Object.keys(needOwners).forEach(n=>delete needOwners[n]);
+    document.querySelectorAll('.card').forEach(el=>{
+      el.classList.remove('planned','need','br0','br1','br2','br3','br4','br5','br6','br7','br8','br9','br10');
+      const b=el.querySelector('.plan-badge'); if(b) b.remove();
+      const d=el.querySelector('.need-dots'); if(d) d.remove();
+    });
+    applyStatusColors(); recalcAndRenderSummary(); updatePermalink();
+  });
+
+  // permalink — desativado (no-op)
+  function updatePermalink(){ /* noop */ }
+  function loadPlanFromUrl(){ /* noop */ }
+
+  // ======== Sumário ========
+  function recalcAndRenderSummary(){
+    const done={OB:0,OP:0,EST:0,COMP:0}; const mat={OB:0,OP:0,EST:0,COMP:0}; const plan={OB:0,OP:0,EST:0,COMP:0};
+    document.querySelectorAll('.card').forEach(card=>{
+      const id=card.dataset.id; const st=card.dataset.status; const chs=chsById[id]||0; const bucket=bucketById[id]||'OB';
+      if(st==='feito'){ done[bucket]+=chs; return; }
+      if(st==='matriculado'){ mat[bucket]+=chs; }
+      if(planned.has(id) && st==='faltando'){ plan[bucket]+=chs; }
+    });
+    if(compRealizadoExtra>0) done.COMP += compRealizadoExtra;
+
+    function fmt(key){
+      const req=required[key]; const D=done[key], M=mat[key], P=plan[key];
+      let header;
+      if(key==='COMP'){
+        header = req? `${D} / ${req} CHS` : `${D} CHS`;
+      }else{
+        header = req? `${M} + ${D} / ${req} CHS` : `${M} + ${D} CHS`;
+      }
+      const falta=req? Math.max(0, req - ( (key==='COMP')? D : (M + D) )) : 0;
+      const smallParts=[];
+      if(req) smallParts.push(`faltam ${falta} CHS`);
+      if(P>0 && key!=='COMP') smallParts.push(`planejamento ${P} CHS`);
+      return {header, small: smallParts.join(' · ')};
+    }
+    const ob=fmt('OB'), op=fmt('OP'), es=fmt('EST'), cp=fmt('COMP');
+    document.getElementById('sum-ob').textContent=ob.header; document.getElementById('sum-op').textContent=op.header; document.getElementById('sum-est').textContent=es.header; document.getElementById('sum-comp').textContent=cp.header;
+    document.getElementById('sum-ob-small').textContent=ob.small; document.getElementById('sum-op-small').textContent=op.small; document.getElementById('sum-est-small').textContent=es.small; document.getElementById('sum-comp-small').textContent=cp.small;
+
+    const totalPlan=plan.OB+plan.OP+plan.EST+plan.COMP;
+    planInfo.textContent=planningMode?`Planejadas: ${totalPlan} CHS`:'';
+  }
+
+  // esconde colunas vazias só no mobile
+  function hideEmptyPeriodsIfMobile(){
+    const isMobile=window.matchMedia(`(max-width:${MOBILE_BREAK}px)`).matches;
+    for(let i=1;i<=10;i++){
+      const wrap=document.getElementById('col-'+i)?.parentElement; if(!wrap) continue;
+      if(isMobile){
+        const has=!!document.querySelector(`#col-${i} .card:not(.hidden)`);
+        wrap.style.display=has?'':'none';
+      }else wrap.style.display='';
+    }
+  }
+  window.addEventListener('resize', hideEmptyPeriodsIfMobile);
+
+
+
+</script>
+
+<script>
+(function(){
+  const DIAS = ["Seg","Ter","Qua","Qui","Sex","Sáb"];
+  function hhmm(h,m){ return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0'); }
+  const SLOTS = (function(){ const a=[]; let idx=1; for(let h=7;h<18;h++) a.push({start:hhmm(h,0),label:hhmm(h,0)+'–'+hhmm(h+1,0),idx:idx++});
+                                for(let h=18;h<=21;h++) a.push({start:hhmm(h,30),label:hhmm(h,30)+'–'+hhmm(h+1,30),idx:idx++}); return a; })();
+  const PT_COLORS={cinza:'gray',laranja:'orange',amarelo:'yellow',azul:'deepskyblue',verde:'lightgreen',rosa:'pink',roxo:'plum',vermelho:'salmon',marrom:'peru',preto:'black',branco:'white'};
+  function normalizeColor(txt, fallback){ const t=(txt||'').trim().toLowerCase();
+    if(PT_COLORS[t]) return PT_COLORS[t]; if(t && (t.startsWith('#')||t.startsWith('rgb')||t.startsWith('hsl'))) return t; return fallback||'#ffe8a3'; }
+  function idealTextColor(bg){ const tmp=document.createElement('span'); tmp.style.color=bg; document.body.appendChild(tmp);
+    const rgb=getComputedStyle(tmp).color.match(/\d+/g).map(Number); tmp.remove();
+    const [r,g,b]=rgb.map(v=>{v/=255; return v<=0.03928? v/12.92 : Math.pow((v+0.055)/1.055,2.4)});
+    const L=0.2126*r+0.7152*g+0.0722*b; return L>0.53?'#111':'#fff'; }
+  function setBlockColors(node,bg){ node.style.setProperty('--aula-bg',bg); node.style.setProperty('--aula-fg',idealTextColor(bg)); }
+  function collectPlannedSubjects(){ const out=[];
+    const colorByBr={ br0:'#007aff', br1:'#f58518', br2:'#e434e5', br3:'#27526d', br4:'#813d2d', br5:'#b279a2', br6:'#500097', br7:'#e45756', br8:'#4b7f32', br9:'#1db3a8', br10:'#819700' };
+    document.querySelectorAll('.card.planned').forEach(card=>{ const id=card.dataset.id||''; const nome=(card.querySelector('.title')||{}).textContent?.trim()||id||'Matéria';
+      const br=[...card.classList].find(c=>/^br\d+$/.test(c)); const cor=colorByBr[br]||'#ffe8a3'; out.push({id,nome,cor,horasDefault:1}); }); return out; }
+
+  let plannerBuilt=false, busy=null;
+  function buildPlannerIfNeeded(){
+    if(plannerBuilt) return;
+    const root=document.getElementById('planner');
+    root.innerHTML='';
+    root.appendChild(div('head',''));
+    DIAS.forEach(d=>root.appendChild(div('head',d)));
+    SLOTS.forEach(s=>{ root.appendChild(div('time', '<span>'+s.label+'</span><span class="idx">'+s.idx+'</span>'));
+      for(let col=0; col<DIAS.length; col++){ const c=document.createElement('div'); c.className='cell'; c.dataset.dia=DIAS[col]; c.dataset.start=s.start; c.id='cell-'+DIAS[col]+'-'+s.start; c.addEventListener('click', onPlannerCellClick); root.appendChild(c);} });
+    const overlay=document.createElement('div'); overlay.id='overlay'; overlay.className='overlay'; root.appendChild(overlay);
+    busy=Object.fromEntries(DIAS.map(d=>[d, Array(SLOTS.length).fill(false)]));
+    plannerBuilt=true;
+  }
+  function div(cls,html){ const n=document.createElement('div'); n.className=cls; n.innerHTML=html; return n; }
+  function celula(dia,idx){ return document.getElementById('cell-'+dia+'-'+SLOTS[idx].start); }
+
+  function showPlanner(){ buildPlannerIfNeeded(); document.getElementById('btnOpenPlanner').textContent='Grade';
+    document.getElementById('plannerSection').style.display='block';
+    const mapSec=document.getElementById('materiasSection'); if(mapSec) mapSec.style.display='none';
+  
+    const btnClear=document.getElementById('btnClearPlanner'); if(btnClear) btnClear.style.display='inline-block'; const instr=document.getElementById('schedule-instruction'); if(instr) instr.style.display='inline-block';}
+  function showMap(){ document.getElementById('btnOpenPlanner').textContent='Horário';
+    document.getElementById('plannerSection').style.display='none';
+    const mapSec=document.getElementById('materiasSection'); if(mapSec) mapSec.style.display='block';
+  
+    const btnClear=document.getElementById('btnClearPlanner'); if(btnClear) btnClear.style.display='none'; const instr=document.getElementById('schedule-instruction'); if(instr) instr.style.display='none';}
+
+  let lastCtx=null;
+  function onPlannerCellClick(e){
+    const dia=e.currentTarget.dataset.dia, inicio=e.currentTarget.dataset.start; lastCtx={dia,inicio};
+    const list=collectPlannedSubjects(); lastCtx.list=list;
+    const sel=document.getElementById('pl-materia'); sel.innerHTML='';
+    if(!list.length){ const opt=document.createElement('option'); opt.textContent='— sem matérias planejadas —'; sel.appendChild(opt); sel.disabled=true; }
+    else{ list.forEach((m,i)=>{ const o=document.createElement('option'); o.value=String(i); o.textContent=m.nome; o.dataset.cor=m.cor; sel.appendChild(o); });
+      sel.disabled=false; sel.value='0'; document.getElementById('pl-cor').value = toHexColor(list[0].cor); document.getElementById('pl-cor-texto').value=''; }
+    
+    // garantir que o select sempre aparece quando houver matérias
+    (function(){
+      const sel = document.getElementById('pl-materia');
+      if (sel){
+        const wrap = sel.closest('div');
+        sel.style.display = 'block';
+        if (wrap) wrap.style.display = 'block';
+        sel.disabled = (lastCtx && Array.isArray(lastCtx.list)) ? (lastCtx.list.length === 0) : sel.disabled;
+      }
+    })();
+document.getElementById('pl-inicio').value=inicio; document.getElementById('pl-horas').value='1';
+    document.getElementById('plannerMask').style.display='flex';
+  }
+  function toHexColor(c){ const s=document.createElement('span'); s.style.color=c; document.body.appendChild(s);
+    const [r,g,b]=getComputedStyle(s).color.match(/\d+/g).map(Number); s.remove();
+    return '#'+[r,g,b].map(v=>v.toString(16).padStart(2,'0')).join(''); }
+
+  document.getElementById('pl-cancel').addEventListener('click', ()=>{ document.getElementById('plannerMask').style.display='none'; });
+  document.getElementById('pl-materia').addEventListener('change', (e)=>{
+    const idx=parseInt(e.target.value,10); const item=lastCtx?.list?.[idx]; if(item) document.getElementById('pl-cor').value = toHexColor(item.cor);
+  });
+  document.getElementById('pl-ok').addEventListener('click', ()=>{
+    const {dia,inicio,list}=lastCtx||{}; if(!dia) return;
+    const activeBtn = document.querySelector('#plannerSection .pl-mat-btn.active');
+    const idx = activeBtn ? parseInt(activeBtn.dataset.idx,10) : 0;
+    const item=list?.[idx];
+    const horas=parseInt(document.getElementById('pl-horas').value,10); const cor=normalizeColor(document.getElementById('pl-cor-texto').value, document.getElementById('pl-cor').value);
+    const nome=item?.nome || 'Matéria';
+    try{ addAula({dia,inicio,horas,nome,cor}); document.getElementById('plannerMask').style.display='none'; }catch(err){ alert(err.message); }
+  });
+
+  function addAula({dia,inicio,horas,nome,cor}){
+    const root=document.getElementById('planner'); const overlay=document.getElementById('overlay');
+    const startIdx=SLOTS.findIndex(s=>s.start===inicio); if(startIdx<0) throw new Error('Início inválido.');
+    if(!(horas>=1&&horas<=5&&Number.isInteger(horas))) throw new Error('Duração deve ser 1–5h.');
+    if(startIdx+horas>SLOTS.length) throw new Error('Ultrapassa a grade.');
+    for(let i=startIdx;i<startIdx+horas;i++){ if(busy[dia][i]) throw new Error('Conflito: '+dia+' '+SLOTS[i].start); }
+    for(let i=startIdx;i<startIdx+horas;i++) busy[dia][i]=true;
+
+    const c0=celula(dia,startIdx), c1=celula(dia,startIdx+horas-1);
+    const rp=root.getBoundingClientRect(), r0=c0.getBoundingClientRect(), r1=c1.getBoundingClientRect();
+    const bloco=document.createElement('div'); bloco.className='aula';
+    bloco.style.left=(r0.left-rp.left+3)+'px'; bloco.style.top=(r0.top-rp.top+3)+'px';
+    bloco.style.width=(r0.width-6)+'px'; bloco.style.height=((r1.bottom-r0.top)-6)+'px';
+    setBlockColors(bloco, cor||'#ffe8a3');
+    bloco.dataset.dia=dia; bloco.dataset.start=String(startIdx); bloco.dataset.h=String(horas);
+    bloco.innerHTML='<span>'+nome+'</span><small>'+inicio+' • '+horas+'h</small>';
+    bloco.addEventListener('click', (ev)=>{ ev.stopPropagation(); if(confirm('Remover "'+nome+'" em '+dia+' às '+inicio+'?')){
+      const st=parseInt(bloco.dataset.start,10), h=parseInt(bloco.dataset.h,10); for(let i=st;i<st+h;i++) busy[dia][i]=false; bloco.remove();
+    }});
+    overlay.appendChild(bloco);
+  }
+
+  
+  // Limpar planilha
+  document.getElementById('btnClearPlanner')?.addEventListener('click', ()=>{
+    const overlay = document.getElementById('overlay');
+    if (overlay) overlay.innerHTML = '';
+    if (busy) { Object.keys(busy).forEach(d=>busy[d].fill(false)); }
+  });
+// Botões
+  document.getElementById('btnOpenPlanner').addEventListener('click', ()=>{ const sec=document.getElementById('plannerSection'); if(sec.style.display==='block'){ showMap(); } else { showPlanner(); } });
+  
+})();
+  // matéria buttons interaction
+  document.addEventListener('click', (e)=>{
+    const btn = e.target.closest('#plannerSection .pl-mat-btn');
+    if(!btn) return;
+    document.querySelectorAll('#plannerSection .pl-mat-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+
+</script>
+
+
+
+</body>
+</html>
