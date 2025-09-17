@@ -1,0 +1,1338 @@
+{
+  "source_pdf": "Curriculo_do_curso_Cienc_Bio.pdf",
+  "curso": "Curriculo_do_curso_Cienc_Bio",
+  "metadados": {
+    "curso": null,
+    "turno": "Integral",
+    "nivel": "Ensino Superior",
+    "modalidade": "Bacharelado",
+    "grau": "Bacharelado",
+    "funcionamento": "Em atividade"
+  },
+  "resumo_cargas": {
+    "obrigatorias": 2395,
+    "optativas": 180,
+    "estagio": 300,
+    "complementares": 220,
+    "total": 3215
+  },
+  "periodos": [
+    {
+      "period": 1,
+      "disciplines": [
+        {
+          "code": "CAB13653",
+          "name": "Biologia Celular",
+          "slug": "biologia-celular",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            30,
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": []
+        },
+        {
+          "code": "CAB13614",
+          "name": "Ecologia Básica",
+          "slug": "ecologia-basica",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": []
+        },
+        {
+          "code": "DMA13611",
+          "name": "Matemática Superior",
+          "slug": "matematica-superior",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": []
+        },
+        {
+          "code": "DCS13612",
+          "name": "Microbiologia",
+          "slug": "microbiologia",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            30,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": []
+        },
+        {
+          "code": "CAB13615",
+          "name": "Morfologia Vegetal",
+          "slug": "morfologia-vegetal",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            15,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": []
+        },
+        {
+          "code": "DCN13613",
+          "name": "Química Geral",
+          "slug": "quimica-geral",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": []
+        }
+      ]
+    },
+    {
+      "period": 2,
+      "disciplines": [
+        {
+          "code": "CAB13622",
+          "name": "Anatomia Vegetal",
+          "slug": "anatomia-vegetal",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            30,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB13615",
+              "name": "Morfologia Vegetal",
+              "slug": "morfologia-vegetal"
+            },
+            {
+              "code": "CAB13653",
+              "name": "Biologia Celular",
+              "slug": "biologia-celular"
+            }
+          ]
+        },
+        {
+          "code": "CAB13621",
+          "name": "Bioestatística",
+          "slug": "bioestatistica",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0,
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DMA13611",
+              "name": "Matemática Superior",
+              "slug": "matematica-superior"
+            }
+          ]
+        },
+        {
+          "code": "CAB13617",
+          "name": "Elementos de sistemática",
+          "slug": "elementos-de-sistematica",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0,
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": []
+        },
+        {
+          "code": "DCN13618",
+          "name": "Geologia",
+          "slug": "geologia",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0,
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": []
+        },
+        {
+          "code": "CAB13619",
+          "name": "Histologia e Embriologia",
+          "slug": "histologia-e-embriologia",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            45,
+            30,
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 90,
+          "prerequisites": [
+            {
+              "code": "CAB13653",
+              "name": "Biologia Celular",
+              "slug": "biologia-celular"
+            }
+          ]
+        },
+        {
+          "code": "DCN13620",
+          "name": "Laboratório de Química",
+          "slug": "laboratorio-de-quimica",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 1,
+          "hours_before_type": [
+            0,
+            30,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 30,
+          "prerequisites": [
+            {
+              "code": "DCN13613",
+              "name": "Química Geral",
+              "slug": "quimica-geral"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 3,
+      "disciplines": [
+        {
+          "code": "CAB13623",
+          "name": "Biologia Molecular",
+          "slug": "biologia-molecular",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            15,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB13653",
+              "name": "Biologia Celular",
+              "slug": "biologia-celular"
+            }
+          ]
+        },
+        {
+          "code": "CAB13625",
+          "name": "Ecologia de Populações",
+          "slug": "ecologia-de-populacoes",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB13653",
+              "name": "Biologia Celular",
+              "slug": "biologia-celular"
+            }
+          ]
+        },
+        {
+          "code": "DCN13624",
+          "name": "Fisica Geral",
+          "slug": "fisica-geral",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": []
+        },
+        {
+          "code": "CAB10138",
+          "name": "Sistemática de Criptógamos",
+          "slug": "sistematica-de-criptogamos",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB13617",
+              "name": "Elementos de sistemática",
+              "slug": "elementos-de-sistematica"
+            }
+          ]
+        },
+        {
+          "code": "CAB13626",
+          "name": "Zoologia I",
+          "slug": "zoologia-i",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            45,
+            30,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": [
+            {
+              "code": "CAB13617",
+              "name": "Elementos de sistemática",
+              "slug": "elementos-de-sistematica"
+            },
+            {
+              "code": "CAB13619",
+              "name": "Histologia e Embriologia",
+              "slug": "histologia-e-embriologia"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 4,
+      "disciplines": [
+        {
+          "code": "DCS13630",
+          "name": "Bioquímica",
+          "slug": "bioquimica",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            15,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": [
+            {
+              "code": "DCN13613",
+              "name": "Química Geral",
+              "slug": "quimica-geral"
+            }
+          ]
+        },
+        {
+          "code": "CAB13631",
+          "name": "Ecologia de Comunidades",
+          "slug": "ecologia-de-comunidades",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            15,
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": [
+            {
+              "code": "CAB13625",
+              "name": "Ecologia de Populações",
+              "slug": "ecologia-de-populacoes"
+            }
+          ]
+        },
+        {
+          "code": "CAB13627",
+          "name": "Ecossistema Mata Atlântica",
+          "slug": "ecossistema-mata-atlantica",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            15,
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": []
+        },
+        {
+          "code": "CAB13628",
+          "name": "Sistemática de Fanerógamas",
+          "slug": "sistematica-de-fanerogamas",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            45,
+            30,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": [
+            {
+              "code": "CAB10138",
+              "name": "Sistemática de Criptógamos",
+              "slug": "sistematica-de-criptogamos"
+            },
+            {
+              "code": "CAB13622",
+              "name": "Anatomia Vegetal",
+              "slug": "anatomia-vegetal"
+            }
+          ]
+        },
+        {
+          "code": "CAB13629",
+          "name": "Zoologia II",
+          "slug": "zoologia-ii",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            45,
+            30,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": [
+            {
+              "code": "CAB13626",
+              "name": "Zoologia I",
+              "slug": "zoologia-i"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 5,
+      "disciplines": [
+        {
+          "code": "CAB07301",
+          "name": "Ecossistema Restinga",
+          "slug": "ecossistema-restinga",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 5,
+          "hours_before_type": [
+            30,
+            30,
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": []
+        },
+        {
+          "code": "CAB13632",
+          "name": "Fisiologia Vegetal",
+          "slug": "fisiologia-vegetal",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            40,
+            30,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 70,
+          "prerequisites": [
+            {
+              "code": "CAB13622",
+              "name": "Anatomia Vegetal",
+              "slug": "anatomia-vegetal"
+            },
+            {
+              "code": "DCS13630",
+              "name": "Bioquímica",
+              "slug": "bioquimica"
+            }
+          ]
+        },
+        {
+          "code": "CAB10591",
+          "name": "Genética",
+          "slug": "genetica",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB13623",
+              "name": "Biologia Molecular",
+              "slug": "biologia-molecular"
+            }
+          ]
+        },
+        {
+          "code": "CAB13633",
+          "name": "Metodologia Científica",
+          "slug": "metodologia-cientifica",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": [
+            {
+              "code": "CAB13621",
+              "name": "Bioestatística",
+              "slug": "bioestatistica"
+            }
+          ]
+        },
+        {
+          "code": "CAB10592",
+          "name": "Zoologia III",
+          "slug": "zoologia-iii",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB13629",
+              "name": "Zoologia II",
+              "slug": "zoologia-ii"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 6,
+      "disciplines": [
+        {
+          "code": "CAB05995",
+          "name": "ECOSSISTEMA MANGUEZAL",
+          "slug": "ecossistema-manguezal",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 5,
+          "hours_before_type": [
+            30,
+            30,
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": [
+            {
+              "code": "CAB13631",
+              "name": "Ecologia de Comunidades",
+              "slug": "ecologia-de-comunidades"
+            }
+          ]
+        },
+        {
+          "code": "CAB13635",
+          "name": "Ecossistemas Marinhos",
+          "slug": "ecossistemas-marinhos",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": [
+            {
+              "code": "CAB10592",
+              "name": "Zoologia III",
+              "slug": "zoologia-iii"
+            },
+            {
+              "code": "CAB13631",
+              "name": "Ecologia de Comunidades",
+              "slug": "ecologia-de-comunidades"
+            }
+          ]
+        },
+        {
+          "code": "CAB10801",
+          "name": "Evolução",
+          "slug": "evolucao",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB10591",
+              "name": "Genética",
+              "slug": "genetica"
+            }
+          ]
+        },
+        {
+          "code": "CAB13636",
+          "name": "Zoologia IV",
+          "slug": "zoologia-iv",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            15,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB10592",
+              "name": "Zoologia III",
+              "slug": "zoologia-iii"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 7,
+      "disciplines": [
+        {
+          "code": "CAB13638",
+          "name": "Anatomia Funcional I",
+          "slug": "anatomia-funcional-i",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            15,
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB13636",
+              "name": "Zoologia IV",
+              "slug": "zoologia-iv"
+            }
+          ]
+        },
+        {
+          "code": "CAB13639",
+          "name": "Ecossistemas Aquáticos Continentais",
+          "slug": "ecossistemas-aquaticos-continentais",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": [
+            {
+              "code": "CAB10592",
+              "name": "Zoologia III",
+              "slug": "zoologia-iii"
+            },
+            {
+              "code": "CAB13631",
+              "name": "Ecologia de Comunidades",
+              "slug": "ecologia-de-comunidades"
+            }
+          ]
+        },
+        {
+          "code": "CAB13640",
+          "name": "Paleontologia",
+          "slug": "paleontologia",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB10592",
+              "name": "Zoologia III",
+              "slug": "zoologia-iii"
+            },
+            {
+              "code": "DCN13618",
+              "name": "Geologia",
+              "slug": "geologia"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 8,
+      "disciplines": [
+        {
+          "code": "CAB13642",
+          "name": "Anatomia Funcional II",
+          "slug": "anatomia-funcional-ii",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            15,
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB13638",
+              "name": "Anatomia Funcional I",
+              "slug": "anatomia-funcional-i"
+            }
+          ]
+        },
+        {
+          "code": "CAB13643",
+          "name": "Avaliação de Impactos Ambientais",
+          "slug": "avaliacao-de-impactos-ambientais",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": [
+            {
+              "code": "CAB13631",
+              "name": "Ecologia de Comunidades",
+              "slug": "ecologia-de-comunidades"
+            }
+          ]
+        },
+        {
+          "code": "CAB13644",
+          "name": "Biologia da Conservação",
+          "slug": "biologia-da-conservacao",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB13631",
+              "name": "Ecologia de Comunidades",
+              "slug": "ecologia-de-comunidades"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "optativas": [
+    {
+      "code": "CAB13646",
+      "name": "Animais Peçonhentos",
+      "slug": "animais-peconhentos",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        15,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "CAB10592",
+          "name": "Zoologia III",
+          "slug": "zoologia-iii"
+        }
+      ]
+    },
+    {
+      "code": "CAB13647",
+      "name": "Biologia Floral e Reprodutiva",
+      "slug": "biologia-floral-e-reprodutiva",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        30,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "CAB13628",
+          "name": "Sistemática de Fanerógamas",
+          "slug": "sistematica-de-fanerogamas"
+        }
+      ]
+    },
+    {
+      "code": "CAB11854",
+      "name": "Biotecnologia",
+      "slug": "biotecnologia",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": []
+    },
+    {
+      "code": "CAB16434",
+      "name": "Ecologia Evolutiva",
+      "slug": "ecologia-evolutiva",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        30,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "CAB10801",
+          "name": "Evolução",
+          "slug": "evolucao"
+        },
+        {
+          "code": "CAB13631",
+          "name": "Ecologia de Comunidades",
+          "slug": "ecologia-de-comunidades"
+        }
+      ]
+    },
+    {
+      "code": "CAB11550",
+      "name": "Ecologia e Conservação de Aves",
+      "slug": "ecologia-e-conservacao-de-aves",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        0,
+        30,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": []
+    },
+    {
+      "code": "CAB10589",
+      "name": "Educação Ambiental",
+      "slug": "educacao-ambiental",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": []
+    },
+    {
+      "code": "CAB13648",
+      "name": "Etnobiologia",
+      "slug": "etnobiologia",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        0,
+        30,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": []
+    },
+    {
+      "code": "CAB13651",
+      "name": "Evolução de Angiosperma",
+      "slug": "evolucao-de-angiosperma",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        30,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "CAB13628",
+          "name": "Sistemática de Fanerógamas",
+          "slug": "sistematica-de-fanerogamas"
+        }
+      ]
+    },
+    {
+      "code": "CAB13649",
+      "name": "Genética da Conservação",
+      "slug": "genetica-da-conservacao",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "CAB10801",
+          "name": "Evolução",
+          "slug": "evolucao"
+        }
+      ]
+    },
+    {
+      "code": "ECH12032",
+      "name": "Libras",
+      "slug": "libras",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": []
+    },
+    {
+      "code": "CAB13650",
+      "name": "Mamíferos Marinhos",
+      "slug": "mamiferos-marinhos",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "CAB10592",
+          "name": "Zoologia III",
+          "slug": "zoologia-iii"
+        }
+      ]
+    },
+    {
+      "code": "CAB14452",
+      "name": "Métodos de estudos em ambientes marinhos",
+      "slug": "metodos-de-estudos-em-ambientes-marinhos",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        0,
+        30,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "CAB13635",
+          "name": "Ecossistemas Marinhos",
+          "slug": "ecossistemas-marinhos"
+        }
+      ]
+    },
+    {
+      "code": "CAB11330",
+      "name": "Palinologia",
+      "slug": "palinologia",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        0,
+        30,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "CAB13628",
+          "name": "Sistemática de Fanerógamas",
+          "slug": "sistematica-de-fanerogamas"
+        }
+      ]
+    },
+    {
+      "code": "CAB13652",
+      "name": "Pesca e Aquicultura",
+      "slug": "pesca-e-aquicultura",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 2,
+      "hours_before_type": [
+        30,
+        15,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": []
+    },
+    {
+      "code": "CAB17112",
+      "name": "Solos: funções e serviços ecossistêmicos",
+      "slug": "solos-funcoes-e-servicos-ecossistemicos",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        0,
+        30,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": []
+    }
+  ],
+  "estagios": [
+    {
+      "code": "CAB13634",
+      "name": "Estágio",
+      "slug": "estagio",
+      "section": "EST",
+      "period": null,
+      "type": "OB",
+      "credits": 1,
+      "hours_before_type": [
+        5,
+        0,
+        150,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 150,
+      "prerequisites": []
+    },
+    {
+      "code": "CAB13637",
+      "name": "Estágio",
+      "slug": "estagio",
+      "section": "EST",
+      "period": null,
+      "type": "OB",
+      "credits": 2,
+      "hours_before_type": [
+        5,
+        0,
+        150,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 150,
+      "prerequisites": []
+    }
+  ],
+  "complementares": [],
+  "outros": {
+    "TCC": [
+      {
+        "code": "CAB13641",
+        "name": "Monografia",
+        "slug": "monografia",
+        "section": "TCC",
+        "period": null,
+        "type": "OB",
+        "credits": 1,
+        "hours_before_type": [
+          2,
+          0,
+          0,
+          60,
+          0
+        ],
+        "hours_after_type": [],
+        "total_hours": 60,
+        "prerequisites": [
+          {
+            "code": "CAB13633",
+            "name": "Metodologia Científica",
+            "slug": "metodologia-cientifica"
+          }
+        ]
+      },
+      {
+        "code": "CAB13645",
+        "name": "Monografia",
+        "slug": "monografia",
+        "section": "TCC",
+        "period": null,
+        "type": "OB",
+        "credits": 2,
+        "hours_before_type": [
+          2,
+          0,
+          0,
+          60,
+          0
+        ],
+        "hours_after_type": [],
+        "total_hours": 60,
+        "prerequisites": [
+          {
+            "code": "CAB13641",
+            "name": "Monografia",
+            "slug": "monografia"
+          }
+        ]
+      }
+    ]
+  }
+}

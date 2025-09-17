@@ -1,0 +1,1605 @@
+{
+  "source_pdf": "Curriculo_do_curso_Agronomia.pdf",
+  "curso": "Curriculo_do_curso_Agronomia",
+  "metadados": {
+    "curso": null,
+    "turno": "Integral",
+    "nivel": "Ensino Superior",
+    "modalidade": "Bacharelado",
+    "grau": "Bacharel em Agronomia",
+    "funcionamento": "Em atividade"
+  },
+  "resumo_cargas": {
+    "obrigatorias": 3360,
+    "optativas": null,
+    "estagio": 270,
+    "complementares": null,
+    "total": 3810
+  },
+  "periodos": [
+    {
+      "period": 1,
+      "disciplines": [
+        {
+          "code": "CAB05699",
+          "name": "BIOLOGIA CELULAR",
+          "slug": "biologia-celular",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": []
+        },
+        {
+          "code": "DMA05670",
+          "name": "CÁLCULO I",
+          "slug": "calculo-i",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 5,
+          "hours_before_type": [
+            75,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": []
+        },
+        {
+          "code": "CAB06029",
+          "name": "EXPRESSÃO GRÁFICA",
+          "slug": "expressao-grafica",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            15,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": []
+        },
+        {
+          "code": "CAB05671",
+          "name": "INFORMÁTICA",
+          "slug": "informatica",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            15,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": []
+        },
+        {
+          "code": "CAB05701",
+          "name": "O AGRÔNOMO NO AGRONEGÓCIO",
+          "slug": "o-agronomo-no-agronegocio",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 30,
+          "prerequisites": []
+        },
+        {
+          "code": "DCN05702",
+          "name": "QUÍMICA ANALÍTICA",
+          "slug": "quimica-analitica",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": []
+        },
+        {
+          "code": "CAB05865",
+          "name": "RELAÇÕES INTERPESSOAIS",
+          "slug": "relacoes-interpessoais",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            15,
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": []
+        }
+      ]
+    },
+    {
+      "period": 2,
+      "disciplines": [
+        {
+          "code": "DMA05881",
+          "name": "ALGEBRA LINEAR I",
+          "slug": "algebra-linear-i",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            30,
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": []
+        },
+        {
+          "code": "CAB06027",
+          "name": "ANATOMIA E ORGANOGRAFIA VEGETAL",
+          "slug": "anatomia-e-organografia-vegetal",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB05699",
+              "name": "BIOLOGIA CELULAR",
+              "slug": "biologia-celular"
+            }
+          ]
+        },
+        {
+          "code": "DCS05860",
+          "name": "BIOQUÍMICA",
+          "slug": "bioquimica",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB05699",
+              "name": "BIOLOGIA CELULAR",
+              "slug": "biologia-celular"
+            }
+          ]
+        },
+        {
+          "code": "CAB05700",
+          "name": "FÍSICA DO AMBIENTE AGRÍCOLA",
+          "slug": "fisica-do-ambiente-agricola",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": []
+        },
+        {
+          "code": "CAB10588",
+          "name": "Metodologia Científica",
+          "slug": "metodologia-cientifica",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 30,
+          "prerequisites": []
+        },
+        {
+          "code": "CAB05863",
+          "name": "PEDOLOGIA",
+          "slug": "pedologia",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            15,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": []
+        },
+        {
+          "code": "DCN05864",
+          "name": "QUÍMICA INSTRUMENTAL",
+          "slug": "quimica-instrumental",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": []
+        }
+      ]
+    },
+    {
+      "period": 3,
+      "disciplines": [
+        {
+          "code": "DMA06028",
+          "name": "ESTATÍSTICA BÁSICA",
+          "slug": "estatistica-basica",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": []
+        },
+        {
+          "code": "CAB06030",
+          "name": "FÍSICA E CLASSIFICAÇÃO DO SOLO",
+          "slug": "fisica-e-classificacao-do-solo",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            45,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": [
+            {
+              "code": "CAB05863",
+              "name": "PEDOLOGIA",
+              "slug": "pedologia"
+            }
+          ]
+        },
+        {
+          "code": "CAB05861",
+          "name": "METEOROLOGIA AGRÍCOLA",
+          "slug": "meteorologia-agricola",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB05700",
+              "name": "FÍSICA DO AMBIENTE AGRÍCOLA",
+              "slug": "fisica-do-ambiente-agricola"
+            }
+          ]
+        },
+        {
+          "code": "CAB06032",
+          "name": "MICROBIOLOGIA",
+          "slug": "microbiologia",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB05699",
+              "name": "BIOLOGIA CELULAR",
+              "slug": "biologia-celular"
+            }
+          ]
+        },
+        {
+          "code": "CAB06033",
+          "name": "MOTORES E MÁQUINAS AGRÍCOLAS",
+          "slug": "motores-e-maquinas-agricolas",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            15,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": []
+        },
+        {
+          "code": "CAB06208",
+          "name": "TOPOGRAFIA",
+          "slug": "topografia",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            15,
+            30,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": [
+            {
+              "code": "CAB06029",
+              "name": "EXPRESSÃO GRÁFICA",
+              "slug": "expressao-grafica"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 4,
+      "disciplines": [
+        {
+          "code": "CAB06203",
+          "name": "ESTATÍSTICA EXPERIMENTAL",
+          "slug": "estatistica-experimental",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DMA06028",
+              "name": "ESTATÍSTICA BÁSICA",
+              "slug": "estatistica-basica"
+            }
+          ]
+        },
+        {
+          "code": "CAB06204",
+          "name": "FERTILIDADE DE SOLO",
+          "slug": "fertilidade-de-solo",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB06030",
+              "name": "FÍSICA E CLASSIFICAÇÃO DO SOLO",
+              "slug": "fisica-e-classificacao-do-solo"
+            },
+            {
+              "code": "DCN05702",
+              "name": "QUÍMICA ANALÍTICA",
+              "slug": "quimica-analitica"
+            }
+          ]
+        },
+        {
+          "code": "CAB06205",
+          "name": "FISIOLOGIA VEGETAL",
+          "slug": "fisiologia-vegetal",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            45,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": [
+            {
+              "code": "CAB06027",
+              "name": "ANATOMIA E ORGANOGRAFIA VEGETAL",
+              "slug": "anatomia-e-organografia-vegetal"
+            }
+          ]
+        },
+        {
+          "code": "CAB06031",
+          "name": "HIDRÁULICA AGRÍCOLA",
+          "slug": "hidraulica-agricola",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB06208",
+              "name": "TOPOGRAFIA",
+              "slug": "topografia"
+            }
+          ]
+        },
+        {
+          "code": "CAB06206",
+          "name": "MECANIZAÇÃO AGRÍCOLA",
+          "slug": "mecanizacao-agricola",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB06033",
+              "name": "MOTORES E MÁQUINAS AGRÍCOLAS",
+              "slug": "motores-e-maquinas-agricolas"
+            }
+          ]
+        },
+        {
+          "code": "CAB06207",
+          "name": "SISTEMÁTICA VEGETAL",
+          "slug": "sistematica-vegetal",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB06027",
+              "name": "ANATOMIA E ORGANOGRAFIA VEGETAL",
+              "slug": "anatomia-e-organografia-vegetal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 5,
+      "disciplines": [
+        {
+          "code": "CAB07305",
+          "name": "Entomologia Básica",
+          "slug": "entomologia-basica",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            45,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": []
+        },
+        {
+          "code": "CAB07336",
+          "name": "Fitopatologia Básica",
+          "slug": "fitopatologia-basica",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB06032",
+              "name": "MICROBIOLOGIA",
+              "slug": "microbiologia"
+            }
+          ]
+        },
+        {
+          "code": "CAB07349",
+          "name": "Genética na Agropecuária",
+          "slug": "genetica-na-agropecuaria",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            45,
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": [
+            {
+              "code": "CAB06203",
+              "name": "ESTATÍSTICA EXPERIMENTAL",
+              "slug": "estatistica-experimental"
+            }
+          ]
+        },
+        {
+          "code": "CAB07375",
+          "name": "Irrigação e Drenagem",
+          "slug": "irrigacao-e-drenagem",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB05861",
+              "name": "METEOROLOGIA AGRÍCOLA",
+              "slug": "meteorologia-agricola"
+            },
+            {
+              "code": "CAB06031",
+              "name": "HIDRÁULICA AGRÍCOLA",
+              "slug": "hidraulica-agricola"
+            }
+          ]
+        },
+        {
+          "code": "CAB07377",
+          "name": "Manejo e Conservação do Solo e dos Recursos Hídricos",
+          "slug": "manejo-e-conservacao-do-solo-e-dos-recursos-hidricos",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB06030",
+              "name": "FÍSICA E CLASSIFICAÇÃO DO SOLO",
+              "slug": "fisica-e-classificacao-do-solo"
+            },
+            {
+              "code": "CAB06208",
+              "name": "TOPOGRAFIA",
+              "slug": "topografia"
+            }
+          ]
+        },
+        {
+          "code": "DCS07439",
+          "name": "Tecnologia de Produtos Agropecuários",
+          "slug": "tecnologia-de-produtos-agropecuarios",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCS05860",
+              "name": "BIOQUÍMICA",
+              "slug": "bioquimica"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 6,
+      "disciplines": [
+        {
+          "code": "CAB07304",
+          "name": "Entomologia Aplicada",
+          "slug": "entomologia-aplicada",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB07305",
+              "name": "Entomologia Básica",
+              "slug": "entomologia-basica"
+            }
+          ]
+        },
+        {
+          "code": "CAB07335",
+          "name": "Fitopatologia Aplicada",
+          "slug": "fitopatologia-aplicada",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB07336",
+              "name": "Fitopatologia Básica",
+              "slug": "fitopatologia-basica"
+            }
+          ]
+        },
+        {
+          "code": "CAB07350",
+          "name": "Geomática",
+          "slug": "geomatica",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB06208",
+              "name": "TOPOGRAFIA",
+              "slug": "topografia"
+            }
+          ]
+        },
+        {
+          "code": "CAB07376",
+          "name": "Manejo de Plantas Daninhas",
+          "slug": "manejo-de-plantas-daninhas",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB06205",
+              "name": "FISIOLOGIA VEGETAL",
+              "slug": "fisiologia-vegetal"
+            },
+            {
+              "code": "CAB06207",
+              "name": "SISTEMÁTICA VEGETAL",
+              "slug": "sistematica-vegetal"
+            }
+          ]
+        },
+        {
+          "code": "CAB07380",
+          "name": "Melhoramento de Plantas",
+          "slug": "melhoramento-de-plantas",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB07349",
+              "name": "Genética na Agropecuária",
+              "slug": "genetica-na-agropecuaria"
+            }
+          ]
+        },
+        {
+          "code": "CAB07394",
+          "name": "Nutrição Mineral de Plantas",
+          "slug": "nutricao-mineral-de-plantas",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB06204",
+              "name": "FERTILIDADE DE SOLO",
+              "slug": "fertilidade-de-solo"
+            },
+            {
+              "code": "CAB06205",
+              "name": "FISIOLOGIA VEGETAL",
+              "slug": "fisiologia-vegetal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 7,
+      "disciplines": [
+        {
+          "code": "CAB07251",
+          "name": "Administração da Empresa Rural",
+          "slug": "administracao-da-empresa-rural",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": [
+            {
+              "code": "DMA06028",
+              "name": "ESTATÍSTICA BÁSICA",
+              "slug": "estatistica-basica"
+            }
+          ]
+        },
+        {
+          "code": "CAB07254",
+          "name": "Anatomia e Fisiologia Animal",
+          "slug": "anatomia-e-fisiologia-animal",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            15,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": [
+            {
+              "code": "CAB05699",
+              "name": "BIOLOGIA CELULAR",
+              "slug": "biologia-celular"
+            },
+            {
+              "code": "DCS05860",
+              "name": "BIOQUÍMICA",
+              "slug": "bioquimica"
+            }
+          ]
+        },
+        {
+          "code": "CAB08120",
+          "name": "Construções Rurais",
+          "slug": "construcoes-rurais",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB05861",
+              "name": "METEOROLOGIA AGRÍCOLA",
+              "slug": "meteorologia-agricola"
+            },
+            {
+              "code": "CAB06208",
+              "name": "TOPOGRAFIA",
+              "slug": "topografia"
+            },
+            {
+              "code": "DMA05670",
+              "name": "CÁLCULO I",
+              "slug": "calculo-i"
+            }
+          ]
+        },
+        {
+          "code": "CAB07292",
+          "name": "Culturas Anuais",
+          "slug": "culturas-anuais",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            15,
+            30,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": []
+        },
+        {
+          "code": "CAB07410",
+          "name": "Produção de Café e Pimenta",
+          "slug": "producao-de-cafe-e-pimenta",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            15,
+            30,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": [
+            {
+              "code": "CAB07304",
+              "name": "Entomologia Aplicada",
+              "slug": "entomologia-aplicada"
+            },
+            {
+              "code": "CAB07335",
+              "name": "Fitopatologia Aplicada",
+              "slug": "fitopatologia-aplicada"
+            },
+            {
+              "code": "CAB07349",
+              "name": "Genética na Agropecuária",
+              "slug": "genetica-na-agropecuaria"
+            },
+            {
+              "code": "CAB07375",
+              "name": "Irrigação e Drenagem",
+              "slug": "irrigacao-e-drenagem"
+            },
+            {
+              "code": "CAB07394",
+              "name": "Nutrição Mineral de Plantas",
+              "slug": "nutricao-mineral-de-plantas"
+            }
+          ]
+        },
+        {
+          "code": "CAB07413",
+          "name": "Produção e Tecnologia de Sementes e Mudas",
+          "slug": "producao-e-tecnologia-de-sementes-e-mudas",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB06027",
+              "name": "ANATOMIA E ORGANOGRAFIA VEGETAL",
+              "slug": "anatomia-e-organografia-vegetal"
+            },
+            {
+              "code": "CAB06205",
+              "name": "FISIOLOGIA VEGETAL",
+              "slug": "fisiologia-vegetal"
+            },
+            {
+              "code": "CAB07380",
+              "name": "Melhoramento de Plantas",
+              "slug": "melhoramento-de-plantas"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 8,
+      "disciplines": [
+        {
+          "code": "CAB07298",
+          "name": "Economia e Gestão do Agronegócio",
+          "slug": "economia-e-gestao-do-agronegocio",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 30,
+          "prerequisites": [
+            {
+              "code": "DMA06028",
+              "name": "ESTATÍSTICA BÁSICA",
+              "slug": "estatistica-basica"
+            }
+          ]
+        },
+        {
+          "code": "CAB07338",
+          "name": "Forragicultura",
+          "slug": "forragicultura",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB07304",
+              "name": "Entomologia Aplicada",
+              "slug": "entomologia-aplicada"
+            },
+            {
+              "code": "CAB07335",
+              "name": "Fitopatologia Aplicada",
+              "slug": "fitopatologia-aplicada"
+            },
+            {
+              "code": "CAB07349",
+              "name": "Genética na Agropecuária",
+              "slug": "genetica-na-agropecuaria"
+            },
+            {
+              "code": "CAB07375",
+              "name": "Irrigação e Drenagem",
+              "slug": "irrigacao-e-drenagem"
+            },
+            {
+              "code": "CAB07394",
+              "name": "Nutrição Mineral de Plantas",
+              "slug": "nutricao-mineral-de-plantas"
+            }
+          ]
+        },
+        {
+          "code": "CAB07339",
+          "name": "Fruticultura Temperada",
+          "slug": "fruticultura-temperada",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            15,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": [
+            {
+              "code": "CAB07304",
+              "name": "Entomologia Aplicada",
+              "slug": "entomologia-aplicada"
+            },
+            {
+              "code": "CAB07335",
+              "name": "Fitopatologia Aplicada",
+              "slug": "fitopatologia-aplicada"
+            },
+            {
+              "code": "CAB07349",
+              "name": "Genética na Agropecuária",
+              "slug": "genetica-na-agropecuaria"
+            },
+            {
+              "code": "CAB07375",
+              "name": "Irrigação e Drenagem",
+              "slug": "irrigacao-e-drenagem"
+            },
+            {
+              "code": "CAB07394",
+              "name": "Nutrição Mineral de Plantas",
+              "slug": "nutricao-mineral-de-plantas"
+            }
+          ]
+        },
+        {
+          "code": "CAB07340",
+          "name": "Fruticultura Tropical",
+          "slug": "fruticultura-tropical",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            15,
+            30,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": [
+            {
+              "code": "CAB07304",
+              "name": "Entomologia Aplicada",
+              "slug": "entomologia-aplicada"
+            },
+            {
+              "code": "CAB07335",
+              "name": "Fitopatologia Aplicada",
+              "slug": "fitopatologia-aplicada"
+            },
+            {
+              "code": "CAB07349",
+              "name": "Genética na Agropecuária",
+              "slug": "genetica-na-agropecuaria"
+            },
+            {
+              "code": "CAB07375",
+              "name": "Irrigação e Drenagem",
+              "slug": "irrigacao-e-drenagem"
+            },
+            {
+              "code": "CAB07394",
+              "name": "Nutrição Mineral de Plantas",
+              "slug": "nutricao-mineral-de-plantas"
+            }
+          ]
+        },
+        {
+          "code": "CAB07393",
+          "name": "Nutrição e Alimentação Animal",
+          "slug": "nutricao-e-alimentacao-animal",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB07254",
+              "name": "Anatomia e Fisiologia Animal",
+              "slug": "anatomia-e-fisiologia-animal"
+            },
+            {
+              "code": "DCS05860",
+              "name": "BIOQUÍMICA",
+              "slug": "bioquimica"
+            }
+          ]
+        },
+        {
+          "code": "CAB07406",
+          "name": "Perícias Agronômicas",
+          "slug": "pericias-agronomicas",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 30,
+          "prerequisites": [
+            {
+              "code": "CAB07304",
+              "name": "Entomologia Aplicada",
+              "slug": "entomologia-aplicada"
+            },
+            {
+              "code": "CAB07335",
+              "name": "Fitopatologia Aplicada",
+              "slug": "fitopatologia-aplicada"
+            },
+            {
+              "code": "CAB07376",
+              "name": "Manejo de Plantas Daninhas",
+              "slug": "manejo-de-plantas-daninhas"
+            }
+          ]
+        },
+        {
+          "code": "CAB07433",
+          "name": "Silvicultura",
+          "slug": "silvicultura",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB07377",
+              "name": "Manejo e Conservação do Solo e dos Recursos Hídricos",
+              "slug": "manejo-e-conservacao-do-solo-e-dos-recursos-hidricos"
+            },
+            {
+              "code": "CAB07394",
+              "name": "Nutrição Mineral de Plantas",
+              "slug": "nutricao-mineral-de-plantas"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 9,
+      "disciplines": [
+        {
+          "code": "CAB07293",
+          "name": "Culturas para Fins Energéticos",
+          "slug": "culturas-para-fins-energeticos",
+          "section": "OB",
+          "period": 9,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB07304",
+              "name": "Entomologia Aplicada",
+              "slug": "entomologia-aplicada"
+            },
+            {
+              "code": "CAB07335",
+              "name": "Fitopatologia Aplicada",
+              "slug": "fitopatologia-aplicada"
+            },
+            {
+              "code": "CAB07349",
+              "name": "Genética na Agropecuária",
+              "slug": "genetica-na-agropecuaria"
+            },
+            {
+              "code": "CAB07375",
+              "name": "Irrigação e Drenagem",
+              "slug": "irrigacao-e-drenagem"
+            },
+            {
+              "code": "CAB07394",
+              "name": "Nutrição Mineral de Plantas",
+              "slug": "nutricao-mineral-de-plantas"
+            }
+          ]
+        },
+        {
+          "code": "CAB07378",
+          "name": "Manejo e Gestão Ambiental",
+          "slug": "manejo-e-gestao-ambiental",
+          "section": "OB",
+          "period": 9,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 30,
+          "prerequisites": [
+            {
+              "code": "CAB07377",
+              "name": "Manejo e Conservação do Solo e dos Recursos Hídricos",
+              "slug": "manejo-e-conservacao-do-solo-e-dos-recursos-hidricos"
+            }
+          ]
+        },
+        {
+          "code": "CAB07396",
+          "name": "Olericultura",
+          "slug": "olericultura",
+          "section": "OB",
+          "period": 9,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            15,
+            30,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": [
+            {
+              "code": "CAB07304",
+              "name": "Entomologia Aplicada",
+              "slug": "entomologia-aplicada"
+            },
+            {
+              "code": "CAB07335",
+              "name": "Fitopatologia Aplicada",
+              "slug": "fitopatologia-aplicada"
+            },
+            {
+              "code": "CAB07349",
+              "name": "Genética na Agropecuária",
+              "slug": "genetica-na-agropecuaria"
+            },
+            {
+              "code": "CAB07375",
+              "name": "Irrigação e Drenagem",
+              "slug": "irrigacao-e-drenagem"
+            },
+            {
+              "code": "CAB07394",
+              "name": "Nutrição Mineral de Plantas",
+              "slug": "nutricao-mineral-de-plantas"
+            }
+          ]
+        },
+        {
+          "code": "CAB07399",
+          "name": "Paisagismo, Parques e Jardins",
+          "slug": "paisagismo-parques-e-jardins",
+          "section": "OB",
+          "period": 9,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            15,
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": [
+            {
+              "code": "CAB06027",
+              "name": "ANATOMIA E ORGANOGRAFIA VEGETAL",
+              "slug": "anatomia-e-organografia-vegetal"
+            },
+            {
+              "code": "CAB07304",
+              "name": "Entomologia Aplicada",
+              "slug": "entomologia-aplicada"
+            },
+            {
+              "code": "CAB07335",
+              "name": "Fitopatologia Aplicada",
+              "slug": "fitopatologia-aplicada"
+            },
+            {
+              "code": "CAB07375",
+              "name": "Irrigação e Drenagem",
+              "slug": "irrigacao-e-drenagem"
+            }
+          ]
+        },
+        {
+          "code": "CAB07411",
+          "name": "Produção de Não Ruminantes",
+          "slug": "producao-de-nao-ruminantes",
+          "section": "OB",
+          "period": 9,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CAB07393",
+              "name": "Nutrição e Alimentação Animal",
+              "slug": "nutricao-e-alimentacao-animal"
+            },
+            {
+              "code": "CAB08120",
+              "name": "Construções Rurais",
+              "slug": "construcoes-rurais"
+            }
+          ]
+        },
+        {
+          "code": "CAB07412",
+          "name": "Produção de Ruminantes",
+          "slug": "producao-de-ruminantes",
+          "section": "OB",
+          "period": 9,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            15,
+            30,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": [
+            {
+              "code": "CAB07338",
+              "name": "Forragicultura",
+              "slug": "forragicultura"
+            },
+            {
+              "code": "CAB07393",
+              "name": "Nutrição e Alimentação Animal",
+              "slug": "nutricao-e-alimentacao-animal"
+            },
+            {
+              "code": "CAB08120",
+              "name": "Construções Rurais",
+              "slug": "construcoes-rurais"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "optativas": [],
+  "estagios": [
+    {
+      "code": "CAB07316",
+      "name": "Estágio Supervisionado Obrigatório",
+      "slug": "estagio-supervisionado-obrigatorio",
+      "section": "EST",
+      "period": null,
+      "type": "EC",
+      "credits": 1,
+      "hours_before_type": [
+        2,
+        0,
+        0,
+        90
+      ],
+      "hours_after_type": [],
+      "total_hours": 90,
+      "prerequisites": []
+    },
+    {
+      "code": "CAB07317",
+      "name": "Estágio Supervisionado Obrigatório",
+      "slug": "estagio-supervisionado-obrigatorio",
+      "section": "EST",
+      "period": null,
+      "type": "EC",
+      "credits": 2,
+      "hours_before_type": [
+        2,
+        0,
+        0,
+        90
+      ],
+      "hours_after_type": [],
+      "total_hours": 90,
+      "prerequisites": []
+    },
+    {
+      "code": "CAB07318",
+      "name": "Estágio Supervisionado Obrigatório",
+      "slug": "estagio-supervisionado-obrigatorio",
+      "section": "EST",
+      "period": null,
+      "type": "EC",
+      "credits": 3,
+      "hours_before_type": [
+        2,
+        0,
+        0,
+        90
+      ],
+      "hours_after_type": [],
+      "total_hours": 90,
+      "prerequisites": []
+    }
+  ],
+  "complementares": [],
+  "outros": {
+    "TCC": [
+      {
+        "code": "CAB07449",
+        "name": "Trabalho de Conclusão de Curso",
+        "slug": "trabalho-de-conclusao-de-curso",
+        "section": "TCC",
+        "period": null,
+        "type": "OB",
+        "credits": 1,
+        "hours_before_type": [
+          2,
+          30,
+          0,
+          0
+        ],
+        "hours_after_type": [],
+        "total_hours": 30,
+        "prerequisites": []
+      },
+      {
+        "code": "CAB07450",
+        "name": "Trabalho de Conclusão de Curso",
+        "slug": "trabalho-de-conclusao-de-curso",
+        "section": "TCC",
+        "period": null,
+        "type": "OB",
+        "credits": 2,
+        "hours_before_type": [
+          1,
+          0,
+          0,
+          30
+        ],
+        "hours_after_type": [],
+        "total_hours": 30,
+        "prerequisites": [
+          {
+            "code": "CAB07449",
+            "name": "Trabalho de Conclusão de Curso",
+            "slug": "trabalho-de-conclusao-de-curso"
+          }
+        ]
+      }
+    ]
+  }
+}

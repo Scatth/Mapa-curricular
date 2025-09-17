@@ -1,0 +1,88 @@
+{
+  "cursos": [
+    {
+      "curso": "Curriculo_do_curso_Agronomia",
+      "slug": "curriculo-do-curso-agronomia",
+      "arquivo": "curriculo-do-curso-agronomia.json",
+      "resumo_cargas": {
+        "obrigatorias": 3360,
+        "optativas": null,
+        "estagio": 270,
+        "complementares": null,
+        "total": 3810
+      }
+    },
+    {
+      "curso": "Curriculo_do_curso_Cienc_Bio",
+      "slug": "curriculo-do-curso-cienc-bio",
+      "arquivo": "curriculo-do-curso-cienc-bio.json",
+      "resumo_cargas": {
+        "obrigatorias": 2395,
+        "optativas": 180,
+        "estagio": 300,
+        "complementares": 220,
+        "total": 3215
+      }
+    },
+    {
+      "curso": "Curriculo_do_curso_Cienc_Comp",
+      "slug": "curriculo-do-curso-cienc-comp",
+      "arquivo": "curriculo-do-curso-cienc-comp.json",
+      "resumo_cargas": {
+        "obrigatorias": 2295,
+        "optativas": 360,
+        "estagio": null,
+        "complementares": 165,
+        "total": 3200
+      }
+    },
+    {
+      "curso": "Curriculo_do_curso_Eng_Computacao",
+      "slug": "curriculo-do-curso-eng-computacao",
+      "arquivo": "curriculo-do-curso-eng-computacao.json",
+      "resumo_cargas": {
+        "obrigatorias": 3435,
+        "optativas": 240,
+        "estagio": 300,
+        "complementares": 225,
+        "total": 4200
+      }
+    },
+    {
+      "curso": "Curriculo_do_curso_Eng_Petroleo",
+      "slug": "curriculo-do-curso-eng-petroleo",
+      "arquivo": "curriculo-do-curso-eng-petroleo.json",
+      "resumo_cargas": {
+        "obrigatorias": 3255,
+        "optativas": 225,
+        "estagio": 300,
+        "complementares": null,
+        "total": 3915
+      }
+    },
+    {
+      "curso": "Curriculo_do_curso_Eng_Quimica",
+      "slug": "curriculo-do-curso-eng-quimica",
+      "arquivo": "curriculo-do-curso-eng-quimica.json",
+      "resumo_cargas": {
+        "obrigatorias": null,
+        "optativas": null,
+        "estagio": 20,
+        "complementares": null,
+        "total": null
+      }
+    },
+    {
+      "curso": "Curriculo_do_curso_Producao",
+      "slug": "curriculo-do-curso-producao",
+      "arquivo": "curriculo-do-curso-producao.json",
+      "resumo_cargas": {
+        "obrigatorias": 1500,
+        "optativas": null,
+        "estagio": 2400,
+        "complementares": null,
+        "total": null
+      }
+    }
+  ]
+}

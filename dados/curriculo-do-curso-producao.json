@@ -1,0 +1,1810 @@
+{
+  "source_pdf": "Curriculo_do_curso_Producao.pdf",
+  "curso": "Curriculo_do_curso_Producao",
+  "metadados": {
+    "curso": null,
+    "turno": "Integral",
+    "nivel": "Ensino Superior",
+    "modalidade": "Bacharelado",
+    "grau": "Engenheiro de Produção",
+    "funcionamento": "Em atividade"
+  },
+  "resumo_cargas": {
+    "obrigatorias": 1500,
+    "optativas": null,
+    "estagio": 2400,
+    "complementares": null,
+    "total": null
+  },
+  "periodos": [
+    {
+      "period": 1,
+      "disciplines": [
+        {
+          "code": "DMA09827",
+          "name": "Cálculo I",
+          "slug": "calculo-i",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 5,
+          "hours_before_type": [
+            75,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": []
+        },
+        {
+          "code": "DMA05677",
+          "name": "GEOMETRIA ANALÍTICA",
+          "slug": "geometria-analitica",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": []
+        },
+        {
+          "code": "DET09828",
+          "name": "Gestão de Qualidade Total",
+          "slug": "gestao-de-qualidade-total",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": []
+        },
+        {
+          "code": "DET09829",
+          "name": "Introdução à Engenharia de Produção",
+          "slug": "introducao-a-engenharia-de-producao",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": []
+        },
+        {
+          "code": "DET09830",
+          "name": "Metodologia da Pesquisa",
+          "slug": "metodologia-da-pesquisa",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": []
+        },
+        {
+          "code": "DCE05690",
+          "name": "PROGRAMAÇÃO I",
+          "slug": "programacao-i",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": []
+        },
+        {
+          "code": "DCN09831",
+          "name": "Química Geral I",
+          "slug": "quimica-geral-i",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": []
+        }
+      ]
+    },
+    {
+      "period": 2,
+      "disciplines": [
+        {
+          "code": "DMA09908",
+          "name": "Cálculo II",
+          "slug": "calculo-ii",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 5,
+          "hours_before_type": [
+            75,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DMA09827",
+              "name": "Cálculo I",
+              "slug": "calculo-i"
+            }
+          ]
+        },
+        {
+          "code": "DET09911",
+          "name": "Desenho Técnico",
+          "slug": "desenho-tecnico",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 30,
+          "prerequisites": [
+            {
+              "code": "DCE05690",
+              "name": "PROGRAMAÇÃO I",
+              "slug": "programacao-i"
+            }
+          ]
+        },
+        {
+          "code": "DET09910",
+          "name": "Diagnósticos de Processos Produtivos I",
+          "slug": "diagnosticos-de-processos-produtivos-i",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            15,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DET09828",
+              "name": "Gestão de Qualidade Total",
+              "slug": "gestao-de-qualidade-total"
+            }
+          ]
+        },
+        {
+          "code": "DCN05678",
+          "name": "FUNDAMENTOS DA MECÂNICA CLÁSSICA",
+          "slug": "fundamentos-da-mecanica-classica",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 6,
+          "hours_before_type": [
+            90,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DMA09827",
+              "name": "Cálculo I",
+              "slug": "calculo-i"
+            }
+          ]
+        },
+        {
+          "code": "DCE09909",
+          "name": "Programação II",
+          "slug": "programacao-ii",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": [
+            {
+              "code": "DCE05690",
+              "name": "PROGRAMAÇÃO I",
+              "slug": "programacao-i"
+            }
+          ]
+        },
+        {
+          "code": "DET05896",
+          "name": "TEORIA GERAL DA ADMINISTRAÇÃO",
+          "slug": "teoria-geral-da-administracao",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": []
+        },
+        {
+          "code": "DMA08271",
+          "name": "Álgebra Linear",
+          "slug": "algebra-linear",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DMA05677",
+              "name": "GEOMETRIA ANALÍTICA",
+              "slug": "geometria-analitica"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 3,
+      "disciplines": [
+        {
+          "code": "DMA06016",
+          "name": "CÁLCULO III",
+          "slug": "calculo-iii",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 5,
+          "hours_before_type": [
+            75,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DMA09908",
+              "name": "Cálculo II",
+              "slug": "calculo-ii"
+            }
+          ]
+        },
+        {
+          "code": "DET08134",
+          "name": "Economia da Engenharia",
+          "slug": "economia-da-engenharia",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": []
+        },
+        {
+          "code": "DCN09914",
+          "name": "Eletromagnetismo I",
+          "slug": "eletromagnetismo-i",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DCN05678",
+              "name": "FUNDAMENTOS DA MECÂNICA CLÁSSICA",
+              "slug": "fundamentos-da-mecanica-classica"
+            }
+          ]
+        },
+        {
+          "code": "DCN06074",
+          "name": "FISICA EXPERIMENTAL I",
+          "slug": "fisica-experimental-i",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 1,
+          "hours_before_type": [
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": [
+            {
+              "code": "DCN05678",
+              "name": "FUNDAMENTOS DA MECÂNICA CLÁSSICA",
+              "slug": "fundamentos-da-mecanica-classica"
+            }
+          ]
+        },
+        {
+          "code": "DET09913",
+          "name": "Gestão e Sistemas de Produção",
+          "slug": "gestao-e-sistemas-de-producao",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 5,
+          "hours_before_type": [
+            75,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DET09829",
+              "name": "Introdução à Engenharia de Produção",
+              "slug": "introducao-a-engenharia-de-producao"
+            }
+          ]
+        },
+        {
+          "code": "DMA06019",
+          "name": "PROBABILIDADE E ESTATÍSTICA",
+          "slug": "probabilidade-e-estatistica",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": []
+        },
+        {
+          "code": "DCN09912",
+          "name": "Termodinâmica I",
+          "slug": "termodinamica-i",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DCN05678",
+              "name": "FUNDAMENTOS DA MECÂNICA CLÁSSICA",
+              "slug": "fundamentos-da-mecanica-classica"
+            },
+            {
+              "code": "DMA09908",
+              "name": "Cálculo II",
+              "slug": "calculo-ii"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 4,
+      "disciplines": [
+        {
+          "code": "DMA06072",
+          "name": "ALGORITMOS NUMÉRICOS",
+          "slug": "algoritmos-numericos",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DCE09909",
+              "name": "Programação II",
+              "slug": "programacao-ii"
+            }
+          ]
+        },
+        {
+          "code": "DCN05867",
+          "name": "CIÊNCIAS DOS MATERIAS",
+          "slug": "ciencias-dos-materias",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DCN09912",
+              "name": "Termodinâmica I",
+              "slug": "termodinamica-i"
+            }
+          ]
+        },
+        {
+          "code": "DET09916",
+          "name": "Diagnóstico de Processos Produtivos II",
+          "slug": "diagnostico-de-processos-produtivos-ii",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            15,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DET09910",
+              "name": "Diagnósticos de Processos Produtivos I",
+              "slug": "diagnosticos-de-processos-produtivos-i"
+            },
+            {
+              "code": "DET09913",
+              "name": "Gestão e Sistemas de Produção",
+              "slug": "gestao-e-sistemas-de-producao"
+            }
+          ]
+        },
+        {
+          "code": "DMA06101",
+          "name": "EQUAÇÕES DIFERENCIAIS",
+          "slug": "equacoes-diferenciais",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DMA08271",
+              "name": "Álgebra Linear",
+              "slug": "algebra-linear"
+            },
+            {
+              "code": "DMA09908",
+              "name": "Cálculo II",
+              "slug": "calculo-ii"
+            }
+          ]
+        },
+        {
+          "code": "DET09915",
+          "name": "Estratégia Organizacional",
+          "slug": "estrategia-organizacional",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DET05896",
+              "name": "TEORIA GERAL DA ADMINISTRAÇÃO",
+              "slug": "teoria-geral-da-administracao"
+            }
+          ]
+        },
+        {
+          "code": "DET06229",
+          "name": "MECÂNICA DOS SÓLIDOS",
+          "slug": "mecanica-dos-solidos",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": []
+        },
+        {
+          "code": "DCN06281",
+          "name": "ÓTICA E FÍSICA MODERNA",
+          "slug": "otica-e-fisica-moderna",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DCN09914",
+              "name": "Eletromagnetismo I",
+              "slug": "eletromagnetismo-i"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 5,
+      "disciplines": [
+        {
+          "code": "DET10163",
+          "name": "Fenômenos de Transporte",
+          "slug": "fenomenos-de-transporte",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DCN09912",
+              "name": "Termodinâmica I",
+              "slug": "termodinamica-i"
+            }
+          ]
+        },
+        {
+          "code": "DET10168",
+          "name": "Física Experimental II",
+          "slug": "fisica-experimental-ii",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 1,
+          "hours_before_type": [
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": [
+            {
+              "code": "DCN06281",
+              "name": "ÓTICA E FÍSICA MODERNA",
+              "slug": "otica-e-fisica-moderna"
+            },
+            {
+              "code": "DCN09914",
+              "name": "Eletromagnetismo I",
+              "slug": "eletromagnetismo-i"
+            }
+          ]
+        },
+        {
+          "code": "DET10164",
+          "name": "Introdução aos Processos Químicos",
+          "slug": "introducao-aos-processos-quimicos",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": [
+            {
+              "code": "DCN09831",
+              "name": "Química Geral I",
+              "slug": "quimica-geral-i"
+            }
+          ]
+        },
+        {
+          "code": "DET10166",
+          "name": "Pesquisa Operacional I",
+          "slug": "pesquisa-operacional-i",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DMA06019",
+              "name": "PROBABILIDADE E ESTATÍSTICA",
+              "slug": "probabilidade-e-estatistica"
+            },
+            {
+              "code": "DMA08271",
+              "name": "Álgebra Linear",
+              "slug": "algebra-linear"
+            }
+          ]
+        },
+        {
+          "code": "DET10167",
+          "name": "Planejamento e Controle da Produção",
+          "slug": "planejamento-e-controle-da-producao",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 5,
+          "hours_before_type": [
+            75,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": [
+            {
+              "code": "DET09913",
+              "name": "Gestão e Sistemas de Produção",
+              "slug": "gestao-e-sistemas-de-producao"
+            },
+            {
+              "code": "DET09915",
+              "name": "Estratégia Organizacional",
+              "slug": "estrategia-organizacional"
+            }
+          ]
+        },
+        {
+          "code": "DET10165",
+          "name": "Resistência dos Materiais",
+          "slug": "resistencia-dos-materiais",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 30,
+          "prerequisites": [
+            {
+              "code": "DET06229",
+              "name": "MECÂNICA DOS SÓLIDOS",
+              "slug": "mecanica-dos-solidos"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 6,
+      "disciplines": [
+        {
+          "code": "DET10417",
+          "name": "Diagnóstico de Processos Produtivos III",
+          "slug": "diagnostico-de-processos-produtivos-iii",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            15,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DET09916",
+              "name": "Diagnóstico de Processos Produtivos II",
+              "slug": "diagnostico-de-processos-produtivos-ii"
+            },
+            {
+              "code": "DET10167",
+              "name": "Planejamento e Controle da Produção",
+              "slug": "planejamento-e-controle-da-producao"
+            }
+          ]
+        },
+        {
+          "code": "DET08136",
+          "name": "Economia da Engenharia II",
+          "slug": "economia-da-engenharia-ii",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DET08134",
+              "name": "Economia da Engenharia",
+              "slug": "economia-da-engenharia"
+            }
+          ]
+        },
+        {
+          "code": "DET10418",
+          "name": "Engenharia de Processo",
+          "slug": "engenharia-de-processo",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DCN05867",
+              "name": "CIÊNCIAS DOS MATERIAS",
+              "slug": "ciencias-dos-materias"
+            },
+            {
+              "code": "DET10164",
+              "name": "Introdução aos Processos Químicos",
+              "slug": "introducao-aos-processos-quimicos"
+            }
+          ]
+        },
+        {
+          "code": "DET10419",
+          "name": "Ergonomia da Produção e Projeto",
+          "slug": "ergonomia-da-producao-e-projeto",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": [
+            {
+              "code": "DET09913",
+              "name": "Gestão e Sistemas de Produção",
+              "slug": "gestao-e-sistemas-de-producao"
+            }
+          ]
+        },
+        {
+          "code": "DET10420",
+          "name": "Gerenciamento da Cadeia de Suprimentos e Distribuição",
+          "slug": "gerenciamento-da-cadeia-de-suprimentos-e-distribuicao",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DET09915",
+              "name": "Estratégia Organizacional",
+              "slug": "estrategia-organizacional"
+            },
+            {
+              "code": "DET10167",
+              "name": "Planejamento e Controle da Produção",
+              "slug": "planejamento-e-controle-da-producao"
+            }
+          ]
+        },
+        {
+          "code": "DET10421",
+          "name": "Gestão da Inovação Tecnológica",
+          "slug": "gestao-da-inovacao-tecnologica",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": []
+        },
+        {
+          "code": "DET10422",
+          "name": "Pesquisa Operacional II",
+          "slug": "pesquisa-operacional-ii",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 30,
+          "prerequisites": [
+            {
+              "code": "DET10166",
+              "name": "Pesquisa Operacional I",
+              "slug": "pesquisa-operacional-i"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 7,
+      "disciplines": [
+        {
+          "code": "DET10628",
+          "name": "Automação da Produção",
+          "slug": "automacao-da-producao",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": [
+            {
+              "code": "DET10418",
+              "name": "Engenharia de Processo",
+              "slug": "engenharia-de-processo"
+            },
+            {
+              "code": "DET10420",
+              "name": "Gerenciamento da Cadeia de Suprimentos e Distribuição",
+              "slug": "gerenciamento-da-cadeia-de-suprimentos-e-distribuicao"
+            }
+          ]
+        },
+        {
+          "code": "DET10626",
+          "name": "Engenharia da Qualidade",
+          "slug": "engenharia-da-qualidade",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": [
+            {
+              "code": "DET09828",
+              "name": "Gestão de Qualidade Total",
+              "slug": "gestao-de-qualidade-total"
+            },
+            {
+              "code": "DMA06019",
+              "name": "PROBABILIDADE E ESTATÍSTICA",
+              "slug": "probabilidade-e-estatistica"
+            }
+          ]
+        },
+        {
+          "code": "DET10629",
+          "name": "Engenharia de Métodos",
+          "slug": "engenharia-de-metodos",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DET10419",
+              "name": "Ergonomia da Produção e Projeto",
+              "slug": "ergonomia-da-producao-e-projeto"
+            }
+          ]
+        },
+        {
+          "code": "DET10625",
+          "name": "Engenharia do Meio Ambiente",
+          "slug": "engenharia-do-meio-ambiente",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": []
+        },
+        {
+          "code": "DET10630",
+          "name": "Gestão de Projetos",
+          "slug": "gestao-de-projetos",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DET10421",
+              "name": "Gestão da Inovação Tecnológica",
+              "slug": "gestao-da-inovacao-tecnologica"
+            }
+          ]
+        },
+        {
+          "code": "DET10632",
+          "name": "Sistemas Integrados de Gestão",
+          "slug": "sistemas-integrados-de-gestao",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            15,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DET10420",
+              "name": "Gerenciamento da Cadeia de Suprimentos e Distribuição",
+              "slug": "gerenciamento-da-cadeia-de-suprimentos-e-distribuicao"
+            }
+          ]
+        },
+        {
+          "code": "DET10631",
+          "name": "Técnicas e Economia dos Transportes",
+          "slug": "tecnicas-e-economia-dos-transportes",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DET08136",
+              "name": "Economia da Engenharia II",
+              "slug": "economia-da-engenharia-ii"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 8,
+      "disciplines": [
+        {
+          "code": "ECH08092",
+          "name": "Ciências Humanas e Sociais",
+          "slug": "ciencias-humanas-e-sociais",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": []
+        },
+        {
+          "code": "DET08121",
+          "name": "Contabilidade Gerencial",
+          "slug": "contabilidade-gerencial",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DET08136",
+              "name": "Economia da Engenharia II",
+              "slug": "economia-da-engenharia-ii"
+            }
+          ]
+        },
+        {
+          "code": "DET08127",
+          "name": "Custos Industriais",
+          "slug": "custos-industriais",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DET08136",
+              "name": "Economia da Engenharia II",
+              "slug": "economia-da-engenharia-ii"
+            }
+          ]
+        },
+        {
+          "code": "DET10911",
+          "name": "Diagnóstico de Processo Produtivo IV",
+          "slug": "diagnostico-de-processo-produtivo-iv",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            15,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DET10417",
+              "name": "Diagnóstico de Processos Produtivos III",
+              "slug": "diagnostico-de-processos-produtivos-iii"
+            },
+            {
+              "code": "DET10630",
+              "name": "Gestão de Projetos",
+              "slug": "gestao-de-projetos"
+            }
+          ]
+        },
+        {
+          "code": "DET10816",
+          "name": "Gestão do Conhecimento",
+          "slug": "gestao-do-conhecimento",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DET10626",
+              "name": "Engenharia da Qualidade",
+              "slug": "engenharia-da-qualidade"
+            }
+          ]
+        },
+        {
+          "code": "DET10910",
+          "name": "Gestão do Desenvolvimento de Produto",
+          "slug": "gestao-do-desenvolvimento-de-produto",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DET10419",
+              "name": "Ergonomia da Produção e Projeto",
+              "slug": "ergonomia-da-producao-e-projeto"
+            },
+            {
+              "code": "DET10626",
+              "name": "Engenharia da Qualidade",
+              "slug": "engenharia-da-qualidade"
+            },
+            {
+              "code": "DET10630",
+              "name": "Gestão de Projetos",
+              "slug": "gestao-de-projetos"
+            }
+          ]
+        },
+        {
+          "code": "DET10909",
+          "name": "Instalações Industriais",
+          "slug": "instalacoes-industriais",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DET10628",
+              "name": "Automação da Produção",
+              "slug": "automacao-da-producao"
+            },
+            {
+              "code": "DET10630",
+              "name": "Gestão de Projetos",
+              "slug": "gestao-de-projetos"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 9,
+      "disciplines": [
+        {
+          "code": "DET08148",
+          "name": "Empreendedorismo",
+          "slug": "empreendedorismo",
+          "section": "OB",
+          "period": 9,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DET08121",
+              "name": "Contabilidade Gerencial",
+              "slug": "contabilidade-gerencial"
+            },
+            {
+              "code": "DET10909",
+              "name": "Instalações Industriais",
+              "slug": "instalacoes-industriais"
+            }
+          ]
+        },
+        {
+          "code": "DET08228",
+          "name": "Higiene e Segurança do Trabalho",
+          "slug": "higiene-e-seguranca-do-trabalho",
+          "section": "OB",
+          "period": 9,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DET10909",
+              "name": "Instalações Industriais",
+              "slug": "instalacoes-industriais"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "optativas": [
+    {
+      "code": "DET11344",
+      "name": "Eletricidade Básica",
+      "slug": "eletricidade-basica",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": [
+        {
+          "code": "DCN06281",
+          "name": "ÓTICA E FÍSICA MODERNA",
+          "slug": "otica-e-fisica-moderna"
+        }
+      ]
+    },
+    {
+      "code": "DET11345",
+      "name": "Engenharia de Tráfico",
+      "slug": "engenharia-de-trafico",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        15
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": [
+        {
+          "code": "DET10631",
+          "name": "Técnicas e Economia dos Transportes",
+          "slug": "tecnicas-e-economia-dos-transportes"
+        }
+      ]
+    },
+    {
+      "code": "DET10627",
+      "name": "Gestão do Agronegócio",
+      "slug": "gestao-do-agronegocio",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        15
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    },
+    {
+      "code": "DET08230",
+      "name": "Indústria Alimentícia",
+      "slug": "industria-alimenticia",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    },
+    {
+      "code": "DET11349",
+      "name": "Indústria de Gás Natural",
+      "slug": "industria-de-gas-natural",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": [
+        {
+          "code": "DET10418",
+          "name": "Engenharia de Processo",
+          "slug": "engenharia-de-processo"
+        },
+        {
+          "code": "DET10420",
+          "name": "Gerenciamento da Cadeia de Suprimentos e Distribuição",
+          "slug": "gerenciamento-da-cadeia-de-suprimentos-e-distribuicao"
+        }
+      ]
+    },
+    {
+      "code": "DET11346",
+      "name": "Indústria de Móveis",
+      "slug": "industria-de-moveis",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        15
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": [
+        {
+          "code": "DET10418",
+          "name": "Engenharia de Processo",
+          "slug": "engenharia-de-processo"
+        },
+        {
+          "code": "DET10420",
+          "name": "Gerenciamento da Cadeia de Suprimentos e Distribuição",
+          "slug": "gerenciamento-da-cadeia-de-suprimentos-e-distribuicao"
+        }
+      ]
+    },
+    {
+      "code": "DET11347",
+      "name": "Indústria de Papel e Celulose",
+      "slug": "industria-de-papel-e-celulose",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        15
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": [
+        {
+          "code": "DET10418",
+          "name": "Engenharia de Processo",
+          "slug": "engenharia-de-processo"
+        },
+        {
+          "code": "DET10420",
+          "name": "Gerenciamento da Cadeia de Suprimentos e Distribuição",
+          "slug": "gerenciamento-da-cadeia-de-suprimentos-e-distribuicao"
+        }
+      ]
+    },
+    {
+      "code": "DET11348",
+      "name": "Indústria de Processos Cerâmicos",
+      "slug": "industria-de-processos-ceramicos",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": [
+        {
+          "code": "DET10418",
+          "name": "Engenharia de Processo",
+          "slug": "engenharia-de-processo"
+        },
+        {
+          "code": "DET10420",
+          "name": "Gerenciamento da Cadeia de Suprimentos e Distribuição",
+          "slug": "gerenciamento-da-cadeia-de-suprimentos-e-distribuicao"
+        }
+      ]
+    },
+    {
+      "code": "ECH10760",
+      "name": "Libras",
+      "slug": "libras",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    },
+    {
+      "code": "DET10907",
+      "name": "Marketing",
+      "slug": "marketing",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": [
+        {
+          "code": "DET08134",
+          "name": "Economia da Engenharia",
+          "slug": "economia-da-engenharia"
+        },
+        {
+          "code": "DET10420",
+          "name": "Gerenciamento da Cadeia de Suprimentos e Distribuição",
+          "slug": "gerenciamento-da-cadeia-de-suprimentos-e-distribuicao"
+        }
+      ]
+    },
+    {
+      "code": "DET10121",
+      "name": "Materiais Crâmicos",
+      "slug": "materiais-cramicos",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        15
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    },
+    {
+      "code": "DET11227",
+      "name": "Planejamento e Operação de Portos",
+      "slug": "planejamento-e-operacao-de-portos",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        15
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": [
+        {
+          "code": "DET09911",
+          "name": "Desenho Técnico",
+          "slug": "desenho-tecnico"
+        },
+        {
+          "code": "DET09913",
+          "name": "Gestão e Sistemas de Produção",
+          "slug": "gestao-e-sistemas-de-producao"
+        },
+        {
+          "code": "DET10420",
+          "name": "Gerenciamento da Cadeia de Suprimentos e Distribuição",
+          "slug": "gerenciamento-da-cadeia-de-suprimentos-e-distribuicao"
+        },
+        {
+          "code": "DET10422",
+          "name": "Pesquisa Operacional II",
+          "slug": "pesquisa-operacional-ii"
+        }
+      ]
+    },
+    {
+      "code": "DET11350",
+      "name": "Processo de Fabricação I",
+      "slug": "processo-de-fabricacao-i",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 30,
+      "prerequisites": []
+    },
+    {
+      "code": "DET11351",
+      "name": "Processo de Fabricação II",
+      "slug": "processo-de-fabricacao-ii",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 30,
+      "prerequisites": [
+        {
+          "code": "DET11350",
+          "name": "Processo de Fabricação I",
+          "slug": "processo-de-fabricacao-i"
+        }
+      ]
+    },
+    {
+      "code": "DET10817",
+      "name": "Projeto de Negócios",
+      "slug": "projeto-de-negocios",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 2,
+      "hours_before_type": [
+        30,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 15,
+      "prerequisites": [
+        {
+          "code": "DET08121",
+          "name": "Contabilidade Gerencial",
+          "slug": "contabilidade-gerencial"
+        },
+        {
+          "code": "DET08127",
+          "name": "Custos Industriais",
+          "slug": "custos-industriais"
+        },
+        {
+          "code": "DET09915",
+          "name": "Estratégia Organizacional",
+          "slug": "estrategia-organizacional"
+        }
+      ]
+    },
+    {
+      "code": "DET10105",
+      "name": "Tópicos Especiais em Engenharia de Produção I",
+      "slug": "topicos-especiais-em-engenharia-de-producao-i",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    },
+    {
+      "code": "DET10106",
+      "name": "Tópicos Especiais em Engenharia de Produção II",
+      "slug": "topicos-especiais-em-engenharia-de-producao-ii",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    },
+    {
+      "code": "DET10908",
+      "name": "Águas e Efluentes",
+      "slug": "aguas-e-efluentes",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        15
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": [
+        {
+          "code": "DET10418",
+          "name": "Engenharia de Processo",
+          "slug": "engenharia-de-processo"
+        },
+        {
+          "code": "DET10625",
+          "name": "Engenharia do Meio Ambiente",
+          "slug": "engenharia-do-meio-ambiente"
+        }
+      ]
+    }
+  ],
+  "estagios": [
+    {
+      "code": "DET08170",
+      "name": "Estágio Supervisionado",
+      "slug": "estagio-supervisionado",
+      "section": "EST",
+      "period": null,
+      "type": "OB",
+      "credits": 6,
+      "hours_before_type": [
+        0,
+        300
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    }
+  ],
+  "complementares": [],
+  "outros": {
+    "TCC": [
+      {
+        "code": "DET11228",
+        "name": "Aspectos Legais da Engenharia",
+        "slug": "aspectos-legais-da-engenharia",
+        "section": "TCC",
+        "period": null,
+        "type": "OB",
+        "credits": 4,
+        "hours_before_type": [
+          60,
+          0
+        ],
+        "hours_after_type": [],
+        "total_hours": 0,
+        "prerequisites": []
+      },
+      {
+        "code": "DET11226",
+        "name": "Projeto de Trabalho de Conclusão de Curso",
+        "slug": "projeto-de-trabalho-de-conclusao-de-curso",
+        "section": "TCC",
+        "period": null,
+        "type": "OB",
+        "credits": 3,
+        "hours_before_type": [
+          45,
+          15
+        ],
+        "hours_after_type": [],
+        "total_hours": 0,
+        "prerequisites": [
+          {
+            "code": "DET10911",
+            "name": "Diagnóstico de Processo Produtivo IV",
+            "slug": "diagnostico-de-processo-produtivo-iv"
+          }
+        ]
+      },
+      {
+        "code": "DET11343",
+        "name": "Trabalho de Conclusão de Curso",
+        "slug": "trabalho-de-conclusao-de-curso",
+        "section": "TCC",
+        "period": null,
+        "type": "OB",
+        "credits": 4,
+        "hours_before_type": [
+          30,
+          0
+        ],
+        "hours_after_type": [],
+        "total_hours": 60,
+        "prerequisites": [
+          {
+            "code": "DET11226",
+            "name": "Projeto de Trabalho de Conclusão de Curso",
+            "slug": "projeto-de-trabalho-de-conclusao-de-curso"
+          }
+        ]
+      }
+    ]
+  }
+}

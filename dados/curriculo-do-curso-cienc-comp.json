@@ -1,0 +1,1938 @@
+{
+  "source_pdf": "Curriculo_do_curso_Cienc_Comp.pdf",
+  "curso": "Curriculo_do_curso_Cienc_Comp",
+  "metadados": {
+    "curso": null,
+    "turno": "Integral",
+    "nivel": "Ensino Superior",
+    "modalidade": "Bacharelado",
+    "grau": "Bacharelado",
+    "funcionamento": "Em atividade"
+  },
+  "resumo_cargas": {
+    "obrigatorias": 2295,
+    "optativas": 360,
+    "estagio": null,
+    "complementares": 165,
+    "total": 3200
+  },
+  "periodos": [
+    {
+      "period": 1,
+      "disciplines": [
+        {
+          "code": "DMA16356",
+          "name": "CÁLCULO I",
+          "slug": "calculo-i",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            15,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": []
+        },
+        {
+          "code": "DMA16357",
+          "name": "GEOMETRIA ANALÍTICA",
+          "slug": "geometria-analitica",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": []
+        },
+        {
+          "code": "DCE16360",
+          "name": "Introdução à Ciência da Computação",
+          "slug": "introducao-a-ciencia-da-computacao",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": []
+        },
+        {
+          "code": "DCE16359",
+          "name": "Introdução à Programação",
+          "slug": "introducao-a-programacao",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 1,
+          "hours_before_type": [
+            0,
+            0,
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 30,
+          "prerequisites": []
+        },
+        {
+          "code": "DCE16358",
+          "name": "Matemática Discreta",
+          "slug": "matematica-discreta",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": []
+        }
+      ]
+    },
+    {
+      "period": 2,
+      "disciplines": [
+        {
+          "code": "DMA16363",
+          "name": "CÁLCULO II",
+          "slug": "calculo-ii",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            15,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": [
+            {
+              "code": "DMA16356",
+              "name": "CÁLCULO I",
+              "slug": "calculo-i"
+            }
+          ]
+        },
+        {
+          "code": "DCE16365",
+          "name": "Elementos de Lógica Digital",
+          "slug": "elementos-de-logica-digital",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 30,
+          "prerequisites": []
+        },
+        {
+          "code": "DCE16361",
+          "name": "Programação Estruturada",
+          "slug": "programacao-estruturada",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCE16359",
+              "name": "Introdução à Programação",
+              "slug": "introducao-a-programacao"
+            }
+          ]
+        },
+        {
+          "code": "DCE16362",
+          "name": "Resolução de Problemas",
+          "slug": "resolucao-de-problemas",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCE16359",
+              "name": "Introdução à Programação",
+              "slug": "introducao-a-programacao"
+            }
+          ]
+        },
+        {
+          "code": "DMA16364",
+          "name": "ÁLGEBRA LINEAR",
+          "slug": "algebra-linear",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DMA16357",
+              "name": "GEOMETRIA ANALÍTICA",
+              "slug": "geometria-analitica"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 3,
+      "disciplines": [
+        {
+          "code": "DMA16367",
+          "name": "CÁLCULO III",
+          "slug": "calculo-iii",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            15,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": [
+            {
+              "code": "DMA16363",
+              "name": "CÁLCULO II",
+              "slug": "calculo-ii"
+            }
+          ]
+        },
+        {
+          "code": "DCE16371",
+          "name": "Engenharia de Software",
+          "slug": "engenharia-de-software",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCE16361",
+              "name": "Programação Estruturada",
+              "slug": "programacao-estruturada"
+            }
+          ]
+        },
+        {
+          "code": "DCE16369",
+          "name": "Estrutura de Dados I",
+          "slug": "estrutura-de-dados-i",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCE16361",
+              "name": "Programação Estruturada",
+              "slug": "programacao-estruturada"
+            }
+          ]
+        },
+        {
+          "code": "DCE16370",
+          "name": "Lógica para Computação",
+          "slug": "logica-para-computacao",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            15,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": []
+        },
+        {
+          "code": "DCE16368",
+          "name": "Probabilidade e Estatística",
+          "slug": "probabilidade-e-estatistica",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DMA16356",
+              "name": "CÁLCULO I",
+              "slug": "calculo-i"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 4,
+      "disciplines": [
+        {
+          "code": "DCE16372",
+          "name": "Algoritmos Numéricos I",
+          "slug": "algoritmos-numericos-i",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCE16361",
+              "name": "Programação Estruturada",
+              "slug": "programacao-estruturada"
+            },
+            {
+              "code": "DMA16356",
+              "name": "CÁLCULO I",
+              "slug": "calculo-i"
+            }
+          ]
+        },
+        {
+          "code": "DCE16374",
+          "name": "Engenharia de Requisitos de Software",
+          "slug": "engenharia-de-requisitos-de-software",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCE16371",
+              "name": "Engenharia de Software",
+              "slug": "engenharia-de-software"
+            }
+          ]
+        },
+        {
+          "code": "DCE16376",
+          "name": "Estrutura de Dados II",
+          "slug": "estrutura-de-dados-ii",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCE16369",
+              "name": "Estrutura de Dados I",
+              "slug": "estrutura-de-dados-i"
+            }
+          ]
+        },
+        {
+          "code": "DET10166",
+          "name": "Pesquisa Operacional I",
+          "slug": "pesquisa-operacional-i",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            15,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DMA16356",
+              "name": "CÁLCULO I",
+              "slug": "calculo-i"
+            },
+            {
+              "code": "DMA16364",
+              "name": "ÁLGEBRA LINEAR",
+              "slug": "algebra-linear"
+            }
+          ]
+        },
+        {
+          "code": "DCE16375",
+          "name": "Programação Orientada a Objetos",
+          "slug": "programacao-orientada-a-objetos",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCE16361",
+              "name": "Programação Estruturada",
+              "slug": "programacao-estruturada"
+            }
+          ]
+        },
+        {
+          "code": "DCE16373",
+          "name": "Teoria da Computação e Linguagens Formais",
+          "slug": "teoria-da-computacao-e-linguagens-formais",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCE16358",
+              "name": "Matemática Discreta",
+              "slug": "matematica-discreta"
+            },
+            {
+              "code": "DCE16369",
+              "name": "Estrutura de Dados I",
+              "slug": "estrutura-de-dados-i"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 5,
+      "disciplines": [
+        {
+          "code": "DCE16378",
+          "name": "Arquitetura de Computadores I",
+          "slug": "arquitetura-de-computadores-i",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 5,
+          "hours_before_type": [
+            60,
+            0,
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 90,
+          "prerequisites": [
+            {
+              "code": "DCE16361",
+              "name": "Programação Estruturada",
+              "slug": "programacao-estruturada"
+            },
+            {
+              "code": "DCE16365",
+              "name": "Elementos de Lógica Digital",
+              "slug": "elementos-de-logica-digital"
+            }
+          ]
+        },
+        {
+          "code": "DCE16380",
+          "name": "Banco de Dados I",
+          "slug": "banco-de-dados-i",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCE16369",
+              "name": "Estrutura de Dados I",
+              "slug": "estrutura-de-dados-i"
+            },
+            {
+              "code": "DCE16371",
+              "name": "Engenharia de Software",
+              "slug": "engenharia-de-software"
+            }
+          ]
+        },
+        {
+          "code": "DCE16381",
+          "name": "Fundamentos de Computação Gráfica e Mídias Digitais",
+          "slug": "fundamentos-de-computacao-grafica-e-midias-digitais",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCE16375",
+              "name": "Programação Orientada a Objetos",
+              "slug": "programacao-orientada-a-objetos"
+            }
+          ]
+        },
+        {
+          "code": "DCE16379",
+          "name": "Linguagens de Programação",
+          "slug": "linguagens-de-programacao",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            15,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCE16370",
+              "name": "Lógica para Computação",
+              "slug": "logica-para-computacao"
+            }
+          ]
+        },
+        {
+          "code": "DCE16377",
+          "name": "Projeto e Análise de Algoritmos",
+          "slug": "projeto-e-analise-de-algoritmos",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCE16358",
+              "name": "Matemática Discreta",
+              "slug": "matematica-discreta"
+            },
+            {
+              "code": "DCE16376",
+              "name": "Estrutura de Dados II",
+              "slug": "estrutura-de-dados-ii"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 6,
+      "disciplines": [
+        {
+          "code": "DCE16383",
+          "name": "Inteligência Artificial",
+          "slug": "inteligencia-artificial",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            15,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCE16368",
+              "name": "Probabilidade e Estatística",
+              "slug": "probabilidade-e-estatistica"
+            },
+            {
+              "code": "DCE16369",
+              "name": "Estrutura de Dados I",
+              "slug": "estrutura-de-dados-i"
+            }
+          ]
+        },
+        {
+          "code": "DCE16366",
+          "name": "Projeto Integrador I",
+          "slug": "projeto-integrador-i",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCE16362",
+              "name": "Resolução de Problemas",
+              "slug": "resolucao-de-problemas"
+            }
+          ]
+        },
+        {
+          "code": "DCE16382",
+          "name": "Sistemas Operacionais",
+          "slug": "sistemas-operacionais",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCE16378",
+              "name": "Arquitetura de Computadores I",
+              "slug": "arquitetura-de-computadores-i"
+            }
+          ]
+        },
+        {
+          "code": "DCE16384",
+          "name": "Teoria dos Grafos",
+          "slug": "teoria-dos-grafos",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            15,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCE16369",
+              "name": "Estrutura de Dados I",
+              "slug": "estrutura-de-dados-i"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 7,
+      "disciplines": [
+        {
+          "code": "DCE16385",
+          "name": "Compiladores",
+          "slug": "compiladores",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCE16373",
+              "name": "Teoria da Computação e Linguagens Formais",
+              "slug": "teoria-da-computacao-e-linguagens-formais"
+            },
+            {
+              "code": "DCE16378",
+              "name": "Arquitetura de Computadores I",
+              "slug": "arquitetura-de-computadores-i"
+            },
+            {
+              "code": "DCE16379",
+              "name": "Linguagens de Programação",
+              "slug": "linguagens-de-programacao"
+            }
+          ]
+        },
+        {
+          "code": "DCE16388",
+          "name": "Empreendedorismo",
+          "slug": "empreendedorismo",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": []
+        },
+        {
+          "code": "DCE16386",
+          "name": "Projeto de Sistemas de Software",
+          "slug": "projeto-de-sistemas-de-software",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCE16374",
+              "name": "Engenharia de Requisitos de Software",
+              "slug": "engenharia-de-requisitos-de-software"
+            },
+            {
+              "code": "DCE16380",
+              "name": "Banco de Dados I",
+              "slug": "banco-de-dados-i"
+            }
+          ]
+        },
+        {
+          "code": "DCE16387",
+          "name": "Redes de Computadores",
+          "slug": "redes-de-computadores",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            15,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCE16361",
+              "name": "Programação Estruturada",
+              "slug": "programacao-estruturada"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 8,
+      "disciplines": [
+        {
+          "code": "DCE16392",
+          "name": "Banco de Dados II",
+          "slug": "banco-de-dados-ii",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCE16376",
+              "name": "Estrutura de Dados II",
+              "slug": "estrutura-de-dados-ii"
+            },
+            {
+              "code": "DCE16380",
+              "name": "Banco de Dados I",
+              "slug": "banco-de-dados-i"
+            }
+          ]
+        },
+        {
+          "code": "DCE16391",
+          "name": "Computação Paralela e Distribuída",
+          "slug": "computacao-paralela-e-distribuida",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCE16376",
+              "name": "Estrutura de Dados II",
+              "slug": "estrutura-de-dados-ii"
+            },
+            {
+              "code": "DCE16382",
+              "name": "Sistemas Operacionais",
+              "slug": "sistemas-operacionais"
+            },
+            {
+              "code": "DCE16387",
+              "name": "Redes de Computadores",
+              "slug": "redes-de-computadores"
+            }
+          ]
+        },
+        {
+          "code": "DCE16389",
+          "name": "Interação Homem - Computador",
+          "slug": "interacao-homem-computador",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCE16374",
+              "name": "Engenharia de Requisitos de Software",
+              "slug": "engenharia-de-requisitos-de-software"
+            }
+          ]
+        },
+        {
+          "code": "DCE16390",
+          "name": "Segurança da Informação",
+          "slug": "seguranca-da-informacao",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0,
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCE16387",
+              "name": "Redes de Computadores",
+              "slug": "redes-de-computadores"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "optativas": [
+    {
+      "code": "DCE11464",
+      "name": "Algoritmos Numéricos II",
+      "slug": "algoritmos-numericos-ii",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "DCE16372",
+          "name": "Algoritmos Numéricos I",
+          "slug": "algoritmos-numericos-i"
+        }
+      ]
+    },
+    {
+      "code": "DCE16402",
+      "name": "Análise de Redes Sociais",
+      "slug": "analise-de-redes-sociais",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 2,
+      "hours_before_type": [
+        30,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 30,
+      "prerequisites": []
+    },
+    {
+      "code": "DCE16397",
+      "name": "Aprendizado de Máquina",
+      "slug": "aprendizado-de-maquina",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "DCE16383",
+          "name": "Inteligência Artificial",
+          "slug": "inteligencia-artificial"
+        }
+      ]
+    },
+    {
+      "code": "DCE16404",
+      "name": "Aspectos Teóricos da Computação",
+      "slug": "aspectos-teoricos-da-computacao",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": []
+    },
+    {
+      "code": "DCE08079",
+      "name": "Avaliação de Desempenho de Sistemas Computacionais",
+      "slug": "avaliacao-de-desempenho-de-sistemas-computacionais",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "DCE16378",
+          "name": "Arquitetura de Computadores I",
+          "slug": "arquitetura-de-computadores-i"
+        },
+        {
+          "code": "DCE16387",
+          "name": "Redes de Computadores",
+          "slug": "redes-de-computadores"
+        }
+      ]
+    },
+    {
+      "code": "ECH16401",
+      "name": "CIÊNCIAS HUMANAS E SOCIAIS",
+      "slug": "ciencias-humanas-e-sociais",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 2,
+      "hours_before_type": [
+        30,
+        15,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "DCE16411",
+      "name": "Ciência de Dados",
+      "slug": "ciencia-de-dados",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "DCE16368",
+          "name": "Probabilidade e Estatística",
+          "slug": "probabilidade-e-estatistica"
+        },
+        {
+          "code": "DCE16369",
+          "name": "Estrutura de Dados I",
+          "slug": "estrutura-de-dados-i"
+        }
+      ]
+    },
+    {
+      "code": "DCE17005",
+      "name": "Computação Verde",
+      "slug": "computacao-verde",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": []
+    },
+    {
+      "code": "DCE16412",
+      "name": "Criptografia",
+      "slug": "criptografia",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "DCE16376",
+          "name": "Estrutura de Dados II",
+          "slug": "estrutura-de-dados-ii"
+        },
+        {
+          "code": "DCE16387",
+          "name": "Redes de Computadores",
+          "slug": "redes-de-computadores"
+        }
+      ]
+    },
+    {
+      "code": "DCE16400",
+      "name": "Deep Learning",
+      "slug": "deep-learning",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "DCE16383",
+          "name": "Inteligência Artificial",
+          "slug": "inteligencia-artificial"
+        }
+      ]
+    },
+    {
+      "code": "DCE16414",
+      "name": "Descoberta de Conhecimento em Banco de Dados",
+      "slug": "descoberta-de-conhecimento-em-banco-de-dados",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "DCE16376",
+          "name": "Estrutura de Dados II",
+          "slug": "estrutura-de-dados-ii"
+        }
+      ]
+    },
+    {
+      "code": "DCE16221",
+      "name": "Desenvolvimento de jogos digitais",
+      "slug": "desenvolvimento-de-jogos-digitais",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        0,
+        30,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "DCE16375",
+          "name": "Programação Orientada a Objetos",
+          "slug": "programacao-orientada-a-objetos"
+        }
+      ]
+    },
+    {
+      "code": "DCN05967",
+      "name": "ELETROMAGNETISMO I",
+      "slug": "eletromagnetismo-i",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "DMA16363",
+          "name": "CÁLCULO II",
+          "slug": "calculo-ii"
+        }
+      ]
+    },
+    {
+      "code": "DMA16394",
+      "name": "EQUAÇÕES DIFERENCIAIS",
+      "slug": "equacoes-diferenciais",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "DMA16363",
+          "name": "CÁLCULO II",
+          "slug": "calculo-ii"
+        }
+      ]
+    },
+    {
+      "code": "DCN10112",
+      "name": "Fundamentos de Mecânica Clássica",
+      "slug": "fundamentos-de-mecanica-classica",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 5,
+      "hours_before_type": [
+        75,
+        15,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 90,
+      "prerequisites": [
+        {
+          "code": "DMA16356",
+          "name": "CÁLCULO I",
+          "slug": "calculo-i"
+        }
+      ]
+    },
+    {
+      "code": "DCE16395",
+      "name": "Gerencia de Projetos de Software",
+      "slug": "gerencia-de-projetos-de-software",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "DCE16386",
+          "name": "Projeto de Sistemas de Software",
+          "slug": "projeto-de-sistemas-de-software"
+        }
+      ]
+    },
+    {
+      "code": "DCE14557",
+      "name": "Inteligências Múltiplas",
+      "slug": "inteligencias-multiplas",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 2,
+      "hours_before_type": [
+        30,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 30,
+      "prerequisites": []
+    },
+    {
+      "code": "DCE11718",
+      "name": "Interfaces e Periféricos",
+      "slug": "interfaces-e-perifericos",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 2,
+      "hours_before_type": [
+        30,
+        0,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": [
+        {
+          "code": "DCE16382",
+          "name": "Sistemas Operacionais",
+          "slug": "sistemas-operacionais"
+        }
+      ]
+    },
+    {
+      "code": "DCE16406",
+      "name": "Introdução à Computação Musical",
+      "slug": "introducao-a-computacao-musical",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        0,
+        30,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": []
+    },
+    {
+      "code": "ECH10760",
+      "name": "Libras",
+      "slug": "libras",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": []
+    },
+    {
+      "code": "DMA14804",
+      "name": "Matemática Financeira",
+      "slug": "matematica-financeira",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 2,
+      "hours_before_type": [
+        30,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 30,
+      "prerequisites": []
+    },
+    {
+      "code": "DMA14846",
+      "name": "Metaheurísticas",
+      "slug": "metaheuristicas",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "DCE16369",
+          "name": "Estrutura de Dados I",
+          "slug": "estrutura-de-dados-i"
+        }
+      ]
+    },
+    {
+      "code": "DCE16416",
+      "name": "Metodologia da Pesquisa na Computação",
+      "slug": "metodologia-da-pesquisa-na-computacao",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": []
+    },
+    {
+      "code": "DCE16413",
+      "name": "Microsserviços",
+      "slug": "microsservicos",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "DCE16371",
+          "name": "Engenharia de Software",
+          "slug": "engenharia-de-software"
+        },
+        {
+          "code": "DCE16382",
+          "name": "Sistemas Operacionais",
+          "slug": "sistemas-operacionais"
+        }
+      ]
+    },
+    {
+      "code": "DCE14560",
+      "name": "Modelagem Conceitual",
+      "slug": "modelagem-conceitual",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "DCE16371",
+          "name": "Engenharia de Software",
+          "slug": "engenharia-de-software"
+        }
+      ]
+    },
+    {
+      "code": "DMA14820",
+      "name": "Otimização I",
+      "slug": "otimizacao-i",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        15,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "DMA16356",
+          "name": "CÁLCULO I",
+          "slug": "calculo-i"
+        },
+        {
+          "code": "DMA16364",
+          "name": "ÁLGEBRA LINEAR",
+          "slug": "algebra-linear"
+        }
+      ]
+    },
+    {
+      "code": "DCE16222",
+      "name": "PROGRAMAÇÃO COMPETITIVA",
+      "slug": "programacao-competitiva",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        0,
+        30,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "DCE16361",
+          "name": "Programação Estruturada",
+          "slug": "programacao-estruturada"
+        }
+      ]
+    },
+    {
+      "code": "DCE16396",
+      "name": "Processamento Digital de Imagens",
+      "slug": "processamento-digital-de-imagens",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "DCE16368",
+          "name": "Probabilidade e Estatística",
+          "slug": "probabilidade-e-estatistica"
+        },
+        {
+          "code": "DCE16375",
+          "name": "Programação Orientada a Objetos",
+          "slug": "programacao-orientada-a-objetos"
+        }
+      ]
+    },
+    {
+      "code": "DCE16415",
+      "name": "Processamento Morfológico de Imagens",
+      "slug": "processamento-morfologico-de-imagens",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        0,
+        30,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "DCE16375",
+          "name": "Programação Orientada a Objetos",
+          "slug": "programacao-orientada-a-objetos"
+        }
+      ]
+    },
+    {
+      "code": "DCE08338",
+      "name": "Processos Estocásticos Aplicados à Computação",
+      "slug": "processos-estocasticos-aplicados-a-computacao",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": [
+        {
+          "code": "DCE16368",
+          "name": "Probabilidade e Estatística",
+          "slug": "probabilidade-e-estatistica"
+        },
+        {
+          "code": "DMA16367",
+          "name": "CÁLCULO III",
+          "slug": "calculo-iii"
+        }
+      ]
+    },
+    {
+      "code": "DCE16398",
+      "name": "Reconhecimento de Padrões",
+      "slug": "reconhecimento-de-padroes",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "DCE16383",
+          "name": "Inteligência Artificial",
+          "slug": "inteligencia-artificial"
+        }
+      ]
+    },
+    {
+      "code": "DCE11719",
+      "name": "Sistemas Distribuídos",
+      "slug": "sistemas-distribuidos",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "DCE16382",
+          "name": "Sistemas Operacionais",
+          "slug": "sistemas-operacionais"
+        }
+      ]
+    },
+    {
+      "code": "DCE08409",
+      "name": "Teleprocessamento",
+      "slug": "teleprocessamento",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": [
+        {
+          "code": "DCE16361",
+          "name": "Programação Estruturada",
+          "slug": "programacao-estruturada"
+        },
+        {
+          "code": "DCE16365",
+          "name": "Elementos de Lógica Digital",
+          "slug": "elementos-de-logica-digital"
+        }
+      ]
+    },
+    {
+      "code": "DCE16403",
+      "name": "Tópicos Especiais em Banco de Dados I",
+      "slug": "topicos-especiais-em-banco-de-dados-i",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": []
+    },
+    {
+      "code": "DCE16407",
+      "name": "Tópicos Especiais em Banco de Dados II",
+      "slug": "topicos-especiais-em-banco-de-dados-ii",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": []
+    },
+    {
+      "code": "DCE16393",
+      "name": "Tópicos Especiais em Ferramentas Computacionais",
+      "slug": "topicos-especiais-em-ferramentas-computacionais",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": []
+    },
+    {
+      "code": "DCE16108",
+      "name": "Tópicos Especiais em Inovação e Empreendedorismo",
+      "slug": "topicos-especiais-em-inovacao-e-empreendedorismo",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": []
+    },
+    {
+      "code": "DCE16399",
+      "name": "Tópicos Especiais em Inteligência Artificial I",
+      "slug": "topicos-especiais-em-inteligencia-artificial-i",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "DCE16383",
+          "name": "Inteligência Artificial",
+          "slug": "inteligencia-artificial"
+        }
+      ]
+    },
+    {
+      "code": "DCE16405",
+      "name": "Web Semântica",
+      "slug": "web-semantica",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 2,
+      "hours_before_type": [
+        30,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 30,
+      "prerequisites": []
+    },
+    {
+      "code": "DCN06281",
+      "name": "ÓTICA E FÍSICA MODERNA",
+      "slug": "otica-e-fisica-moderna",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0,
+        0,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": [
+        {
+          "code": "DCN05967",
+          "name": "ELETROMAGNETISMO I",
+          "slug": "eletromagnetismo-i"
+        }
+      ]
+    }
+  ],
+  "estagios": [],
+  "complementares": [],
+  "outros": {
+    "TCC": [
+      {
+        "code": "DCE16408",
+        "name": "Trabalho de Conclusão de Curso",
+        "slug": "trabalho-de-conclusao-de-curso",
+        "section": "TCC",
+        "period": null,
+        "type": "OB",
+        "credits": 2,
+        "hours_before_type": [
+          15,
+          45,
+          0,
+          0
+        ],
+        "hours_after_type": [],
+        "total_hours": 60,
+        "prerequisites": [
+          {
+            "code": "DCE16366",
+            "name": "Projeto Integrador I",
+            "slug": "projeto-integrador-i"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,2184 @@
+{
+  "source_pdf": "Curriculo_do_curso_Eng_Quimica.pdf",
+  "curso": "Curriculo_do_curso_Eng_Quimica",
+  "metadados": {
+    "curso": null,
+    "turno": "Integral",
+    "nivel": "Ensino Superior",
+    "modalidade": "Bacharelado",
+    "grau": "Engenheiro Químico",
+    "funcionamento": "Em atividade"
+  },
+  "resumo_cargas": {
+    "obrigatorias": null,
+    "optativas": null,
+    "estagio": 20,
+    "complementares": null,
+    "total": null
+  },
+  "periodos": [
+    {
+      "period": 1,
+      "disciplines": [
+        {
+          "code": "DET10638",
+          "name": "Ciência da Informação",
+          "slug": "ciencia-da-informacao",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": []
+        },
+        {
+          "code": "DMA05670",
+          "name": "CÁLCULO I",
+          "slug": "calculo-i",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 5,
+          "hours_before_type": [
+            75,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": []
+        },
+        {
+          "code": "DET10639",
+          "name": "Desenho Técnico",
+          "slug": "desenho-tecnico",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 30,
+          "prerequisites": []
+        },
+        {
+          "code": "DMA06968",
+          "name": "Geometria Analítica",
+          "slug": "geometria-analitica",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": []
+        },
+        {
+          "code": "DET05675",
+          "name": "INTRODUÇÃO À ENGENHARIA QUÍMICA",
+          "slug": "introducao-a-engenharia-quimica",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": []
+        },
+        {
+          "code": "DCE10640",
+          "name": "Programação I",
+          "slug": "programacao-i",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 30,
+          "prerequisites": []
+        },
+        {
+          "code": "DCN09831",
+          "name": "Química Geral I",
+          "slug": "quimica-geral-i",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": []
+        }
+      ]
+    },
+    {
+      "period": 2,
+      "disciplines": [
+        {
+          "code": "DMA05855",
+          "name": "CALCULO II",
+          "slug": "calculo-ii",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 5,
+          "hours_before_type": [
+            75,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DMA05670",
+              "name": "CÁLCULO I",
+              "slug": "calculo-i"
+            }
+          ]
+        },
+        {
+          "code": "DCN05678",
+          "name": "FUNDAMENTOS DA MECÂNICA CLÁSSICA",
+          "slug": "fundamentos-da-mecanica-classica",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 6,
+          "hours_before_type": [
+            90,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DMA05670",
+              "name": "CÁLCULO I",
+              "slug": "calculo-i"
+            }
+          ]
+        },
+        {
+          "code": "DMA06019",
+          "name": "PROBABILIDADE E ESTATÍSTICA",
+          "slug": "probabilidade-e-estatistica",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": []
+        },
+        {
+          "code": "DCN10822",
+          "name": "Química Geral Experimental",
+          "slug": "quimica-geral-experimental",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCN09831",
+              "name": "Química Geral I",
+              "slug": "quimica-geral-i"
+            }
+          ]
+        },
+        {
+          "code": "DCN10823",
+          "name": "Química Inorgânica",
+          "slug": "quimica-inorganica",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": [
+            {
+              "code": "DCN09831",
+              "name": "Química Geral I",
+              "slug": "quimica-geral-i"
+            }
+          ]
+        },
+        {
+          "code": "DMA09923",
+          "name": "Álgebra Linear",
+          "slug": "algebra-linear",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DMA06968",
+              "name": "Geometria Analítica",
+              "slug": "geometria-analitica"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 3,
+      "disciplines": [
+        {
+          "code": "DMA10109",
+          "name": "Cálculo III",
+          "slug": "calculo-iii",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 5,
+          "hours_before_type": [
+            75,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DMA05855",
+              "name": "CALCULO II",
+              "slug": "calculo-ii"
+            }
+          ]
+        },
+        {
+          "code": "DCN11109",
+          "name": "Eletromagnetismo I",
+          "slug": "eletromagnetismo-i",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DCN05678",
+              "name": "FUNDAMENTOS DA MECÂNICA CLÁSSICA",
+              "slug": "fundamentos-da-mecanica-classica"
+            }
+          ]
+        },
+        {
+          "code": "DMA08162",
+          "name": "Equações Diferenciais",
+          "slug": "equacoes-diferenciais",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DMA05855",
+              "name": "CALCULO II",
+              "slug": "calculo-ii"
+            }
+          ]
+        },
+        {
+          "code": "DCN11110",
+          "name": "Física Experimental I",
+          "slug": "fisica-experimental-i",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 1,
+          "hours_before_type": [
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": [
+            {
+              "code": "DCN05678",
+              "name": "FUNDAMENTOS DA MECÂNICA CLÁSSICA",
+              "slug": "fundamentos-da-mecanica-classica"
+            }
+          ]
+        },
+        {
+          "code": "DCN11111",
+          "name": "Físico-Química I",
+          "slug": "fisico-quimica-i",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DCN10822",
+              "name": "Química Geral Experimental",
+              "slug": "quimica-geral-experimental"
+            },
+            {
+              "code": "DMA05670",
+              "name": "CÁLCULO I",
+              "slug": "calculo-i"
+            }
+          ]
+        },
+        {
+          "code": "DCN11112",
+          "name": "Química Analítica I",
+          "slug": "quimica-analitica-i",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DCN09831",
+              "name": "Química Geral I",
+              "slug": "quimica-geral-i"
+            },
+            {
+              "code": "DMA05670",
+              "name": "CÁLCULO I",
+              "slug": "calculo-i"
+            }
+          ]
+        },
+        {
+          "code": "DCN11113",
+          "name": "Química Orgânica I",
+          "slug": "quimica-organica-i",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DCN09831",
+              "name": "Química Geral I",
+              "slug": "quimica-geral-i"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 4,
+      "disciplines": [
+        {
+          "code": "DMA06072",
+          "name": "ALGORITMOS NUMÉRICOS",
+          "slug": "algoritmos-numericos",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DMA08162",
+              "name": "Equações Diferenciais",
+              "slug": "equacoes-diferenciais"
+            }
+          ]
+        },
+        {
+          "code": "DCN11353",
+          "name": "Físico-Química II",
+          "slug": "fisico-quimica-ii",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": [
+            {
+              "code": "DCN11111",
+              "name": "Físico-Química I",
+              "slug": "fisico-quimica-i"
+            }
+          ]
+        },
+        {
+          "code": "DET11564",
+          "name": "Introdução aos Processos Químicos",
+          "slug": "introducao-aos-processos-quimicos",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 30,
+          "prerequisites": [
+            {
+              "code": "DCN11111",
+              "name": "Físico-Química I",
+              "slug": "fisico-quimica-i"
+            }
+          ]
+        },
+        {
+          "code": "DET11358",
+          "name": "Mecânica dos Sólidos",
+          "slug": "mecanica-dos-solidos",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DCN05678",
+              "name": "FUNDAMENTOS DA MECÂNICA CLÁSSICA",
+              "slug": "fundamentos-da-mecanica-classica"
+            }
+          ]
+        },
+        {
+          "code": "DCN11355",
+          "name": "Química Analítica II",
+          "slug": "quimica-analitica-ii",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 1,
+          "hours_before_type": [
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": [
+            {
+              "code": "DCN10822",
+              "name": "Química Geral Experimental",
+              "slug": "quimica-geral-experimental"
+            },
+            {
+              "code": "DCN11112",
+              "name": "Química Analítica I",
+              "slug": "quimica-analitica-i"
+            }
+          ]
+        },
+        {
+          "code": "DCN11356",
+          "name": "Química Orgânica Experimental",
+          "slug": "quimica-organica-experimental",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 1,
+          "hours_before_type": [
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DCN10822",
+              "name": "Química Geral Experimental",
+              "slug": "quimica-geral-experimental"
+            },
+            {
+              "code": "DCN11113",
+              "name": "Química Orgânica I",
+              "slug": "quimica-organica-i"
+            }
+          ]
+        },
+        {
+          "code": "DCN11357",
+          "name": "Química Orgânica II",
+          "slug": "quimica-organica-ii",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DCN11113",
+              "name": "Química Orgânica I",
+              "slug": "quimica-organica-i"
+            }
+          ]
+        },
+        {
+          "code": "DCN06281",
+          "name": "ÓTICA E FÍSICA MODERNA",
+          "slug": "otica-e-fisica-moderna",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DCN11109",
+              "name": "Eletromagnetismo I",
+              "slug": "eletromagnetismo-i"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 5,
+      "disciplines": [
+        {
+          "code": "ECH08091",
+          "name": "Ciências Humanas e Sociais",
+          "slug": "ciencias-humanas-e-sociais",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": []
+        },
+        {
+          "code": "DET11562",
+          "name": "Economia da Engenharia I",
+          "slug": "economia-da-engenharia-i",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": []
+        },
+        {
+          "code": "DET11563",
+          "name": "Fenômenos de Transporte I",
+          "slug": "fenomenos-de-transporte-i",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": [
+            {
+              "code": "DCN05678",
+              "name": "FUNDAMENTOS DA MECÂNICA CLÁSSICA",
+              "slug": "fundamentos-da-mecanica-classica"
+            },
+            {
+              "code": "DMA08162",
+              "name": "Equações Diferenciais",
+              "slug": "equacoes-diferenciais"
+            }
+          ]
+        },
+        {
+          "code": "DCN11567",
+          "name": "Física Experimental II",
+          "slug": "fisica-experimental-ii",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 1,
+          "hours_before_type": [
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": [
+            {
+              "code": "DCN06281",
+              "name": "ÓTICA E FÍSICA MODERNA",
+              "slug": "otica-e-fisica-moderna"
+            }
+          ]
+        },
+        {
+          "code": "DET10165",
+          "name": "Resistência dos Materiais",
+          "slug": "resistencia-dos-materiais",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 30,
+          "prerequisites": [
+            {
+              "code": "DET11358",
+              "name": "Mecânica dos Sólidos",
+              "slug": "mecanica-dos-solidos"
+            }
+          ]
+        },
+        {
+          "code": "DET11565",
+          "name": "Simulação de Processos",
+          "slug": "simulacao-de-processos",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": [
+            {
+              "code": "DCE10640",
+              "name": "Programação I",
+              "slug": "programacao-i"
+            },
+            {
+              "code": "DMA06072",
+              "name": "ALGORITMOS NUMÉRICOS",
+              "slug": "algoritmos-numericos"
+            }
+          ]
+        },
+        {
+          "code": "DET11566",
+          "name": "Termodinâmica I",
+          "slug": "termodinamica-i",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": [
+            {
+              "code": "DCN11111",
+              "name": "Físico-Química I",
+              "slug": "fisico-quimica-i"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 6,
+      "disciplines": [
+        {
+          "code": "DCN11735",
+          "name": "Análise Instrumental de Química",
+          "slug": "analise-instrumental-de-quimica",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DCN11112",
+              "name": "Química Analítica I",
+              "slug": "quimica-analitica-i"
+            }
+          ]
+        },
+        {
+          "code": "DCN05867",
+          "name": "CIÊNCIAS DOS MATERIAS",
+          "slug": "ciencias-dos-materias",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DCN11353",
+              "name": "Físico-Química II",
+              "slug": "fisico-quimica-ii"
+            }
+          ]
+        },
+        {
+          "code": "DET11737",
+          "name": "Cinética e Cálculo de Reatores I",
+          "slug": "cinetica-e-calculo-de-reatores-i",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": [
+            {
+              "code": "DET11564",
+              "name": "Introdução aos Processos Químicos",
+              "slug": "introducao-aos-processos-quimicos"
+            },
+            {
+              "code": "DET11566",
+              "name": "Termodinâmica I",
+              "slug": "termodinamica-i"
+            }
+          ]
+        },
+        {
+          "code": "DET11738",
+          "name": "Fenômenos de Transporte II",
+          "slug": "fenomenos-de-transporte-ii",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": [
+            {
+              "code": "DET11563",
+              "name": "Fenômenos de Transporte I",
+              "slug": "fenomenos-de-transporte-i"
+            },
+            {
+              "code": "DET11566",
+              "name": "Termodinâmica I",
+              "slug": "termodinamica-i"
+            }
+          ]
+        },
+        {
+          "code": "DET11739",
+          "name": "Microbiologia Industrial",
+          "slug": "microbiologia-industrial",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": [
+            {
+              "code": "DCN11113",
+              "name": "Química Orgânica I",
+              "slug": "quimica-organica-i"
+            }
+          ]
+        },
+        {
+          "code": "DET11740",
+          "name": "Operações Unitárias I",
+          "slug": "operacoes-unitarias-i",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": [
+            {
+              "code": "DET11563",
+              "name": "Fenômenos de Transporte I",
+              "slug": "fenomenos-de-transporte-i"
+            }
+          ]
+        },
+        {
+          "code": "DET11741",
+          "name": "Termodinâmica II",
+          "slug": "termodinamica-ii",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": [
+            {
+              "code": "DET11566",
+              "name": "Termodinâmica I",
+              "slug": "termodinamica-i"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 7,
+      "disciplines": [
+        {
+          "code": "DET11742",
+          "name": "Cinética e Cálculo de Reatores II",
+          "slug": "cinetica-e-calculo-de-reatores-ii",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": [
+            {
+              "code": "DET11737",
+              "name": "Cinética e Cálculo de Reatores I",
+              "slug": "cinetica-e-calculo-de-reatores-i"
+            },
+            {
+              "code": "DET11741",
+              "name": "Termodinâmica II",
+              "slug": "termodinamica-ii"
+            }
+          ]
+        },
+        {
+          "code": "DET11743",
+          "name": "Controle de Processos Químicos I",
+          "slug": "controle-de-processos-quimicos-i",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": [
+            {
+              "code": "DCN11567",
+              "name": "Física Experimental II",
+              "slug": "fisica-experimental-ii"
+            },
+            {
+              "code": "DET11563",
+              "name": "Fenômenos de Transporte I",
+              "slug": "fenomenos-de-transporte-i"
+            }
+          ]
+        },
+        {
+          "code": "DET11744",
+          "name": "Engenharia Bioquímica",
+          "slug": "engenharia-bioquimica",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": [
+            {
+              "code": "DET11737",
+              "name": "Cinética e Cálculo de Reatores I",
+              "slug": "cinetica-e-calculo-de-reatores-i"
+            },
+            {
+              "code": "DET11739",
+              "name": "Microbiologia Industrial",
+              "slug": "microbiologia-industrial"
+            }
+          ]
+        },
+        {
+          "code": "DET11746",
+          "name": "Fenômenos de Transporte III",
+          "slug": "fenomenos-de-transporte-iii",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": [
+            {
+              "code": "DET11738",
+              "name": "Fenômenos de Transporte II",
+              "slug": "fenomenos-de-transporte-ii"
+            },
+            {
+              "code": "DET11741",
+              "name": "Termodinâmica II",
+              "slug": "termodinamica-ii"
+            }
+          ]
+        },
+        {
+          "code": "DET11747",
+          "name": "Operações Unitárias II",
+          "slug": "operacoes-unitarias-ii",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": [
+            {
+              "code": "DET11738",
+              "name": "Fenômenos de Transporte II",
+              "slug": "fenomenos-de-transporte-ii"
+            },
+            {
+              "code": "DET11740",
+              "name": "Operações Unitárias I",
+              "slug": "operacoes-unitarias-i"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 8,
+      "disciplines": [
+        {
+          "code": "DET11748",
+          "name": "Controle de Processos Químicos II",
+          "slug": "controle-de-processos-quimicos-ii",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": [
+            {
+              "code": "DET11565",
+              "name": "Simulação de Processos",
+              "slug": "simulacao-de-processos"
+            },
+            {
+              "code": "DET11743",
+              "name": "Controle de Processos Químicos I",
+              "slug": "controle-de-processos-quimicos-i"
+            }
+          ]
+        },
+        {
+          "code": "DET11745",
+          "name": "Engenharia do Meio Ambiente",
+          "slug": "engenharia-do-meio-ambiente",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": []
+        },
+        {
+          "code": "DET11749",
+          "name": "Higiene e Segurança do Trabalho",
+          "slug": "higiene-e-seguranca-do-trabalho",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": []
+        },
+        {
+          "code": "DET11750",
+          "name": "Operações Unitárias III",
+          "slug": "operacoes-unitarias-iii",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": [
+            {
+              "code": "DET11746",
+              "name": "Fenômenos de Transporte III",
+              "slug": "fenomenos-de-transporte-iii"
+            },
+            {
+              "code": "DET11747",
+              "name": "Operações Unitárias II",
+              "slug": "operacoes-unitarias-ii"
+            }
+          ]
+        },
+        {
+          "code": "DET11751",
+          "name": "Otimização de Processos",
+          "slug": "otimizacao-de-processos",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": [
+            {
+              "code": "DET11565",
+              "name": "Simulação de Processos",
+              "slug": "simulacao-de-processos"
+            }
+          ]
+        },
+        {
+          "code": "DET11752",
+          "name": "Projeto de Processos I",
+          "slug": "projeto-de-processos-i",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": [
+            {
+              "code": "DET11565",
+              "name": "Simulação de Processos",
+              "slug": "simulacao-de-processos"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 9,
+      "disciplines": [
+        {
+          "code": "DET11228",
+          "name": "Aspectos Legais da Engenharia",
+          "slug": "aspectos-legais-da-engenharia",
+          "section": "OB",
+          "period": 9,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": []
+        },
+        {
+          "code": "DET12291",
+          "name": "Engenharia de Processos Químicos Industriais",
+          "slug": "engenharia-de-processos-quimicos-industriais",
+          "section": "OB",
+          "period": 9,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 0,
+          "prerequisites": [
+            {
+              "code": "DET11742",
+              "name": "Cinética e Cálculo de Reatores II",
+              "slug": "cinetica-e-calculo-de-reatores-ii"
+            },
+            {
+              "code": "DET11750",
+              "name": "Operações Unitárias III",
+              "slug": "operacoes-unitarias-iii"
+            }
+          ]
+        },
+        {
+          "code": "DET12292",
+          "name": "Projeto de Processos II",
+          "slug": "projeto-de-processos-ii",
+          "section": "OB",
+          "period": 9,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 15,
+          "prerequisites": [
+            {
+              "code": "DET11562",
+              "name": "Economia da Engenharia I",
+              "slug": "economia-da-engenharia-i"
+            },
+            {
+              "code": "DET11752",
+              "name": "Projeto de Processos I",
+              "slug": "projeto-de-processos-i"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "optativas": [
+    {
+      "code": "DMA11753",
+      "name": "Algorítmos Numéricos II",
+      "slug": "algoritmos-numericos-ii",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": [
+        {
+          "code": "DMA06072",
+          "name": "ALGORITMOS NUMÉRICOS",
+          "slug": "algoritmos-numericos"
+        }
+      ]
+    },
+    {
+      "code": "DET12414",
+      "name": "Controle e Automação de Processos Contínuos Industriais",
+      "slug": "controle-e-automacao-de-processos-continuos-industriais",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 15,
+      "prerequisites": []
+    },
+    {
+      "code": "DET12415",
+      "name": "Controle e Automação de Processos Industriais Discretos",
+      "slug": "controle-e-automacao-de-processos-industriais-discretos",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 15,
+      "prerequisites": []
+    },
+    {
+      "code": "DET12416",
+      "name": "Corrosão em Sistemas Industriais",
+      "slug": "corrosao-em-sistemas-industriais",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    },
+    {
+      "code": "DET12295",
+      "name": "Corrosão em sistemas industriais",
+      "slug": "corrosao-em-sistemas-industriais",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    },
+    {
+      "code": "DET12417",
+      "name": "Cristalização Industrial",
+      "slug": "cristalizacao-industrial",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    },
+    {
+      "code": "DET11754",
+      "name": "Custos Industriais",
+      "slug": "custos-industriais",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 2,
+      "hours_before_type": [
+        30,
+        15
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": [
+        {
+          "code": "DET11562",
+          "name": "Economia da Engenharia I",
+          "slug": "economia-da-engenharia-i"
+        }
+      ]
+    },
+    {
+      "code": "CAB11755",
+      "name": "Ecologia I",
+      "slug": "ecologia-i",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        15
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    },
+    {
+      "code": "DCE08140",
+      "name": "Eletrônica Básica I",
+      "slug": "eletronica-basica-i",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 5,
+      "hours_before_type": [
+        60,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 30,
+      "prerequisites": [
+        {
+          "code": "DMA10109",
+          "name": "Cálculo III",
+          "slug": "calculo-iii"
+        }
+      ]
+    },
+    {
+      "code": "DET11757",
+      "name": "Empreendedorismo",
+      "slug": "empreendedorismo",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": [
+        {
+          "code": "DET11562",
+          "name": "Economia da Engenharia I",
+          "slug": "economia-da-engenharia-i"
+        }
+      ]
+    },
+    {
+      "code": "DET10418",
+      "name": "Engenharia de Processo",
+      "slug": "engenharia-de-processo",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": [
+        {
+          "code": "DCN05867",
+          "name": "CIÊNCIAS DOS MATERIAS",
+          "slug": "ciencias-dos-materias"
+        },
+        {
+          "code": "DET11564",
+          "name": "Introdução aos Processos Químicos",
+          "slug": "introducao-aos-processos-quimicos"
+        }
+      ]
+    },
+    {
+      "code": "DET11778",
+      "name": "Escoamento Multifásico",
+      "slug": "escoamento-multifasico",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 2,
+      "hours_before_type": [
+        30,
+        15
+      ],
+      "hours_after_type": [],
+      "total_hours": 15,
+      "prerequisites": [
+        {
+          "code": "DET11563",
+          "name": "Fenômenos de Transporte I",
+          "slug": "fenomenos-de-transporte-i"
+        }
+      ]
+    },
+    {
+      "code": "DET10420",
+      "name": "Gerenciamento da Cadeia de Suprimentos e Distribuição",
+      "slug": "gerenciamento-da-cadeia-de-suprimentos-e-distribuicao",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        15
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    },
+    {
+      "code": "DET08217",
+      "name": "Gerência da Produção",
+      "slug": "gerencia-da-producao",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 2,
+      "hours_before_type": [
+        30,
+        15
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    },
+    {
+      "code": "DET12431",
+      "name": "Gerência de Projetos",
+      "slug": "gerencia-de-projetos",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        30
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    },
+    {
+      "code": "DET10421",
+      "name": "Gestão da Inovação Tecnológica",
+      "slug": "gestao-da-inovacao-tecnologica",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    },
+    {
+      "code": "DET11758",
+      "name": "Gestão da qualidade total",
+      "slug": "gestao-da-qualidade-total",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    },
+    {
+      "code": "DET11756",
+      "name": "Indústria Alimentícia",
+      "slug": "industria-alimenticia",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": [
+        {
+          "code": "DET11744",
+          "name": "Engenharia Bioquímica",
+          "slug": "engenharia-bioquimica"
+        }
+      ]
+    },
+    {
+      "code": "DET11347",
+      "name": "Indústria de Papel e Celulose",
+      "slug": "industria-de-papel-e-celulose",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        15
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    },
+    {
+      "code": "DET11759",
+      "name": "Indústria do petróleo",
+      "slug": "industria-do-petroleo",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    },
+    {
+      "code": "DET12418",
+      "name": "Introdução à Tecnologia de Produção de Açúcar e Álcool",
+      "slug": "introducao-a-tecnologia-de-producao-de-acucar-e-alcool",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    },
+    {
+      "code": "ECH11373",
+      "name": "Libras",
+      "slug": "libras",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    },
+    {
+      "code": "ECH11761",
+      "name": "Metodologia do Trabalho e pesquisa científica",
+      "slug": "metodologia-do-trabalho-e-pesquisa-cientifica",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    },
+    {
+      "code": "DMA12299",
+      "name": "Métodos Matemáticos I",
+      "slug": "metodos-matematicos-i",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 5,
+      "hours_before_type": [
+        75,
+        15
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    },
+    {
+      "code": "DMA12432",
+      "name": "Métodos Numéricos",
+      "slug": "metodos-numericos",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 2,
+      "hours_before_type": [
+        30,
+        15
+      ],
+      "hours_after_type": [],
+      "total_hours": 15,
+      "prerequisites": []
+    },
+    {
+      "code": "DET08318",
+      "name": "Organização Industrial",
+      "slug": "organizacao-industrial",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    },
+    {
+      "code": "DET12433",
+      "name": "Planejamento de Experimentos",
+      "slug": "planejamento-de-experimentos",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 15,
+      "prerequisites": []
+    },
+    {
+      "code": "DET08326",
+      "name": "Planejamento e Controle da Produção",
+      "slug": "planejamento-e-controle-da-producao",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 2,
+      "hours_before_type": [
+        30,
+        15
+      ],
+      "hours_after_type": [],
+      "total_hours": 15,
+      "prerequisites": []
+    },
+    {
+      "code": "DCN07069",
+      "name": "Polímeros",
+      "slug": "polimeros",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": [
+        {
+          "code": "DCN09831",
+          "name": "Química Geral I",
+          "slug": "quimica-geral-i"
+        }
+      ]
+    },
+    {
+      "code": "DET11777",
+      "name": "Processamento de Petróleo e gás natural",
+      "slug": "processamento-de-petroleo-e-gas-natural",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 2,
+      "hours_before_type": [
+        30,
+        15
+      ],
+      "hours_after_type": [],
+      "total_hours": 15,
+      "prerequisites": [
+        {
+          "code": "DCN11111",
+          "name": "Físico-Química I",
+          "slug": "fisico-quimica-i"
+        }
+      ]
+    },
+    {
+      "code": "DET11763",
+      "name": "Programação II",
+      "slug": "programacao-ii",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 15,
+      "prerequisites": [
+        {
+          "code": "DCE10640",
+          "name": "Programação I",
+          "slug": "programacao-i"
+        }
+      ]
+    },
+    {
+      "code": "DET11775",
+      "name": "Termofluidodinâmica I",
+      "slug": "termofluidodinamica-i",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": [
+        {
+          "code": "DET11563",
+          "name": "Fenômenos de Transporte I",
+          "slug": "fenomenos-de-transporte-i"
+        },
+        {
+          "code": "DET11566",
+          "name": "Termodinâmica I",
+          "slug": "termodinamica-i"
+        }
+      ]
+    },
+    {
+      "code": "DET11776",
+      "name": "Termofluidodinâmica II",
+      "slug": "termofluidodinamica-ii",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": [
+        {
+          "code": "DET11775",
+          "name": "Termofluidodinâmica I",
+          "slug": "termofluidodinamica-i"
+        }
+      ]
+    },
+    {
+      "code": "DET11772",
+      "name": "Tubulações Industriais",
+      "slug": "tubulacoes-industriais",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 2,
+      "hours_before_type": [
+        45,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    },
+    {
+      "code": "DET11764",
+      "name": "Tópicos Especiais em Cinética e Cálculo de Reatores",
+      "slug": "topicos-especiais-em-cinetica-e-calculo-de-reatores",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 15,
+      "prerequisites": [
+        {
+          "code": "DET11737",
+          "name": "Cinética e Cálculo de Reatores I",
+          "slug": "cinetica-e-calculo-de-reatores-i"
+        }
+      ]
+    },
+    {
+      "code": "DET11765",
+      "name": "Tópicos Especiais em Controle e Simulação de Processos",
+      "slug": "topicos-especiais-em-controle-e-simulacao-de-processos",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 15,
+      "prerequisites": []
+    },
+    {
+      "code": "DET11766",
+      "name": "Tópicos Especiais em Desenvolvimento de Processos",
+      "slug": "topicos-especiais-em-desenvolvimento-de-processos",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 15,
+      "prerequisites": []
+    },
+    {
+      "code": "DET11767",
+      "name": "Tópicos Especiais em Engenharia Ambiental",
+      "slug": "topicos-especiais-em-engenharia-ambiental",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 15,
+      "prerequisites": []
+    },
+    {
+      "code": "DET11768",
+      "name": "Tópicos Especiais em Engenharia Bioquímica",
+      "slug": "topicos-especiais-em-engenharia-bioquimica",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 15,
+      "prerequisites": [
+        {
+          "code": "DET11744",
+          "name": "Engenharia Bioquímica",
+          "slug": "engenharia-bioquimica"
+        }
+      ]
+    },
+    {
+      "code": "DET11769",
+      "name": "Tópicos Especiais em Fenômenos de Transporte I",
+      "slug": "topicos-especiais-em-fenomenos-de-transporte-i",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 15,
+      "prerequisites": [
+        {
+          "code": "DET11563",
+          "name": "Fenômenos de Transporte I",
+          "slug": "fenomenos-de-transporte-i"
+        }
+      ]
+    },
+    {
+      "code": "DET11770",
+      "name": "Tópicos Especiais em Operações Unitárias I",
+      "slug": "topicos-especiais-em-operacoes-unitarias-i",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 15,
+      "prerequisites": [
+        {
+          "code": "DET11740",
+          "name": "Operações Unitárias I",
+          "slug": "operacoes-unitarias-i"
+        }
+      ]
+    },
+    {
+      "code": "DET11771",
+      "name": "Tópicos Especiais em Termodinâmica",
+      "slug": "topicos-especiais-em-termodinamica",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 15,
+      "prerequisites": [
+        {
+          "code": "DET11566",
+          "name": "Termodinâmica I",
+          "slug": "termodinamica-i"
+        }
+      ]
+    },
+    {
+      "code": "DMA12588",
+      "name": "Variáveis Complexas",
+      "slug": "variaveis-complexas",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        15
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    },
+    {
+      "code": "DET08227",
+      "name": "Águas e Efluentes",
+      "slug": "aguas-e-efluentes",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 4,
+      "hours_before_type": [
+        60,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    }
+  ],
+  "estagios": [
+    {
+      "code": "DET12290",
+      "name": "Estágio Supervisionado",
+      "slug": "estagio-supervisionado",
+      "section": "EST",
+      "period": null,
+      "type": "OB",
+      "credits": 20,
+      "hours_before_type": [
+        300,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 0,
+      "prerequisites": []
+    }
+  ],
+  "complementares": [],
+  "outros": {
+    "TCC": [
+      {
+        "code": "DET12293",
+        "name": "Trabalho de Conclusão de Curso I",
+        "slug": "trabalho-de-conclusao-de-curso-i",
+        "section": "TCC",
+        "period": null,
+        "type": "OB",
+        "credits": 4,
+        "hours_before_type": [
+          60,
+          0
+        ],
+        "hours_after_type": [],
+        "total_hours": 0,
+        "prerequisites": []
+      },
+      {
+        "code": "DET12294",
+        "name": "Trabalho de Conclusão de Curso II",
+        "slug": "trabalho-de-conclusao-de-curso-ii",
+        "section": "TCC",
+        "period": null,
+        "type": "OB",
+        "credits": 4,
+        "hours_before_type": [
+          60,
+          0
+        ],
+        "hours_after_type": [],
+        "total_hours": 0,
+        "prerequisites": [
+          {
+            "code": "DET12293",
+            "name": "Trabalho de Conclusão de Curso I",
+            "slug": "trabalho-de-conclusao-de-curso-i"
+          }
+        ]
+      }
+    ]
+  }
+}

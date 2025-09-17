@@ -1,0 +1,1876 @@
+{
+  "source_pdf": "Curriculo_do_curso_Eng_Petroleo.pdf",
+  "curso": "Curriculo_do_curso_Eng_Petroleo",
+  "metadados": {
+    "curso": null,
+    "turno": "Diurno",
+    "nivel": "Ensino Superior",
+    "modalidade": "Bacharelado",
+    "grau": "Engenheiro de Petróleo",
+    "funcionamento": "Em atividade"
+  },
+  "resumo_cargas": {
+    "obrigatorias": 3255,
+    "optativas": 225,
+    "estagio": 300,
+    "complementares": null,
+    "total": 3915
+  },
+  "periodos": [
+    {
+      "period": 1,
+      "disciplines": [
+        {
+          "code": "CMN05670",
+          "name": "CÁLCULO I",
+          "slug": "calculo-i",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 5,
+          "hours_before_type": [
+            75,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": []
+        },
+        {
+          "code": "DEC05693",
+          "name": "EXPRESSÃO GRÁFICA",
+          "slug": "expressao-grafica",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            0,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": []
+        },
+        {
+          "code": "CMN05691",
+          "name": "GEOLOGIA GERAL",
+          "slug": "geologia-geral",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": []
+        },
+        {
+          "code": "DEC05692",
+          "name": "INTRODUÇÃO À ENGENHARIA DO PETRÓLEO",
+          "slug": "introducao-a-engenharia-do-petroleo",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 30,
+          "prerequisites": []
+        },
+        {
+          "code": "DEC06182",
+          "name": "METODOLOGIA CIENTIFICA",
+          "slug": "metodologia-cientifica",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 30,
+          "prerequisites": []
+        },
+        {
+          "code": "DEC05690",
+          "name": "PROGRAMAÇÃO I",
+          "slug": "programacao-i",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": []
+        },
+        {
+          "code": "CMN05713",
+          "name": "QUÍMICA GERAL I",
+          "slug": "quimica-geral-i",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": []
+        },
+        {
+          "code": "CMN05689",
+          "name": "ÁLGEBRA LINEAR",
+          "slug": "algebra-linear",
+          "section": "OB",
+          "period": 1,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": []
+        }
+      ]
+    },
+    {
+      "period": 2,
+      "disciplines": [
+        {
+          "code": "CMN05866",
+          "name": "ANÁLISES DE BACIAS SEDIMENTAIS",
+          "slug": "analises-de-bacias-sedimentais",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CMN05691",
+              "name": "GEOLOGIA GERAL",
+              "slug": "geologia-geral"
+            }
+          ]
+        },
+        {
+          "code": "CMN05855",
+          "name": "CALCULO II",
+          "slug": "calculo-ii",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 5,
+          "hours_before_type": [
+            75,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": [
+            {
+              "code": "CMN05670",
+              "name": "CÁLCULO I",
+              "slug": "calculo-i"
+            }
+          ]
+        },
+        {
+          "code": "CMN05678",
+          "name": "FUNDAMENTOS DA MECÂNICA CLÁSSICA",
+          "slug": "fundamentos-da-mecanica-classica",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 6,
+          "hours_before_type": [
+            90,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 90,
+          "prerequisites": []
+        },
+        {
+          "code": "CMN05868",
+          "name": "LABORATÓRIO DE QUÍMICA",
+          "slug": "laboratorio-de-quimica",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 1,
+          "hours_before_type": [
+            0,
+            0,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 30,
+          "prerequisites": [
+            {
+              "code": "CMN05713",
+              "name": "QUÍMICA GERAL I",
+              "slug": "quimica-geral-i"
+            }
+          ]
+        },
+        {
+          "code": "DEC05858",
+          "name": "PROGRAMAÇAO II",
+          "slug": "programacao-ii",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            30,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DEC05690",
+              "name": "PROGRAMAÇÃO I",
+              "slug": "programacao-i"
+            }
+          ]
+        },
+        {
+          "code": "CMN05716",
+          "name": "QUÍMICA ORGÂNICA I",
+          "slug": "quimica-organica-i",
+          "section": "OB",
+          "period": 2,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": []
+        }
+      ]
+    },
+    {
+      "period": 3,
+      "disciplines": [
+        {
+          "code": "CMN06016",
+          "name": "CÁLCULO III",
+          "slug": "calculo-iii",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 5,
+          "hours_before_type": [
+            75,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": [
+            {
+              "code": "CMN05855",
+              "name": "CALCULO II",
+              "slug": "calculo-ii"
+            }
+          ]
+        },
+        {
+          "code": "CMN06017",
+          "name": "ELETROMAGNETISMO I",
+          "slug": "eletromagnetismo-i",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CMN05678",
+              "name": "FUNDAMENTOS DA MECÂNICA CLÁSSICA",
+              "slug": "fundamentos-da-mecanica-classica"
+            }
+          ]
+        },
+        {
+          "code": "CMN06018",
+          "name": "INTRODUÇÃO À MECÂNICA DE ROCHAS",
+          "slug": "introducao-a-mecanica-de-rochas",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": []
+        },
+        {
+          "code": "CMN06078",
+          "name": "PETROLOGIA E PETROGRAFIA SEDIMENTAR",
+          "slug": "petrologia-e-petrografia-sedimentar",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            0,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": []
+        },
+        {
+          "code": "CMN06019",
+          "name": "PROBABILIDADE E ESTATÍSTICA",
+          "slug": "probabilidade-e-estatistica",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": []
+        },
+        {
+          "code": "DEC06020",
+          "name": "RESISTÊNCIAS DOS MATERIAIS",
+          "slug": "resistencias-dos-materiais",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": []
+        },
+        {
+          "code": "DEC06015",
+          "name": "TERMODINÂMICA",
+          "slug": "termodinamica",
+          "section": "OB",
+          "period": 3,
+          "type": "OB",
+          "credits": 5,
+          "hours_before_type": [
+            75,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": []
+        }
+      ]
+    },
+    {
+      "period": 4,
+      "disciplines": [
+        {
+          "code": "CMN06072",
+          "name": "ALGORITMOS NUMÉRICOS",
+          "slug": "algoritmos-numericos",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DEC05858",
+              "name": "PROGRAMAÇAO II",
+              "slug": "programacao-ii"
+            }
+          ]
+        },
+        {
+          "code": "CAB06278",
+          "name": "CIÊNCIAS DO AMBIENTE",
+          "slug": "ciencias-do-ambiente",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": []
+        },
+        {
+          "code": "CMN06101",
+          "name": "EQUAÇÕES DIFERENCIAIS",
+          "slug": "equacoes-diferenciais",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CMN05855",
+              "name": "CALCULO II",
+              "slug": "calculo-ii"
+            }
+          ]
+        },
+        {
+          "code": "CMN06279",
+          "name": "ESTATÍSTICA APLICADA",
+          "slug": "estatistica-aplicada",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 30,
+          "prerequisites": [
+            {
+              "code": "CMN06019",
+              "name": "PROBABILIDADE E ESTATÍSTICA",
+              "slug": "probabilidade-e-estatistica"
+            }
+          ]
+        },
+        {
+          "code": "CMN06280",
+          "name": "GEOLOGIA DO PETRÓLEO",
+          "slug": "geologia-do-petroleo",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CMN05866",
+              "name": "ANÁLISES DE BACIAS SEDIMENTAIS",
+              "slug": "analises-de-bacias-sedimentais"
+            }
+          ]
+        },
+        {
+          "code": "DEC06303",
+          "name": "MECÂNICA DOS FLUÍDOS",
+          "slug": "mecanica-dos-fluidos",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            45,
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CMN05678",
+              "name": "FUNDAMENTOS DA MECÂNICA CLÁSSICA",
+              "slug": "fundamentos-da-mecanica-classica"
+            }
+          ]
+        },
+        {
+          "code": "DEC06282",
+          "name": "PROCESSAMENTO DE PETRÓLEO E GÁS NATURAL",
+          "slug": "processamento-de-petroleo-e-gas-natural",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            15,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DEC06015",
+              "name": "TERMODINÂMICA",
+              "slug": "termodinamica"
+            }
+          ]
+        },
+        {
+          "code": "CMN06281",
+          "name": "ÓTICA E FÍSICA MODERNA",
+          "slug": "otica-e-fisica-moderna",
+          "section": "OB",
+          "period": 4,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            60,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CMN06017",
+              "name": "ELETROMAGNETISMO I",
+              "slug": "eletromagnetismo-i"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 5,
+      "disciplines": [
+        {
+          "code": "DEC08096",
+          "name": "Circuitos Elétricos",
+          "slug": "circuitos-eletricos",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": [
+            {
+              "code": "CMN06017",
+              "name": "ELETROMAGNETISMO I",
+              "slug": "eletromagnetismo-i"
+            }
+          ]
+        },
+        {
+          "code": "DEC08152",
+          "name": "Engenharia de Perfuração",
+          "slug": "engenharia-de-perfuracao",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            15,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": []
+        },
+        {
+          "code": "DEC08155",
+          "name": "Engenharia de Reservatório",
+          "slug": "engenharia-de-reservatorio",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DEC06303",
+              "name": "MECÂNICA DOS FLUÍDOS",
+              "slug": "mecanica-dos-fluidos"
+            }
+          ]
+        },
+        {
+          "code": "DEC08163",
+          "name": "Escoamento Multifásico",
+          "slug": "escoamento-multifasico",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            15,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DEC06303",
+              "name": "MECÂNICA DOS FLUÍDOS",
+              "slug": "mecanica-dos-fluidos"
+            }
+          ]
+        },
+        {
+          "code": "CMN08176",
+          "name": "Estudo Geológico de Campo",
+          "slug": "estudo-geologico-de-campo",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            15,
+            0,
+            45
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CMN05866",
+              "name": "ANÁLISES DE BACIAS SEDIMENTAIS",
+              "slug": "analises-de-bacias-sedimentais"
+            }
+          ]
+        },
+        {
+          "code": "CMN08187",
+          "name": "Física da Terra",
+          "slug": "fisica-da-terra",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": [
+            {
+              "code": "CMN06281",
+              "name": "ÓTICA E FÍSICA MODERNA",
+              "slug": "otica-e-fisica-moderna"
+            }
+          ]
+        },
+        {
+          "code": "DEC08251",
+          "name": "Introdução à Economia",
+          "slug": "introducao-a-economia",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": []
+        },
+        {
+          "code": "CMN08260",
+          "name": "Laboratório de Física",
+          "slug": "laboratorio-de-fisica",
+          "section": "OB",
+          "period": 5,
+          "type": "OB",
+          "credits": 1,
+          "hours_before_type": [
+            0,
+            15,
+            30
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": [
+            {
+              "code": "CMN06017",
+              "name": "ELETROMAGNETISMO I",
+              "slug": "eletromagnetismo-i"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "period": 6,
+      "disciplines": [
+        {
+          "code": "DEC08080",
+          "name": "Avaliação de Formações",
+          "slug": "avaliacao-de-formacoes",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DEC06303",
+              "name": "MECÂNICA DOS FLUÍDOS",
+              "slug": "mecanica-dos-fluidos"
+            }
+          ]
+        },
+        {
+          "code": "CMN05867",
+          "name": "CIÊNCIAS DOS MATERIAS",
+          "slug": "ciencias-dos-materias",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": []
+        },
+        {
+          "code": "DEC08134",
+          "name": "Economia da Engenharia",
+          "slug": "economia-da-engenharia",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": []
+        },
+        {
+          "code": "DEC08150",
+          "name": "Engenharia de Completação",
+          "slug": "engenharia-de-completacao",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            15,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DEC08152",
+              "name": "Engenharia de Perfuração",
+              "slug": "engenharia-de-perfuracao"
+            }
+          ]
+        },
+        {
+          "code": "CMN08202",
+          "name": "Geofísica Aplicada I",
+          "slug": "geofisica-aplicada-i",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            15,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CMN08187",
+              "name": "Física da Terra",
+              "slug": "fisica-da-terra"
+            }
+          ]
+        },
+        {
+          "code": "CMN08203",
+          "name": "Geofísica Aplicada II",
+          "slug": "geofisica-aplicada-ii",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            15,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CMN08187",
+              "name": "Física da Terra",
+              "slug": "fisica-da-terra"
+            }
+          ]
+        },
+        {
+          "code": "DEC08236",
+          "name": "Instalações de Produção",
+          "slug": "instalacoes-de-producao",
+          "section": "OB",
+          "period": 6,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            0,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 30,
+          "prerequisites": []
+        }
+      ]
+    },
+    {
+      "period": 7,
+      "disciplines": [
+        {
+          "code": "DEC08081",
+          "name": "Avaliação Econômica de Projetos",
+          "slug": "avaliacao-economica-de-projetos",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": [
+            {
+              "code": "DEC08134",
+              "name": "Economia da Engenharia",
+              "slug": "economia-da-engenharia"
+            }
+          ]
+        },
+        {
+          "code": "DEC08186",
+          "name": "Fluidos de Perfuração e Completação",
+          "slug": "fluidos-de-perfuracao-e-completacao",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": [
+            {
+              "code": "DEC08150",
+              "name": "Engenharia de Completação",
+              "slug": "engenharia-de-completacao"
+            }
+          ]
+        },
+        {
+          "code": "CMN08204",
+          "name": "Geofísica Aplicada III",
+          "slug": "geofisica-aplicada-iii",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            30,
+            15,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CMN08203",
+              "name": "Geofísica Aplicada II",
+              "slug": "geofisica-aplicada-ii"
+            }
+          ]
+        },
+        {
+          "code": "DEC08217",
+          "name": "Gerência da Produção",
+          "slug": "gerencia-da-producao",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": []
+        },
+        {
+          "code": "CMN08258",
+          "name": "Introdução à Modelagem de Bacias Sedimentares",
+          "slug": "introducao-a-modelagem-de-bacias-sedimentares",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 3,
+          "hours_before_type": [
+            45,
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CMN06018",
+              "name": "INTRODUÇÃO À MECÂNICA DE ROCHAS",
+              "slug": "introducao-a-mecanica-de-rochas"
+            },
+            {
+              "code": "CMN06280",
+              "name": "GEOLOGIA DO PETRÓLEO",
+              "slug": "geologia-do-petroleo"
+            },
+            {
+              "code": "DEC08155",
+              "name": "Engenharia de Reservatório",
+              "slug": "engenharia-de-reservatorio"
+            }
+          ]
+        },
+        {
+          "code": "DEC08299",
+          "name": "Modelagem e Simulação de Reservatórios",
+          "slug": "modelagem-e-simulacao-de-reservatorios",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            30,
+            15,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DEC08155",
+              "name": "Engenharia de Reservatório",
+              "slug": "engenharia-de-reservatorio"
+            }
+          ]
+        },
+        {
+          "code": "DEC08302",
+          "name": "Métodos de Elevação Artificial",
+          "slug": "metodos-de-elevacao-artificial",
+          "section": "OB",
+          "period": 7,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": []
+        }
+      ]
+    },
+    {
+      "period": 8,
+      "disciplines": [
+        {
+          "code": "DEC08218",
+          "name": "Gerência da Qualidade",
+          "slug": "gerencia-da-qualidade",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": [
+            {
+              "code": "CMN06279",
+              "name": "ESTATÍSTICA APLICADA",
+              "slug": "estatistica-aplicada"
+            }
+          ]
+        },
+        {
+          "code": "DEC08224",
+          "name": "Gerência e Monitoramento de Reservatórios",
+          "slug": "gerencia-e-monitoramento-de-reservatorios",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": [
+            {
+              "code": "DEC08299",
+              "name": "Modelagem e Simulação de Reservatórios",
+              "slug": "modelagem-e-simulacao-de-reservatorios"
+            }
+          ]
+        },
+        {
+          "code": "DEC08303",
+          "name": "Métodos Especiais de Recuperação",
+          "slug": "metodos-especiais-de-recuperacao",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": [
+            {
+              "code": "DEC08155",
+              "name": "Engenharia de Reservatório",
+              "slug": "engenharia-de-reservatorio"
+            }
+          ]
+        },
+        {
+          "code": "CMN08321",
+          "name": "Perfilagem",
+          "slug": "perfilagem",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 4,
+          "hours_before_type": [
+            45,
+            15,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 75,
+          "prerequisites": [
+            {
+              "code": "CMN08204",
+              "name": "Geofísica Aplicada III",
+              "slug": "geofisica-aplicada-iii"
+            }
+          ]
+        },
+        {
+          "code": "DEC08354",
+          "name": "Projeto de Graduação I em Engenharia de Petróleo",
+          "slug": "projeto-de-graduacao-i-em-engenharia-de-petroleo",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            0,
+            45,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "CMN08204",
+              "name": "Geofísica Aplicada III",
+              "slug": "geofisica-aplicada-iii"
+            },
+            {
+              "code": "CMN08258",
+              "name": "Introdução à Modelagem de Bacias Sedimentares",
+              "slug": "introducao-a-modelagem-de-bacias-sedimentares"
+            },
+            {
+              "code": "DEC08186",
+              "name": "Fluidos de Perfuração e Completação",
+              "slug": "fluidos-de-perfuracao-e-completacao"
+            },
+            {
+              "code": "DEC08299",
+              "name": "Modelagem e Simulação de Reservatórios",
+              "slug": "modelagem-e-simulacao-de-reservatorios"
+            },
+            {
+              "code": "DEC08302",
+              "name": "Métodos de Elevação Artificial",
+              "slug": "metodos-de-elevacao-artificial"
+            }
+          ]
+        },
+        {
+          "code": "DEC08390",
+          "name": "Segurança do Trabalho",
+          "slug": "seguranca-do-trabalho",
+          "section": "OB",
+          "period": 8,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": []
+        }
+      ]
+    },
+    {
+      "period": 9,
+      "disciplines": [
+        {
+          "code": "ECH08091",
+          "name": "Ciências Humanas e Sociais",
+          "slug": "ciencias-humanas-e-sociais",
+          "section": "OB",
+          "period": 9,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            30,
+            15,
+            0
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": []
+        },
+        {
+          "code": "DEC08242",
+          "name": "Integração Universidade-Empresa",
+          "slug": "integracao-universidade-empresa",
+          "section": "OB",
+          "period": 9,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            0,
+            0,
+            45
+          ],
+          "hours_after_type": [],
+          "total_hours": 45,
+          "prerequisites": []
+        },
+        {
+          "code": "DEC08357",
+          "name": "Projeto de Graduação II em Engenharia de Petróleo",
+          "slug": "projeto-de-graduacao-ii-em-engenharia-de-petroleo",
+          "section": "OB",
+          "period": 9,
+          "type": "OB",
+          "credits": 2,
+          "hours_before_type": [
+            0,
+            45,
+            15
+          ],
+          "hours_after_type": [],
+          "total_hours": 60,
+          "prerequisites": [
+            {
+              "code": "DEC08354",
+              "name": "Projeto de Graduação I em Engenharia de Petróleo",
+              "slug": "projeto-de-graduacao-i-em-engenharia-de-petroleo"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "optativas": [
+    {
+      "code": "DEC08047",
+      "name": "Acompanhamento da Produção",
+      "slug": "acompanhamento-da-producao",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "DEC08055",
+      "name": "Análise de Dados Experimentais",
+      "slug": "analise-de-dados-experimentais",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "DEC08122",
+      "name": "Controle Ambiental na Indústria do Petróleo",
+      "slug": "controle-ambiental-na-industria-do-petroleo",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "DEC08125",
+      "name": "Controle e Instrumentação I",
+      "slug": "controle-e-instrumentacao-i",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "DEC08126",
+      "name": "Controle e Instrumentação II",
+      "slug": "controle-e-instrumentacao-ii",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "CMN08137",
+      "name": "Elementos de Tectonofísica",
+      "slug": "elementos-de-tectonofisica",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "DEC08157",
+      "name": "Engenharia do Gás Natural",
+      "slug": "engenharia-do-gas-natural",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "CMN08200",
+      "name": "Geoestatística I",
+      "slug": "geoestatistica-i",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "CMN08201",
+      "name": "Geoestatística II",
+      "slug": "geoestatistica-ii",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "CMN08208",
+      "name": "Geologia Marinha",
+      "slug": "geologia-marinha",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "DEC08220",
+      "name": "Gerência de Operações",
+      "slug": "gerencia-de-operacoes",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "DEC08221",
+      "name": "Gerência de Operações em Exploração e Produção",
+      "slug": "gerencia-de-operacoes-em-exploracao-e-producao",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "DEC08229",
+      "name": "Impacto Ambiental da Indústria do Petróleo",
+      "slug": "impacto-ambiental-da-industria-do-petroleo",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "DEC08235",
+      "name": "Inovação e Criação de Empresas de Base Tecnológica",
+      "slug": "inovacao-e-criacao-de-empresas-de-base-tecnologica",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "CMN08245",
+      "name": "Interpretação Integrada Geológica Geofísica",
+      "slug": "interpretacao-integrada-geologica-geofisica",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "DEC08281",
+      "name": "Materiais para A Engenharia de Petróleo",
+      "slug": "materiais-para-a-engenharia-de-petroleo",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "DEC08295",
+      "name": "Metrologia Aplicada à Indústria do Petróleo e Gás",
+      "slug": "metrologia-aplicada-a-industria-do-petroleo-e-gas",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "CMN08305",
+      "name": "Métodos Matemáticos Aplicados",
+      "slug": "metodos-matematicos-aplicados",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "DEC08366",
+      "name": "Psicologia e Sociologia Industrial",
+      "slug": "psicologia-e-sociologia-industrial",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "DEC08386",
+      "name": "Regulamentação e Legislação do Setor de Petróleo e Gás",
+      "slug": "regulamentacao-e-legislacao-do-setor-de-petroleo-e-gas",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "DEC08405",
+      "name": "Sistemas Submarinos",
+      "slug": "sistemas-submarinos",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "DEC08417",
+      "name": "Termofluidodinâmica I",
+      "slug": "termofluidodinamica-i",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "DEC08418",
+      "name": "Termofluidodinâmica II",
+      "slug": "termofluidodinamica-ii",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "DEC08465",
+      "name": "Tratamento da Informação",
+      "slug": "tratamento-da-informacao",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "DEC08468",
+      "name": "Tubulações Industriais",
+      "slug": "tubulacoes-industriais",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "DEC08407",
+      "name": "Técnicas de Modelamento Numérico",
+      "slug": "tecnicas-de-modelamento-numerico",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "DEC08437",
+      "name": "Tópicos Especiais em Engenharia de Completação",
+      "slug": "topicos-especiais-em-engenharia-de-completacao",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": []
+    },
+    {
+      "code": "DEC08438",
+      "name": "Tópicos Especiais em Engenharia de Exploração",
+      "slug": "topicos-especiais-em-engenharia-de-exploracao",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "DEC08439",
+      "name": "Tópicos Especiais em Engenharia de Perfuração",
+      "slug": "topicos-especiais-em-engenharia-de-perfuracao",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        45,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 60,
+      "prerequisites": []
+    },
+    {
+      "code": "DEC08440",
+      "name": "Tópicos Especiais em Engenharia de Produção",
+      "slug": "topicos-especiais-em-engenharia-de-producao",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    },
+    {
+      "code": "DEC08441",
+      "name": "Tópicos Especiais em Engenharia de Reservatórios",
+      "slug": "topicos-especiais-em-engenharia-de-reservatorios",
+      "section": "OP",
+      "period": null,
+      "type": "OP",
+      "credits": 3,
+      "hours_before_type": [
+        30,
+        15,
+        0
+      ],
+      "hours_after_type": [],
+      "total_hours": 45,
+      "prerequisites": []
+    }
+  ],
+  "estagios": [
+    {
+      "code": "DEC08171",
+      "name": "Estágio Supervisionado para A Engenharia de Petróleo",
+      "slug": "estagio-supervisionado-para-a-engenharia-de-petroleo",
+      "section": "EST",
+      "period": null,
+      "type": "EC",
+      "credits": 20,
+      "hours_before_type": [
+        0,
+        0,
+        300
+      ],
+      "hours_after_type": [],
+      "total_hours": 300,
+      "prerequisites": [
+        {
+          "code": "DEC08354",
+          "name": "Projeto de Graduação I em Engenharia de Petróleo",
+          "slug": "projeto-de-graduacao-i-em-engenharia-de-petroleo"
+        }
+      ]
+    }
+  ],
+  "complementares": [],
+  "outros": {}
+}
