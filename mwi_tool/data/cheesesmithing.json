@@ -1,0 +1,82 @@
+{
+    "category": "Cheesesmithing",
+    "items": [
+        {
+            "name": "Cheese",
+            "base_time": 6,
+            "output_qty": 1,
+            "inputs": [
+                {  
+                    "item": "Milk",
+                    "qty": 2 
+                }
+            ]
+        },
+        {
+            "name": "Verdant Cheese",
+            "base_time": 8,
+            "output_qty": 1,
+            "inputs": [
+                { 
+                    "item": "Verdant Milk",
+                    "qty": 2 
+                }
+            ]
+        },
+        {
+            "name": "Azure Cheese",
+            "base_time": 11,
+            "output_qty": 1,
+            "inputs": [
+                { 
+                    "item": "Azure Milk", 
+                    "qty": 2 
+                }
+            ]
+        },
+        {
+            "name": "Burble Cheese",
+            "base_time": 14,
+            "output_qty": 1,
+            "inputs": [
+                { 
+                    "item": "Burble Milk", 
+                    "qty": 2 
+                }
+            ]
+        },
+        {
+            "name": "Crimson Cheese",
+            "base_time": 17,
+            "output_qty": 1,
+            "inputs": [
+                { 
+                    "item": "Crimson Milk", 
+                    "qty": 2 
+                }
+            ]
+        },
+        {
+            "name": "Rainbow Cheese",
+            "base_time": 20,
+            "output_qty": 1,
+            "inputs": [
+                { 
+                    "item": "Rainbow Milk", 
+                    "qty": 2 
+                }
+            ]
+        },
+        {
+            "name": "Holy Cheese",
+            "base_time": 30,
+            "output_qty": 1,
+            "inputs": [
+                { 
+                    "item": "Holy Milk", 
+                    "qty": 2 
+                }
+            ]
+        }
+    ]
+}

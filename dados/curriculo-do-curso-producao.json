@@ -11,10 +11,11 @@
   },
   "resumo_cargas": {
     "obrigatorias": 1500,
-    "optativas": null,
+    "optativas": 1035,
     "estagio": 2400,
     "complementares": null,
-    "total": null
+    "tcc": 210,
+    "total": 4785
   },
   "periodos": [
     {
@@ -30,10 +31,11 @@
           "credits": 5,
           "hours_before_type": [
             75,
+            0,
             0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 75,
           "prerequisites": []
         },
         {
@@ -46,10 +48,11 @@
           "credits": 4,
           "hours_before_type": [
             60,
+            0,
             0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 60,
           "prerequisites": []
         },
         {
@@ -62,10 +65,11 @@
           "credits": 4,
           "hours_before_type": [
             60,
+            0,
             0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 60,
           "prerequisites": []
         },
         {
@@ -78,10 +82,11 @@
           "credits": 2,
           "hours_before_type": [
             30,
-            15
+            15,
+            0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 45,
           "prerequisites": []
         },
         {
@@ -94,10 +99,11 @@
           "credits": 3,
           "hours_before_type": [
             45,
+            0,
             0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 45,
           "prerequisites": []
         },
         {
@@ -110,10 +116,11 @@
           "credits": 3,
           "hours_before_type": [
             45,
-            0
+            0,
+            15
           ],
           "hours_after_type": [],
-          "total_hours": 15,
+          "total_hours": 60,
           "prerequisites": []
         },
         {
@@ -126,10 +133,11 @@
           "credits": 4,
           "hours_before_type": [
             60,
+            0,
             0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 60,
           "prerequisites": []
         }
       ]
@@ -147,10 +155,11 @@
           "credits": 5,
           "hours_before_type": [
             75,
-            15
+            15,
+            0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 90,
           "prerequisites": [
             {
               "code": "DMA09827",
@@ -169,10 +178,11 @@
           "credits": 2,
           "hours_before_type": [
             15,
-            0
+            0,
+            30
           ],
           "hours_after_type": [],
-          "total_hours": 30,
+          "total_hours": 45,
           "prerequisites": [
             {
               "code": "DCE05690",
@@ -191,10 +201,11 @@
           "credits": 2,
           "hours_before_type": [
             15,
-            30
+            30,
+            0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 45,
           "prerequisites": [
             {
               "code": "DET09828",
@@ -213,10 +224,11 @@
           "credits": 6,
           "hours_before_type": [
             90,
+            0,
             0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 90,
           "prerequisites": [
             {
               "code": "DMA09827",
@@ -235,10 +247,11 @@
           "credits": 3,
           "hours_before_type": [
             45,
-            0
+            0,
+            15
           ],
           "hours_after_type": [],
-          "total_hours": 15,
+          "total_hours": 60,
           "prerequisites": [
             {
               "code": "DCE05690",
@@ -257,10 +270,11 @@
           "credits": 3,
           "hours_before_type": [
             45,
-            15
+            15,
+            0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 60,
           "prerequisites": []
         },
         {
@@ -273,10 +287,11 @@
           "credits": 4,
           "hours_before_type": [
             60,
+            0,
             0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 60,
           "prerequisites": [
             {
               "code": "DMA05677",
@@ -300,10 +315,11 @@
           "credits": 5,
           "hours_before_type": [
             75,
+            0,
             0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 75,
           "prerequisites": [
             {
               "code": "DMA09908",
@@ -322,10 +338,11 @@
           "credits": 3,
           "hours_before_type": [
             45,
+            0,
             0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 45,
           "prerequisites": []
         },
         {
@@ -338,10 +355,11 @@
           "credits": 3,
           "hours_before_type": [
             45,
-            15
+            15,
+            0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 60,
           "prerequisites": [
             {
               "code": "DCN05678",
@@ -360,7 +378,8 @@
           "credits": 1,
           "hours_before_type": [
             0,
-            0
+            0,
+            45
           ],
           "hours_after_type": [],
           "total_hours": 45,
@@ -382,10 +401,11 @@
           "credits": 5,
           "hours_before_type": [
             75,
-            15
+            15,
+            0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 90,
           "prerequisites": [
             {
               "code": "DET09829",
@@ -404,10 +424,11 @@
           "credits": 4,
           "hours_before_type": [
             60,
+            0,
             0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 60,
           "prerequisites": []
         },
         {
@@ -420,10 +441,11 @@
           "credits": 4,
           "hours_before_type": [
             60,
+            0,
             0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 60,
           "prerequisites": [
             {
               "code": "DCN05678",
@@ -452,10 +474,11 @@
           "credits": 4,
           "hours_before_type": [
             60,
+            0,
             0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 60,
           "prerequisites": [
             {
               "code": "DCE09909",
@@ -474,10 +497,11 @@
           "credits": 3,
           "hours_before_type": [
             45,
+            0,
             0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 45,
           "prerequisites": [
             {
               "code": "DCN09912",
@@ -496,10 +520,11 @@
           "credits": 2,
           "hours_before_type": [
             15,
-            30
+            30,
+            0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 45,
           "prerequisites": [
             {
               "code": "DET09910",
@@ -523,10 +548,11 @@
           "credits": 4,
           "hours_before_type": [
             60,
+            0,
             0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 60,
           "prerequisites": [
             {
               "code": "DMA08271",
@@ -550,10 +576,11 @@
           "credits": 4,
           "hours_before_type": [
             60,
+            0,
             0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 60,
           "prerequisites": [
             {
               "code": "DET05896",
@@ -572,10 +599,11 @@
           "credits": 4,
           "hours_before_type": [
             60,
+            0,
             0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 60,
           "prerequisites": []
         },
         {
@@ -588,10 +616,11 @@
           "credits": 4,
           "hours_before_type": [
             60,
+            0,
             0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 60,
           "prerequisites": [
             {
               "code": "DCN09914",
@@ -615,10 +644,11 @@
           "credits": 4,
           "hours_before_type": [
             60,
+            0,
             0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 60,
           "prerequisites": [
             {
               "code": "DCN09912",
@@ -637,7 +667,8 @@
           "credits": 1,
           "hours_before_type": [
             0,
-            0
+            0,
+            45
           ],
           "hours_after_type": [],
           "total_hours": 45,
@@ -664,10 +695,11 @@
           "credits": 2,
           "hours_before_type": [
             30,
-            0
+            0,
+            15
           ],
           "hours_after_type": [],
-          "total_hours": 15,
+          "total_hours": 45,
           "prerequisites": [
             {
               "code": "DCN09831",
@@ -686,10 +718,11 @@
           "credits": 3,
           "hours_before_type": [
             45,
-            15
+            15,
+            0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 60,
           "prerequisites": [
             {
               "code": "DMA06019",
@@ -713,10 +746,11 @@
           "credits": 5,
           "hours_before_type": [
             75,
-            0
+            0,
+            15
           ],
           "hours_after_type": [],
-          "total_hours": 15,
+          "total_hours": 90,
           "prerequisites": [
             {
               "code": "DET09913",
@@ -740,10 +774,11 @@
           "credits": 2,
           "hours_before_type": [
             30,
-            0
+            0,
+            30
           ],
           "hours_after_type": [],
-          "total_hours": 30,
+          "total_hours": 60,
           "prerequisites": [
             {
               "code": "DET06229",
@@ -767,10 +802,11 @@
           "credits": 2,
           "hours_before_type": [
             15,
-            30
+            30,
+            0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 45,
           "prerequisites": [
             {
               "code": "DET09916",
@@ -794,10 +830,11 @@
           "credits": 3,
           "hours_before_type": [
             45,
+            0,
             0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 45,
           "prerequisites": [
             {
               "code": "DET08134",
@@ -816,10 +853,11 @@
           "credits": 4,
           "hours_before_type": [
             60,
+            0,
             0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 60,
           "prerequisites": [
             {
               "code": "DCN05867",
@@ -843,10 +881,11 @@
           "credits": 3,
           "hours_before_type": [
             45,
-            0
+            0,
+            15
           ],
           "hours_after_type": [],
-          "total_hours": 15,
+          "total_hours": 60,
           "prerequisites": [
             {
               "code": "DET09913",
@@ -865,10 +904,11 @@
           "credits": 3,
           "hours_before_type": [
             45,
-            15
+            15,
+            0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 60,
           "prerequisites": [
             {
               "code": "DET09915",
@@ -892,10 +932,11 @@
           "credits": 3,
           "hours_before_type": [
             45,
+            0,
             0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 45,
           "prerequisites": []
         },
         {
@@ -908,10 +949,11 @@
           "credits": 3,
           "hours_before_type": [
             30,
-            0
+            0,
+            30
           ],
           "hours_after_type": [],
-          "total_hours": 30,
+          "total_hours": 60,
           "prerequisites": [
             {
               "code": "DET10166",
@@ -935,10 +977,11 @@
           "credits": 2,
           "hours_before_type": [
             30,
-            0
+            0,
+            15
           ],
           "hours_after_type": [],
-          "total_hours": 15,
+          "total_hours": 45,
           "prerequisites": [
             {
               "code": "DET10418",
@@ -962,10 +1005,11 @@
           "credits": 3,
           "hours_before_type": [
             45,
-            0
+            0,
+            15
           ],
           "hours_after_type": [],
-          "total_hours": 15,
+          "total_hours": 60,
           "prerequisites": [
             {
               "code": "DET09828",
@@ -989,10 +1033,11 @@
           "credits": 3,
           "hours_before_type": [
             45,
-            15
+            15,
+            0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 60,
           "prerequisites": [
             {
               "code": "DET10419",
@@ -1011,10 +1056,11 @@
           "credits": 4,
           "hours_before_type": [
             60,
+            0,
             0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 60,
           "prerequisites": []
         },
         {
@@ -1027,10 +1073,11 @@
           "credits": 3,
           "hours_before_type": [
             45,
-            15
+            15,
+            0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 60,
           "prerequisites": [
             {
               "code": "DET10421",
@@ -1049,10 +1096,11 @@
           "credits": 2,
           "hours_before_type": [
             15,
-            30
+            30,
+            0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 45,
           "prerequisites": [
             {
               "code": "DET10420",
@@ -1071,10 +1119,11 @@
           "credits": 3,
           "hours_before_type": [
             45,
+            0,
             0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 45,
           "prerequisites": [
             {
               "code": "DET08136",
@@ -1098,10 +1147,11 @@
           "credits": 2,
           "hours_before_type": [
             30,
-            15
+            15,
+            0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 45,
           "prerequisites": []
         },
         {
@@ -1114,10 +1164,11 @@
           "credits": 3,
           "hours_before_type": [
             45,
-            15
+            15,
+            0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 60,
           "prerequisites": [
             {
               "code": "DET08136",
@@ -1136,10 +1187,11 @@
           "credits": 3,
           "hours_before_type": [
             45,
+            0,
             0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 45,
           "prerequisites": [
             {
               "code": "DET08136",
@@ -1158,10 +1210,11 @@
           "credits": 2,
           "hours_before_type": [
             15,
-            30
+            30,
+            0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 45,
           "prerequisites": [
             {
               "code": "DET10417",
@@ -1185,10 +1238,11 @@
           "credits": 3,
           "hours_before_type": [
             45,
+            0,
             0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 45,
           "prerequisites": [
             {
               "code": "DET10626",
@@ -1207,10 +1261,11 @@
           "credits": 3,
           "hours_before_type": [
             45,
-            15
+            15,
+            0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 60,
           "prerequisites": [
             {
               "code": "DET10419",
@@ -1239,10 +1294,11 @@
           "credits": 2,
           "hours_before_type": [
             30,
-            15
+            15,
+            0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 45,
           "prerequisites": [
             {
               "code": "DET10628",
@@ -1271,10 +1327,11 @@
           "credits": 2,
           "hours_before_type": [
             45,
+            0,
             0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 45,
           "prerequisites": [
             {
               "code": "DET08121",
@@ -1298,10 +1355,11 @@
           "credits": 3,
           "hours_before_type": [
             30,
-            30
+            30,
+            0
           ],
           "hours_after_type": [],
-          "total_hours": 0,
+          "total_hours": 60,
           "prerequisites": [
             {
               "code": "DET10909",
@@ -1324,10 +1382,11 @@
       "credits": 4,
       "hours_before_type": [
         60,
+        0,
         0
       ],
       "hours_after_type": [],
-      "total_hours": 0,
+      "total_hours": 60,
       "prerequisites": [
         {
           "code": "DCN06281",
@@ -1346,10 +1405,11 @@
       "credits": 3,
       "hours_before_type": [
         45,
-        15
+        15,
+        0
       ],
       "hours_after_type": [],
-      "total_hours": 0,
+      "total_hours": 60,
       "prerequisites": [
         {
           "code": "DET10631",
@@ -1368,10 +1428,11 @@
       "credits": 3,
       "hours_before_type": [
         45,
-        15
+        15,
+        0
       ],
       "hours_after_type": [],
-      "total_hours": 0,
+      "total_hours": 60,
       "prerequisites": []
     },
     {
@@ -1384,10 +1445,11 @@
       "credits": 4,
       "hours_before_type": [
         60,
+        0,
         0
       ],
       "hours_after_type": [],
-      "total_hours": 0,
+      "total_hours": 60,
       "prerequisites": []
     },
     {
@@ -1400,10 +1462,11 @@
       "credits": 4,
       "hours_before_type": [
         60,
+        0,
         0
       ],
       "hours_after_type": [],
-      "total_hours": 0,
+      "total_hours": 60,
       "prerequisites": [
         {
           "code": "DET10418",
@@ -1427,10 +1490,11 @@
       "credits": 3,
       "hours_before_type": [
         45,
-        15
+        15,
+        0
       ],
       "hours_after_type": [],
-      "total_hours": 0,
+      "total_hours": 60,
       "prerequisites": [
         {
           "code": "DET10418",
@@ -1454,10 +1518,11 @@
       "credits": 3,
       "hours_before_type": [
         45,
-        15
+        15,
+        0
       ],
       "hours_after_type": [],
-      "total_hours": 0,
+      "total_hours": 60,
       "prerequisites": [
         {
           "code": "DET10418",
@@ -1481,10 +1546,11 @@
       "credits": 4,
       "hours_before_type": [
         60,
+        0,
         0
       ],
       "hours_after_type": [],
-      "total_hours": 0,
+      "total_hours": 60,
       "prerequisites": [
         {
           "code": "DET10418",
@@ -1508,10 +1574,11 @@
       "credits": 4,
       "hours_before_type": [
         60,
+        0,
         0
       ],
       "hours_after_type": [],
-      "total_hours": 0,
+      "total_hours": 60,
       "prerequisites": []
     },
     {
@@ -1524,10 +1591,11 @@
       "credits": 4,
       "hours_before_type": [
         60,
+        0,
         0
       ],
       "hours_after_type": [],
-      "total_hours": 0,
+      "total_hours": 60,
       "prerequisites": [
         {
           "code": "DET08134",
@@ -1551,10 +1619,11 @@
       "credits": 3,
       "hours_before_type": [
         45,
-        15
+        15,
+        0
       ],
       "hours_after_type": [],
-      "total_hours": 0,
+      "total_hours": 60,
       "prerequisites": []
     },
     {
@@ -1567,10 +1636,11 @@
       "credits": 3,
       "hours_before_type": [
         45,
-        15
+        15,
+        0
       ],
       "hours_after_type": [],
-      "total_hours": 0,
+      "total_hours": 60,
       "prerequisites": [
         {
           "code": "DET09911",
@@ -1604,10 +1674,11 @@
       "credits": 3,
       "hours_before_type": [
         30,
-        0
+        0,
+        30
       ],
       "hours_after_type": [],
-      "total_hours": 30,
+      "total_hours": 60,
       "prerequisites": []
     },
     {
@@ -1620,10 +1691,11 @@
       "credits": 3,
       "hours_before_type": [
         30,
-        0
+        0,
+        30
       ],
       "hours_after_type": [],
-      "total_hours": 30,
+      "total_hours": 60,
       "prerequisites": [
         {
           "code": "DET11350",
@@ -1642,10 +1714,11 @@
       "credits": 2,
       "hours_before_type": [
         30,
-        0
+        0,
+        15
       ],
       "hours_after_type": [],
-      "total_hours": 15,
+      "total_hours": 45,
       "prerequisites": [
         {
           "code": "DET08121",
@@ -1674,10 +1747,11 @@
       "credits": 3,
       "hours_before_type": [
         45,
+        0,
         0
       ],
       "hours_after_type": [],
-      "total_hours": 0,
+      "total_hours": 45,
       "prerequisites": []
     },
     {
@@ -1690,10 +1764,11 @@
       "credits": 3,
       "hours_before_type": [
         45,
+        0,
         0
       ],
       "hours_after_type": [],
-      "total_hours": 0,
+      "total_hours": 45,
       "prerequisites": []
     },
     {
@@ -1706,10 +1781,11 @@
       "credits": 3,
       "hours_before_type": [
         45,
-        15
+        15,
+        0
       ],
       "hours_after_type": [],
-      "total_hours": 0,
+      "total_hours": 60,
       "prerequisites": [
         {
           "code": "DET10418",
@@ -1735,10 +1811,11 @@
       "credits": 6,
       "hours_before_type": [
         0,
-        300
+        300,
+        0
       ],
       "hours_after_type": [],
-      "total_hours": 0,
+      "total_hours": 300,
       "prerequisites": []
     }
   ],
@@ -1755,10 +1832,11 @@
         "credits": 4,
         "hours_before_type": [
           60,
+          0,
           0
         ],
         "hours_after_type": [],
-        "total_hours": 0,
+        "total_hours": 60,
         "prerequisites": []
       },
       {
@@ -1771,10 +1849,11 @@
         "credits": 3,
         "hours_before_type": [
           45,
-          15
+          15,
+          0
         ],
         "hours_after_type": [],
-        "total_hours": 0,
+        "total_hours": 60,
         "prerequisites": [
           {
             "code": "DET10911",
@@ -1793,10 +1872,11 @@
         "credits": 4,
         "hours_before_type": [
           30,
-          0
+          0,
+          60
         ],
         "hours_after_type": [],
-        "total_hours": 60,
+        "total_hours": 90,
         "prerequisites": [
           {
             "code": "DET11226",

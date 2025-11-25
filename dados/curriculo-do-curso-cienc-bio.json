@@ -14,6 +14,7 @@
     "optativas": 180,
     "estagio": 300,
     "complementares": 220,
+    "tcc": 120,
     "total": 3215
   },
   "periodos": [
@@ -1243,14 +1244,13 @@
   "estagios": [
     {
       "code": "CAB13634",
-      "name": "Estágio",
-      "slug": "estagio",
+      "name": "Estágio 1",
+      "slug": "estagio-1",
       "section": "EST",
       "period": null,
       "type": "OB",
-      "credits": 1,
+      "credits": 5,
       "hours_before_type": [
-        5,
         0,
         150,
         0,
@@ -1262,14 +1262,13 @@
     },
     {
       "code": "CAB13637",
-      "name": "Estágio",
-      "slug": "estagio",
+      "name": "Estágio 2",
+      "slug": "estagio-2",
       "section": "EST",
       "period": null,
       "type": "OB",
-      "credits": 2,
+      "credits": 5,
       "hours_before_type": [
-        5,
         0,
         150,
         0,
@@ -1285,14 +1284,13 @@
     "TCC": [
       {
         "code": "CAB13641",
-        "name": "Monografia",
-        "slug": "monografia",
+        "name": "Monografia 1",
+        "slug": "monografia-1",
         "section": "TCC",
         "period": null,
         "type": "OB",
-        "credits": 1,
+        "credits": 2,
         "hours_before_type": [
-          2,
           0,
           0,
           60,
@@ -1310,14 +1308,13 @@
       },
       {
         "code": "CAB13645",
-        "name": "Monografia",
-        "slug": "monografia",
+        "name": "Monografia 2",
+        "slug": "monografia-2",
         "section": "TCC",
         "period": null,
         "type": "OB",
         "credits": 2,
         "hours_before_type": [
-          2,
           0,
           0,
           60,
@@ -1328,8 +1325,8 @@
         "prerequisites": [
           {
             "code": "CAB13641",
-            "name": "Monografia",
-            "slug": "monografia"
+            "name": "Monografia 1",
+            "slug": "monografia-1"
           }
         ]
       }

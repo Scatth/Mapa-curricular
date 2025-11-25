@@ -39,6 +39,7 @@ REQUIRED_PATTERNS = {
     "optativas": re.compile(r"(DISCIPLINAS?.*OP[T]?ATIVAS?|^OP[T]?ATIVAS?)[^0-9]*(\d{2,4})", re.IGNORECASE),
     "estagio": re.compile(r"EST[ÁA]GIO[^0-9]*(\d{2,4})", re.IGNORECASE),
     "complementares": re.compile(r"(ATIVIDADES?.*COMPLEMENTAR(?:ES)?|^COMPLEMENTARES?)[^0-9]*(\d{2,4})", re.IGNORECASE),
+    "tcc": re.compile(r"(TRABALHO\s+DE\s+CONCLUS|TCC)[^0-9]*(\d{2,4})", re.IGNORECASE),
     "total": re.compile(r"CARGA\s+HOR[ÁA]RIA\s+TOTAL.*?(\d{3,4})", re.IGNORECASE),
 }
 
@@ -170,15 +171,65 @@ def parse_discipline_line(line: str, section: str, period: Optional[int]) -> Opt
     if not name:
         return None
 
-    credits = numbers[0] if numbers else None
-    remaining = numbers[1:] if len(numbers) > 1 else []
+    chs = None
+    digits_body = numbers[:]
+    if len(digits_body) >= 4:
+        candidate = digits_body[-1]
+        rest = digits_body[:-1]
+        for span in range(3, min(6, len(rest)) + 1):
+            if sum(rest[-span:]) == candidate:
+                chs = candidate
+                digits_body = rest
+                break
 
-    if post_numbers:
-        total_hours = post_numbers[-1]
-    elif numbers:
-        total_hours = numbers[-1]
-        if remaining:
-            remaining = remaining[:-1]
+    hour_parts: List[int] = []
+    credit: Optional[int] = None
+    extra_prefix: List[int] = []
+
+    if digits_body:
+        if chs is not None:
+            idx = len(digits_body) - 1
+            accumulated = 0
+            while idx >= 0:
+                value = digits_body[idx]
+                hour_parts.insert(0, value)
+                accumulated += value
+                idx -= 1
+                if accumulated >= chs:
+                    break
+
+            while idx >= 0 and digits_body[idx] == 0:
+                hour_parts.insert(0, digits_body[idx])
+                idx -= 1
+
+            if idx >= 0:
+                credit = digits_body[idx]
+                extra_prefix = digits_body[:idx]
+        else:
+            if len(digits_body) >= 5:
+                hour_parts = digits_body[-4:]
+                credit = digits_body[-5]
+                extra_prefix = digits_body[:-5]
+            elif len(digits_body) >= 4:
+                hour_parts = digits_body[-3:]
+                credit = digits_body[-4]
+                extra_prefix = digits_body[:-4]
+            elif len(digits_body) >= 3:
+                hour_parts = digits_body[-2:]
+                credit = digits_body[-3]
+                extra_prefix = digits_body[:-3]
+            else:
+                hour_parts = digits_body[:]
+                extra_prefix = []
+
+    if extra_prefix:
+        name = f"{name} {' '.join(str(n) for n in extra_prefix)}".strip()
+
+    total_hours: Optional[int]
+    if chs is not None:
+        total_hours = chs
+    elif hour_parts:
+        total_hours = sum(hour_parts)
     else:
         total_hours = None
 
@@ -188,8 +239,8 @@ def parse_discipline_line(line: str, section: str, period: Optional[int]) -> Opt
         section=section,
         period=period if section == "OB" else None,
         type=parts[type_idx],
-        credits=credits,
-        pre_numbers=remaining,
+        credits=credit,
+        pre_numbers=hour_parts,
         post_numbers=post_numbers,
         total_hours=total_hours,
     )
@@ -375,6 +426,31 @@ def parse_pdf(pdf_path: Path) -> Dict:
                 "slug": target.slug if target else slugify(code),
             })
         prereq_map[disc.code] = mapped
+
+    bucket_totals = {"obrigatorias": 0, "optativas": 0, "estagio": 0, "complementares": 0, "tcc": 0}
+    bucket_map = {
+        "OB": "obrigatorias",
+        "TCC": "tcc",
+        "OP": "optativas",
+        "EST": "estagio",
+        "COMP": "complementares",
+    }
+    grand_total = 0
+    for disc in disciplines:
+        total = disc.total_hours
+        if total is None:
+            total = sum(disc.pre_numbers) + sum(disc.post_numbers)
+        if total:
+            grand_total += total
+        bucket_key = bucket_map.get(disc.section)
+        if bucket_key and total:
+            bucket_totals[bucket_key] += total
+
+    for key, value in bucket_totals.items():
+        if value and required[key] is None:
+            required[key] = value
+    if grand_total and required["total"] is None:
+        required["total"] = grand_total
 
     # estrutura final agrupada
     periods: Dict[int, List[Dict]] = {}

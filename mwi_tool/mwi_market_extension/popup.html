@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <style>
+        body {
+            width: 260px;
+            background: #1b1b1b;
+            color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            padding: 10px;
+        }
+        h3 {
+            margin-top: 0;
+            font-size: 16px;
+        }
+        #status {
+            margin-top: 8px;
+            font-size: 13px;
+        }
+        label {
+            font-size: 13px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 4px 6px;
+            margin-top: 4px;
+            margin-bottom: 6px;
+            border-radius: 4px;
+            border: 1px solid #444;
+            background: #252525;
+            color: #f0f0f0;
+        }
+        button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            background: #5d2dfb;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #4a24c7;
+        }
+    </style>
+</head>
+<body>
+    <h3>MWI Market Scanner</h3>
+
+    <label for="itemName">Nome do item (igual no jogo):</label>
+    <input id="itemName" type="text" placeholder="Ex: Cedar Log" />
+
+    <div id="status">Abra o Market do item e clique em Atualizar.</div>
+    <button id="update">Atualizar</button>
+
+    <script src="popup.js"></script>
+</body>
+</html>

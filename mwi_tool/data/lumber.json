@@ -1,0 +1,82 @@
+{
+    "category": "Lumber",
+    "items": [
+        {
+            "name": "Lumber",
+            "base_time": 6,
+            "output_qty": 1,
+            "inputs": [
+                {
+                    "item": "Log",
+                    "qty": 2
+                }
+            ]
+        },
+        {
+            "name": "Birch Lumber",
+            "base_time": 8,
+            "output_qty": 1,
+            "inputs": [
+                {
+                    "item": "Birch Log",
+                    "qty": 2
+                }
+            ]
+        },
+        {
+            "name": "Cedar Lumber",
+            "base_time": 11,
+            "output_qty": 1,
+            "inputs": [
+                {
+                    "item": "Cedar Log",
+                    "qty": 2
+                }
+            ]
+        },
+        {
+            "name": "Purpleheart Lumber",
+            "base_time": 14,
+            "output_qty": 1,
+            "inputs": [
+                {
+                    "item": "Purpleheart Log",
+                    "qty": 2
+                }
+            ]
+        },
+        {
+            "name": "Ginkgo Lumber",
+            "base_time": 17,
+            "output_qty": 1,
+            "inputs": [
+                {
+                    "item": "Ginkgo Log",
+                    "qty": 2
+                }
+            ]
+        },
+        {
+            "name": "Redwood Lumber",
+            "base_time": 20,
+            "output_qty": 1,
+            "inputs": [
+                {
+                    "item": "Redwood Log",
+                    "qty": 2
+                }
+            ]
+        },
+        {
+            "name": "Arcane Lumber",
+            "base_time": 30,
+            "output_qty": 1,
+            "inputs": [
+                {
+                    "item": "Arcane Log",
+                    "qty": 2
+                }
+            ]
+        }
+    ]
+}

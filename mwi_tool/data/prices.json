@@ -1,0 +1,22 @@
+{
+    "Log": 10,
+    "Birch Log": 20,
+    "Cedar Log": 50,
+    "Lumber": 30,
+    "Birch Lumber": 80,
+    "Cedar Lumber": 140,
+    "Milk": 10,
+    "Verdant Milk": 20,
+    "Azure Milk": 30,
+    "Burple Milk": 40,
+    "Crimson Milk": 50,
+    "Rainbow Milk": 60,
+    "Holy Milk": 70,
+    "Cheese": 30,
+    "Verdant Cheese": 60,
+    "Azure Cheese": 90,
+    "Burple Cheese": 120,
+    "Crimson Cheese": 150,
+    "Rainbow Cheese": 180,
+    "Holy Cheese": 210
+}

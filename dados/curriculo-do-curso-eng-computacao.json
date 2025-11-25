@@ -14,6 +14,7 @@
     "optativas": 240,
     "estagio": 300,
     "complementares": 225,
+    "tcc": null,
     "total": 4200
   },
   "periodos": [
@@ -2014,8 +2015,9 @@
       "section": "OP",
       "period": null,
       "type": "OP",
-      "credits": 0,
+      "credits": null,
       "hours_before_type": [
+        0,
         30,
         0,
         15,

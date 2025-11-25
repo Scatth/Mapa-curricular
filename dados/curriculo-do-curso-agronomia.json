@@ -14,6 +14,7 @@
     "optativas": null,
     "estagio": 270,
     "complementares": null,
+    "tcc": 60,
     "total": 3810
   },
   "periodos": [
@@ -1502,14 +1503,13 @@
   "estagios": [
     {
       "code": "CAB07316",
-      "name": "Estágio Supervisionado Obrigatório",
-      "slug": "estagio-supervisionado-obrigatorio",
+      "name": "Estágio Supervisionado Obrigatório 1",
+      "slug": "estagio-supervisionado-obrigatorio-1",
       "section": "EST",
       "period": null,
       "type": "EC",
-      "credits": 1,
+      "credits": 2,
       "hours_before_type": [
-        2,
         0,
         0,
         90
@@ -1520,14 +1520,13 @@
     },
     {
       "code": "CAB07317",
-      "name": "Estágio Supervisionado Obrigatório",
-      "slug": "estagio-supervisionado-obrigatorio",
+      "name": "Estágio Supervisionado Obrigatório 2",
+      "slug": "estagio-supervisionado-obrigatorio-2",
       "section": "EST",
       "period": null,
       "type": "EC",
       "credits": 2,
       "hours_before_type": [
-        2,
         0,
         0,
         90
@@ -1538,14 +1537,13 @@
     },
     {
       "code": "CAB07318",
-      "name": "Estágio Supervisionado Obrigatório",
-      "slug": "estagio-supervisionado-obrigatorio",
+      "name": "Estágio Supervisionado Obrigatório 3",
+      "slug": "estagio-supervisionado-obrigatorio-3",
       "section": "EST",
       "period": null,
       "type": "EC",
-      "credits": 3,
+      "credits": 2,
       "hours_before_type": [
-        2,
         0,
         0,
         90
@@ -1560,14 +1558,13 @@
     "TCC": [
       {
         "code": "CAB07449",
-        "name": "Trabalho de Conclusão de Curso",
-        "slug": "trabalho-de-conclusao-de-curso",
+        "name": "Trabalho de Conclusão de Curso 1",
+        "slug": "trabalho-de-conclusao-de-curso-1",
         "section": "TCC",
         "period": null,
         "type": "OB",
-        "credits": 1,
+        "credits": 2,
         "hours_before_type": [
-          2,
           30,
           0,
           0
@@ -1578,14 +1575,13 @@
       },
       {
         "code": "CAB07450",
-        "name": "Trabalho de Conclusão de Curso",
-        "slug": "trabalho-de-conclusao-de-curso",
+        "name": "Trabalho de Conclusão de Curso 2",
+        "slug": "trabalho-de-conclusao-de-curso-2",
         "section": "TCC",
         "period": null,
         "type": "OB",
-        "credits": 2,
+        "credits": 1,
         "hours_before_type": [
-          1,
           0,
           0,
           30
@@ -1595,8 +1591,8 @@
         "prerequisites": [
           {
             "code": "CAB07449",
-            "name": "Trabalho de Conclusão de Curso",
-            "slug": "trabalho-de-conclusao-de-curso"
+            "name": "Trabalho de Conclusão de Curso 1",
+            "slug": "trabalho-de-conclusao-de-curso-1"
           }
         ]
       }
